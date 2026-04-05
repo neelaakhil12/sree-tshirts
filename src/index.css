@@ -14,9 +14,9 @@ body {
   @apply bg-white text-black antialiased overflow-x-hidden;
 }
 
-/* Force heavy weights for headings to ensure consistency on deployment */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Inter', sans-serif;
+/* Force uniform weight across all bold/black classes to ensure consistency on deployment */
+h1, h2, h3, h4, h5, h6, .font-black, b, strong, .font-bold {
+  font-family: 'Inter', sans-serif !important;
   font-weight: 900 !important;
 }
 

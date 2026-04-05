@@ -22,7 +22,7 @@ const categories = [
   {
     id: 3,
     name: "KIDS SPECIAL",
-    image: "https://images.unsplash.com/photo-1514090458221-65bb69cf63e9?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1566450653303-2614cbb292ea?auto=format&fit=crop&q=80&w=800",
     path: "/products?category=Kids",
     count: 9,
     delay: 200,

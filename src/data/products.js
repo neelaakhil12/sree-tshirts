@@ -50,7 +50,7 @@ export const products = [
     rating: 4.6,
     reviews: 45,
     category: "Kids",
-    image: "https://images.unsplash.com/photo-1514090458221-65bb69cf63e9?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1566450653303-2614cbb292ea?auto=format&fit=crop&q=80&w=800",
     description: "Dry-fit jersey for active kids. Durable and easy to wash.",
     sizes: ["2Y", "4Y", "6Y", "8Y"],
     colors: ["Red", "Blue", "Green"],
@@ -109,7 +109,7 @@ for (let i = 7; i <= 42; i++) {
       ? "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=60&w=600"
       : cat === "Women"
       ? "https://images.unsplash.com/photo-1554568212-3c1630c95a4c?auto=format&fit=crop&q=60&w=600"
-      : "https://images.unsplash.com/photo-1519457431-757104681f0b?auto=format&fit=crop&q=60&w=600",
+      : "https://images.unsplash.com/photo-1566450653303-2614cbb292ea?auto=format&fit=crop&q=60&w=600",
     description: `A ${style.toLowerCase()} t-shirt designed for ${cat.toLowerCase()}. High quality fabric ensuring long lasting comfort.`,
     sizes: ["S", "M", "L", "XL"],
     colors: ["White", "Black", "Gray", "Blue"],
