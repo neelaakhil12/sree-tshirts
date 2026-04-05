@@ -24,7 +24,11 @@ const Navbar = () => {
     { name: 'Contact', path: '/contact' },
   ]
 
-  const isActive = (path) => location.pathname === path
+  const isActive = (path) => {
+    const currentPath = location.pathname.replace(/\/$/, '') || '/';
+    const targetPath = path.replace(/\/$/, '') || '/';
+    return currentPath === targetPath;
+  }
 
   return (
     <nav 
