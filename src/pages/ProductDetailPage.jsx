@@ -60,19 +60,19 @@ const ProductDetailPage = () => {
           {/* Images Section */}
           <div className="w-full lg:w-3/5">
              <div className="flex md:grid md:grid-cols-2 gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar pb-4 md:pb-0">
-                <div className="min-w-[85vw] sm:min-w-[400px] md:min-w-0 aspect-[3/4] bg-gray-50 overflow-hidden relative group cursor-zoom-in snap-center sm:snap-start">
+                <div className="min-w-[75vw] sm:min-w-[350px] md:min-w-0 aspect-[3/4] bg-gray-50 overflow-hidden relative group cursor-zoom-in snap-center sm:snap-start">
                    <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 </div>
                 {/* Secondary images (simulated icons for now) */}
-                <div className="min-w-[85vw] sm:min-w-[400px] md:min-w-0 aspect-[3/4] bg-gray-100 overflow-hidden relative snap-center sm:snap-start">
+                <div className="min-w-[75vw] sm:min-w-[350px] md:min-w-0 aspect-[3/4] bg-gray-100 overflow-hidden relative snap-center sm:snap-start">
                    <img src={product.image} alt={product.name} className="w-full h-full object-cover opacity-80" />
                    <div className="absolute inset-0 bg-black/5"></div>
                 </div>
-                <div className="min-w-[85vw] sm:min-w-[400px] md:min-w-0 aspect-[3/4] bg-gray-100 overflow-hidden relative snap-center sm:snap-start">
+                <div className="min-w-[75vw] sm:min-w-[350px] md:min-w-0 aspect-[3/4] bg-gray-100 overflow-hidden relative snap-center sm:snap-start">
                    <img src={product.image} alt={product.name} className="w-full h-full object-cover transform scale-x-[-1] opacity-70" />
                    <div className="absolute inset-0 bg-black/5"></div>
                 </div>
-                <div className="min-w-[85vw] sm:min-w-[400px] md:min-w-0 aspect-[3/4] bg-gray-100 flex items-center justify-center p-8 text-center border-2 border-dashed border-gray-200 snap-center sm:snap-start">
+                <div className="min-w-[75vw] sm:min-w-[350px] md:min-w-0 aspect-[3/4] bg-gray-100 flex items-center justify-center p-8 text-center border-2 border-dashed border-gray-200 snap-center sm:snap-start">
                    <div>
                      <Star size={32} className="mx-auto mb-2 text-gray-300" />
                      <p className="text-[10px] font-black text-gray-400 tracking-widest uppercase italic">MORE SHOTS COMING SOON</p>

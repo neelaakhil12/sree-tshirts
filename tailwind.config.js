@@ -34,6 +34,16 @@ export default {
       animation: {
         'spin-slow': 'spin 12s linear infinite',
       },
+      container: {
+        center: true,
+        padding: '1rem',
+        screens: {
+          sm: '640px',
+          md: '768px',
+          lg: '1024px',
+          xl: '1280px', // Force max-width to 1280px to avoid 'enlargement'
+        },
+      },
     },
   },
   plugins: [],

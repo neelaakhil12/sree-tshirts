@@ -13,7 +13,7 @@ const Hero = () => {
         {/* Text Content */}
         <div className="w-full md:w-1/2 z-10" data-aos="fade-right">
           <span className="text-accent font-black tracking-widest text-[10px] sm:text-sm mb-4 block underline decoration-accent/20">NEW COLLECTION 2026</span>
-          <h1 className="text-3xl sm:text-6xl md:text-8xl font-black text-black leading-tight tracking-tighter mb-6 uppercase">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-black text-black leading-tight tracking-tighter mb-6 uppercase">
             MINGLE <br /> 
             WITH <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-red-400">STYLE.</span>
           </h1>
