@@ -39,10 +39,7 @@ const ProductCard = ({ product }) => {
            <Heart size={18} />
         </button>
 
-        {/* Discount Badge */}
-        <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 font-black text-[10px] tracking-widest shadow-lg">
-           {product.discount}
-        </div>
+        {/* Discount Badge Removed */}
       </Link>
 
       {/* Info Container */}
@@ -60,7 +57,6 @@ const ProductCard = ({ product }) => {
         <div className="flex items-center space-x-2 pt-1">
            <span className="text-sm font-black text-black">Rs. {product.price}</span>
            <span className="text-xs text-gray-400 line-through">Rs. {product.originalPrice}</span>
-           <span className="text-[10px] font-bold text-orange-500 tracking-tighter uppercase">{product.discount}</span>
         </div>
       </div>
     </div>

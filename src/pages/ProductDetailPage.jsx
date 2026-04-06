@@ -102,7 +102,6 @@ const ProductDetailPage = () => {
                  <div className="flex items-center space-x-2 sm:space-x-3 flex-wrap">
                     <span className="text-2xl sm:text-3xl font-black tracking-tight text-black">₹{product.price}</span>
                     <span className="text-lg sm:text-xl text-gray-400 line-through">MRP ₹{product.originalPrice}</span>
-                    <span className="text-lg sm:text-xl text-orange-500 font-black">({product.discount})</span>
                  </div>
                  <p className="text-green-600 text-[10px] font-black tracking-widest uppercase">INCLUSIVE OF ALL TAXES</p>
               </div>
@@ -167,20 +166,20 @@ const ProductDetailPage = () => {
                 <p className="text-sm text-gray-600 leading-relaxed">
                    {product.description}
                 </p>
-                <ul className="space-y-2 text-sm text-gray-700">
-                   <li className="flex items-center space-x-2">
-                      <Check size={14} className="text-green-500" />
-                      <span>100% Cotton, bio-washed fabric</span>
-                   </li>
-                   <li className="flex items-center space-x-2">
-                      <Check size={14} className="text-green-500" />
-                      <span>Comfortable regular fit</span>
-                   </li>
-                   <li className="flex items-center space-x-2">
-                      <Check size={14} className="text-green-500" />
-                      <span>Classic round neck design</span>
-                   </li>
-                </ul>
+                 <ul className="space-y-2 text-[11px] sm:text-sm text-gray-700 font-bold uppercase tracking-wider">
+                    <li className="flex items-center space-x-2">
+                       <Check size={14} className="text-green-500" />
+                       <span>{product.category} Premium Fabric</span>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                       <Check size={14} className="text-green-500" />
+                       <span>Multiple Colors Available</span>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                       <Check size={14} className="text-green-500" />
+                       <span>Sizes S to XXL (XXL + ₹10 extra)</span>
+                    </li>
+                 </ul>
              </div>
           </div>
         </div>

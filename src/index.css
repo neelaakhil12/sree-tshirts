@@ -6,7 +6,7 @@
 
 :root {
   --primary: #000000;
-  --accent: #FF3F6C;
+  --accent: #0ea5e9;
 }
 
 body {
@@ -75,4 +75,20 @@ h1, h2, h3, h4, h5, h6, .font-black, b, strong, .font-bold {
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+/* Typewriter Effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .1em;
+  animation: 
+    typing 3s steps(30, end) forwards;
 }

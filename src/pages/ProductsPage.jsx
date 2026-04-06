@@ -15,8 +15,8 @@ const ProductsPage = () => {
   const [sortBy, setSortBy] = useState('Recommended')
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false)
 
-  const categories = ['All', 'Men', 'Women', 'Kids']
-  const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+  const categories = ['All', 'Polyester', 'PolyCotton', 'Cotton', 'Special', 'Sweatshirts', 'Hoodies']
+  const sizes = ['S', 'M', 'L', 'XL', 'XXL']
   const sortOptions = ['Recommended', 'Price: Low to High', 'Price: High to Low', 'Best Rated']
 
   useEffect(() => {

@@ -5,26 +5,26 @@ import { ArrowRight } from 'lucide-react'
 const categories = [
   {
     id: 1,
-    name: "MEN'S COLLECTION",
-    image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800",
-    path: "/products?category=Men",
-    count: 18,
+    name: "COTTON COLLECTION",
+    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800",
+    path: "/products?category=Cotton", // 14 designs including special cotton
+    count: 14,
     delay: 0,
   },
   {
     id: 2,
-    name: "WOMEN'S STYLE",
-    image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=800",
-    path: "/products?category=Women",
+    name: "POLYESTER RANGE",
+    image: "https://images.unsplash.com/photo-1581655353564-df123a1baec2?auto=format&fit=crop&q=80&w=800",
+    path: "/products?category=Polyester", // 15 designs
     count: 15,
     delay: 100,
   },
   {
     id: 3,
-    name: "KIDS SPECIAL",
-    image: "https://images.unsplash.com/photo-1566450653303-2614cbb292ea?auto=format&fit=crop&q=80&w=800",
-    path: "/products?category=Kids",
-    count: 9,
+    name: "HOODIES & SWEATS",
+    image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800",
+    path: "/products?category=Hoodies", // Includes hoodies & sweatshirts
+    count: 5,
     delay: 200,
   }
 ];
@@ -53,7 +53,7 @@ const CategorySection = () => {
               <img 
                 src={cat.image} 
                 alt={cat.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               
               {/* Overlay content */}

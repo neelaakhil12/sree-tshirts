@@ -16,7 +16,7 @@ export default {
           foreground: '#000000',
         },
         accent: {
-          DEFAULT: '#FF3F6C', // Myntra-like pink/red
+          DEFAULT: '#0ea5e9', // Sky Blue
           foreground: '#FFFFFF',
         },
         muted: {
