@@ -5,26 +5,36 @@ import { products } from '../data/products'
 import ProductCard from '../components/shop/ProductCard'
 
 const ProductsPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const initialCategory = searchParams.get('category') || 'All'
   
   const [selectedCategory, setSelectedCategory] = useState(initialCategory)
-  const [priceRange, setPriceRange] = useState([0, 2000])
   const [selectedSizes, setSelectedSizes] = useState([])
   const [filteredProducts, setFilteredProducts] = useState(products)
   const [sortBy, setSortBy] = useState('Recommended')
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false)
 
-  const categories = ['All', 'Polyester', 'PolyCotton', 'Cotton', 'Special', 'Sweatshirts', 'Hoodies']
+  const virtualCategories = ['All', 'Tshirts', 'School uniform', 'Woodies']
+  const categoryMapping = {
+    'Tshirts': ['Polyester', 'PolyCotton', 'Cotton', 'Special', 'Sweatshirts'],
+    'Woodies': ['Hoodies'],
+    'School uniform': []
+  }
+  
   const sizes = ['S', 'M', 'L', 'XL', 'XXL']
-  const sortOptions = ['Recommended', 'Price: Low to High', 'Price: High to Low', 'Best Rated']
+  const sortOptions = ['Recommended', 'Best Rated']
 
   useEffect(() => {
     let result = products
     const searchQuery = searchParams.get('search')?.toLowerCase() || ''
 
     if (selectedCategory !== 'All') {
-      result = result.filter(p => p.category === selectedCategory)
+      const mapped = categoryMapping[selectedCategory]
+      if (mapped) {
+        result = result.filter(p => mapped.includes(p.category))
+      } else {
+        result = result.filter(p => p.category === selectedCategory)
+      }
     }
 
     if (selectedSizes.length > 0) {
@@ -38,18 +48,12 @@ const ProductsPage = () => {
       )
     }
 
-    result = result.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1])
-
-    if (sortBy === 'Price: Low to High') {
-      result = [...result].sort((a, b) => a.price - b.price)
-    } else if (sortBy === 'Price: High to Low') {
-      result = [...result].sort((a, b) => b.price - a.price)
-    } else if (sortBy === 'Best Rated') {
+    if (sortBy === 'Best Rated') {
       result = [...result].sort((a, b) => b.rating - a.rating)
     }
 
     setFilteredProducts(result)
-  }, [selectedCategory, selectedSizes, priceRange, sortBy])
+  }, [selectedCategory, selectedSizes, sortBy, searchParams])
 
   const toggleSize = (size) => {
     setSelectedSizes(prev => 
@@ -108,7 +112,7 @@ const ProductsPage = () => {
             <div className="space-y-4">
               <h4 className="text-sm font-black tracking-widest text-black">CATEGORIES</h4>
               <div className="space-y-2">
-                {categories.map(cat => (
+                {virtualCategories.map(cat => (
                   <label key={cat} className="flex items-center space-x-3 cursor-pointer group">
                     <input 
                       type="radio" 
@@ -141,26 +145,6 @@ const ProductsPage = () => {
                  ))}
                </div>
             </div>
-
-            {/* Price Range */}
-            <div className="space-y-4">
-              <h4 className="text-sm font-black tracking-widest text-black">PRICE RANGE</h4>
-              <div className="space-y-4">
-                <input 
-                  type="range" 
-                  min="0" 
-                  max="2000" 
-                  step="100"
-                  className="w-full accent-accent"
-                  value={priceRange[1]}
-                  onChange={(e) => setPriceRange([0, parseInt(e.target.value)])}
-                />
-                <div className="flex justify-between text-xs font-bold text-gray-500">
-                   <span>Rs. 0</span>
-                   <span>Rs. {priceRange[1]}</span>
-                </div>
-              </div>
-            </div>
           </aside>
 
           {/* Product Grid */}
@@ -171,7 +155,7 @@ const ProductsPage = () => {
                   <h3 className="text-xl font-black">OOPS! NO MINGLE FOUND.</h3>
                   <p className="text-gray-400 text-sm mt-2">Try adjusting your filters or search terms.</p>
                   <button 
-                    onClick={() => {setSelectedCategory('All'); setSelectedSizes([]); setPriceRange([0, 2000])}}
+                    onClick={() => {setSelectedCategory('All'); setSelectedSizes([]);}}
                     className="mt-8 text-accent font-black text-xs border-b-2 border-accent pb-1"
                   >
                     CLEAR ALL FILTERS
@@ -202,11 +186,11 @@ const ProductsPage = () => {
             </div>
             
             <div className="flex-grow overflow-y-auto space-y-10">
-               {/* Mobile Filters Content (Same as desktop but styled for mobile) */}
+               {/* Mobile Filters Content */}
                <div className="space-y-4">
                   <h4 className="text-xs font-black tracking-widest text-gray-400 uppercase">CATEGORY</h4>
                   <div className="flex flex-wrap gap-2">
-                    {categories.map(cat => (
+                    {virtualCategories.map(cat => (
                       <button 
                         key={cat} 
                         onClick={() => setSelectedCategory(cat)}
@@ -235,19 +219,6 @@ const ProductsPage = () => {
                       </button>
                     ))}
                   </div>
-               </div>
-
-               <div className="space-y-4">
-                  <h4 className="text-xs font-black tracking-widest text-gray-400 uppercase">MAX PRICE: Rs. {priceRange[1]}</h4>
-                  <input 
-                    type="range" 
-                    min="0" 
-                    max="2000" 
-                    step="100"
-                    className="w-full h-8 accent-accent"
-                    value={priceRange[1]}
-                    onChange={(e) => setPriceRange([0, parseInt(e.target.value)])}
-                  />
                </div>
             </div>
 

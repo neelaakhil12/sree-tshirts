@@ -25,12 +25,12 @@ const HomePage = () => {
         </div>
         
         <div className="container mx-auto px-4 text-center relative z-10">
-           <span className="text-accent font-black tracking-widest text-[10px] sm:text-xs mb-4 block">LIMITED TIME OFFER</span>
+           <span className="text-accent font-black tracking-widest text-[10px] sm:text-xs mb-4 block">READY TO MINGLE?</span>
            <h2 className="text-3xl sm:text-6xl md:text-8xl font-black mb-8 leading-tight sm:leading-none tracking-tighter uppercase break-words">
-             FLAT 50% <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-red-400">OFF EVERYTHING.</span>
+             DISCOVER <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-400">PREMIUM ESSENTIALS.</span>
            </h2>
            <p className="text-gray-400 text-xs sm:text-lg md:text-xl max-w-2xl mx-auto mb-12">
-             Don't miss out on the biggest sale of the year. Refresh your wardrobe with our premium collections at half the price.
+             Experience the perfect blend of style and comfort. Refresh your wardrobe with our latest curated collections designed for the modern lifestyle.
            </p>
            <Link 
              to="/products"

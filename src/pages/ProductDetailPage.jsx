@@ -105,13 +105,9 @@ Color: ${selectedColor}`
                  </div>
               </div>
 
-              <div className="space-y-1">
-                 <div className="flex items-center space-x-2 sm:space-x-3 flex-wrap">
-                    <span className="text-2xl sm:text-3xl font-black tracking-tight text-black">₹{product.price}</span>
-                    <span className="text-lg sm:text-xl text-gray-400 line-through">MRP ₹{product.originalPrice}</span>
-                 </div>
-                 <p className="text-green-600 text-[10px] font-black tracking-widest uppercase">INCLUSIVE OF ALL TAXES</p>
-              </div>
+             <div className="pt-2">
+                <p className="text-gray-400 font-bold uppercase tracking-widest text-[10px] sm:text-xs">Premium Quality Gear</p>
+             </div>
 
              {/* Color Selection */}
              {product.colors && product.colors.length > 0 && (
@@ -216,7 +212,7 @@ Color: ${selectedColor}`
                     </li>
                     <li className="flex items-center space-x-2">
                        <Check size={14} className="text-green-500" />
-                       <span>Sizes S to XXL (XXL + ₹10 extra)</span>
+                       <span>Sizes S to XXL Available</span>
                     </li>
                  </ul>
              </div>
