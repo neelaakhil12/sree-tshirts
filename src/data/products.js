@@ -8,7 +8,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 172,
     "category": "Polyester",
-    "image": "/images/products/promotional/white.png",
+    "image": "/images/products/promotional/black.png",
     "description": "100 GSM. Polyester Round Neck  Promotional T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -37,7 +37,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 268,
     "category": "Polyester",
-    "image": "/images/products/gym/white.png",
+    "image": "/images/products/gym/navy-blue.png",
     "description": "110 GSM. Polyester Round Neck  GYM T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -68,7 +68,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 159,
     "category": "Polyester",
-    "image": "/images/products/premium/white.png",
+    "image": "/images/products/premium/red.png",
     "description": "140 GSM. Premium Polyester  Round Neck T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -128,7 +128,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 273,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1576566582402-401ac4378943?auto=format&fit=crop&q=80&w=800",
+    "image": "https://images.unsplash.com/photo-1574015974293-817f0efebb1b?auto=format&fit=crop&q=80&w=800",
     "description": "150 GSM. Dot Knit Round  Neck T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
