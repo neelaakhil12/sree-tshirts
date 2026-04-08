@@ -39,7 +39,7 @@ const CategorySection = () => {
          </h2>
       </div>
 
-      <div className="flex overflow-x-auto gap-4 md:gap-8 px-4 md:px-[5%] pb-12 snap-x snap-mandatory scrollbar-hide no-scrollbar">
+      <div className="flex overflow-x-auto md:justify-center gap-4 md:gap-8 px-4 md:px-[5%] pb-12 snap-x snap-mandatory scrollbar-hide no-scrollbar">
         {categories.map((cat) => (
           <Link 
             key={cat.id} 
