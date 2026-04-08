@@ -12,8 +12,7 @@ import AdminLayout from './components/admin/AdminLayout'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminProducts from './pages/admin/AdminProducts'
 import AdminLogin from './pages/admin/AdminLogin'
-import Cart from './components/shop/Cart'
-import { CartProvider } from './context/CartContext'
+// Cart and CartProvider removed
 
 function App() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false)
@@ -26,34 +25,29 @@ function App() {
   }, [location.pathname])
 
   return (
-    <CartProvider>
-      <div className="flex flex-col min-h-screen">
-        {!isAdminPath && <Navbar />}
-        
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/products/:id" element={<ProductDetailPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            
-            {/* Admin Routes */}
-            <Route path="/admin/login" element={<AdminLogin setIsAdminLoggedIn={setIsAdminLoggedIn} />} />
-            <Route path="/admin" element={<AdminLayout isLoggedIn={isAdminLoggedIn} />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="products" element={<AdminProducts />} />
-            </Route>
-          </Routes>
-        </main>
+    <div className="flex flex-col min-h-screen">
+      {!isAdminPath && <Navbar />}
+      
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/products/:id" element={<ProductDetailPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin setIsAdminLoggedIn={setIsAdminLoggedIn} />} />
+          <Route path="/admin" element={<AdminLayout isLoggedIn={isAdminLoggedIn} />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="products" element={<AdminProducts />} />
+          </Route>
+        </Routes>
+      </main>
 
-        {!isAdminPath && <Footer />}
-        {!isAdminPath && <WhatsAppButton />}
-        
-        {/* Shopping Cart Drawer */}
-        <Cart />
-      </div>
-    </CartProvider>
+      {!isAdminPath && <Footer />}
+      {!isAdminPath && <WhatsAppButton />}
+    </div>
   )
 }
 

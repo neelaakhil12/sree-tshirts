@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ShoppingBag, Search, Menu, X, User } from 'lucide-react'
-import { useCart } from '../../context/CartContext'
+import { Search, Menu, X, User } from 'lucide-react'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const location = useLocation()
-  const { cartItems, setIsCartOpen } = useCart()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -81,18 +79,7 @@ const Navbar = () => {
 
           {/* Right Icons */}
           <div className="flex items-center space-x-5">
-             <button 
-               className="flex flex-col items-center group relative cursor-pointer"
-               onClick={() => setIsCartOpen(true)}
-             >
-               <ShoppingBag className="w-5 h-5 group-hover:text-accent transition-colors" />
-               <span className="text-[10px] font-bold mt-1 group-hover:text-accent transition-colors">BAG</span>
-               {cartItems.length > 0 && (
-                 <span className="absolute -top-2 -right-2 bg-accent text-white text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
-                    {cartItems.length}
-                 </span>
-               )}
-             </button>
+             {/* Cart Button Removed */}
 
              {/* Mobile Menu Icon */}
              <button 

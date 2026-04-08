@@ -1,23 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ShoppingBag, Heart, Share2, Star, Check, Truck, RotateCcw, ShieldCheck, ChevronRight } from 'lucide-react'
+import { MessageCircle, Heart, Share2, Star, Check, Truck, RotateCcw, ShieldCheck, ChevronRight } from 'lucide-react'
 import { products } from '../data/products'
-import { useCart } from '../context/CartContext'
 
 const ProductDetailPage = () => {
   const { id } = useParams()
-  const { addToCart } = useCart()
   const product = products.find(p => p.id === parseInt(id))
   
   const [selectedSize, setSelectedSize] = useState('')
   const [selectedColor, setSelectedColor] = useState(product?.colors?.[0] || 'White')
-  const [activeImage, setActiveImage] = useState(product?.image)
+  const [activeImage, setActiveImage] = useState(
+    product?.colorImages?.[product?.colors?.[0]] || product?.image
+  )
   const [isWishlisted, setIsWishlisted] = useState(false)
   const [error, setError] = useState('')
 
   useEffect(() => {
-    if (product) setActiveImage(product.image)
+    if (product) {
+      const defaultColor = product.colors?.[0] || 'White'
+      setSelectedColor(defaultColor)
+      setActiveImage(product.colorImages?.[defaultColor] || product.image)
+    }
   }, [product])
+
+  const handleColorSelect = (color) => {
+    setSelectedColor(color)
+    if (product.colorImages?.[color]) {
+      setActiveImage(product.colorImages[color])
+    }
+  }
 
   if (!product) {
     return (
@@ -28,13 +39,21 @@ const ProductDetailPage = () => {
     )
   }
 
-  const handleAddToCart = () => {
+  const handleWhatsAppBuy = () => {
     if (!selectedSize) {
       setError('PLEASE SELECT A SIZE')
       setTimeout(() => setError(''), 2000)
       return
     }
-    addToCart(product, selectedSize, selectedColor)
+    
+    const whatsappNumber = '9398292014'
+const message = `Hello Wear Mingle! I'm interested in: ${product.name}. 
+Can you please provide more details about this product?
+
+Size: ${selectedSize}
+Color: ${selectedColor}`
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank')
   }
 
   const features = [
@@ -57,27 +76,15 @@ const ProductDetailPage = () => {
       <div className="container mx-auto px-4 md:px-0">
         <div className="flex flex-col lg:flex-row lg:space-x-16">
           
-          {/* Images Section */}
-          <div className="w-full lg:w-3/5">
-             <div className="flex md:grid md:grid-cols-2 gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar pb-4 md:pb-0">
-                <div className="min-w-[75vw] sm:min-w-[350px] md:min-w-0 aspect-[3/4] bg-gray-50 overflow-hidden relative group cursor-zoom-in snap-center sm:snap-start">
-                   <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                </div>
-                {/* Secondary images (simulated icons for now) */}
-                <div className="min-w-[75vw] sm:min-w-[350px] md:min-w-0 aspect-[3/4] bg-gray-100 overflow-hidden relative snap-center sm:snap-start">
-                   <img src={product.image} alt={product.name} className="w-full h-full object-cover opacity-80" />
-                   <div className="absolute inset-0 bg-black/5"></div>
-                </div>
-                <div className="min-w-[75vw] sm:min-w-[350px] md:min-w-0 aspect-[3/4] bg-gray-100 overflow-hidden relative snap-center sm:snap-start">
-                   <img src={product.image} alt={product.name} className="w-full h-full object-cover transform scale-x-[-1] opacity-70" />
-                   <div className="absolute inset-0 bg-black/5"></div>
-                </div>
-                <div className="min-w-[75vw] sm:min-w-[350px] md:min-w-0 aspect-[3/4] bg-gray-100 flex items-center justify-center p-8 text-center border-2 border-dashed border-gray-200 snap-center sm:snap-start">
-                   <div>
-                     <Star size={32} className="mx-auto mb-2 text-gray-300" />
-                     <p className="text-[10px] font-black text-gray-400 tracking-widest uppercase italic">MORE SHOTS COMING SOON</p>
-                   </div>
-                </div>
+          {/* Images Section - Single image that changes with color */}
+          <div className="w-full lg:w-2/5">
+             <div className="aspect-[4/5] max-h-[480px] bg-gray-50 overflow-hidden relative group cursor-zoom-in rounded-sm mx-auto">
+                <img 
+                  src={activeImage} 
+                  alt={product.name}
+                  key={activeImage}
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                />
              </div>
           </div>
 
@@ -106,6 +113,38 @@ const ProductDetailPage = () => {
                  <p className="text-green-600 text-[10px] font-black tracking-widest uppercase">INCLUSIVE OF ALL TAXES</p>
               </div>
 
+             {/* Color Selection */}
+             {product.colors && product.colors.length > 0 && (
+               <div className="space-y-4">
+                 <h4 className="text-sm font-black tracking-widest">SELECT COLOR: <span className="text-accent">{selectedColor.toUpperCase()}</span></h4>
+                 <div className="flex flex-wrap gap-3">
+                   {product.colors.map(color => {
+                     const colorSwatchMap = {
+                       'White': '#FFFFFF', 'Black': '#111111', 'Blue': '#1565C0',
+                       'Navy blue': '#001F5B', 'Royal Blue': '#4169E1', 'Navy Blue': '#001F5B',
+                       'Red': '#D32F2F', 'Grey': '#9E9E9E', 'Green': '#388E3C',
+                       'yellow': '#FBC02D', 'Maroon': '#7B1FA2', 'Orange': '#E64A19',
+                     }
+                     const swatchColor = colorSwatchMap[color] || '#CCCCCC'
+                     const isSelected = selectedColor === color
+                     return (
+                       <button
+                         key={color}
+                         title={color}
+                         onClick={() => handleColorSelect(color)}
+                         style={{ backgroundColor: swatchColor }}
+                         className={`w-10 h-10 rounded-full border-2 transition-all ${
+                           isSelected
+                             ? 'border-accent scale-110 shadow-lg shadow-accent/30'
+                             : 'border-gray-200 hover:border-gray-400 hover:scale-105'
+                         } ${color === 'White' ? 'border-gray-300' : ''}`}
+                       />
+                     )
+                   })}
+                 </div>
+               </div>
+             )}
+
              {/* Size Selection */}
              <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -131,11 +170,11 @@ const ProductDetailPage = () => {
              {/* Buttons */}
              <div className="flex space-x-4">
                 <button 
-                  onClick={handleAddToCart}
-                  className="flex-1 bg-accent text-white h-16 rounded-none font-black tracking-widest flex items-center justify-center space-x-3 hover:bg-opacity-90 transition-all shadow-xl shadow-accent/20"
+                  onClick={handleWhatsAppBuy}
+                  className="flex-1 bg-green-500 text-white h-16 rounded-none font-black tracking-widest flex items-center justify-center space-x-3 hover:bg-green-600 transition-all shadow-xl shadow-green-200"
                 >
-                   <ShoppingBag size={20} />
-                   <span>ADD TO BAG</span>
+                   <MessageCircle size={20} />
+                   <span>BUY NOW</span>
                 </button>
                 <button 
                   onClick={() => setIsWishlisted(!isWishlisted)}

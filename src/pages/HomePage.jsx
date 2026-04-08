@@ -6,35 +6,11 @@ import { Link } from 'react-router-dom'
 import { CheckCircle2, Truck, ShieldCheck, RefreshCw } from 'lucide-react'
 
 const HomePage = () => {
-  const highlights = [
-    { id: 1, icon: Truck, title: 'FREE SHIPPING', desc: 'On orders above ₹999' },
-    { id: 2, icon: RefreshCw, title: 'EASY RETURNS', desc: '15-day return policy' },
-    { id: 3, icon: ShieldCheck, title: 'SECURE PAYMENT', desc: '100% safe transactions' },
-    { id: 4, icon: CheckCircle2, title: 'GENUINE PRODUCT', desc: 'Direct from Wear Mingle' },
-  ];
-
   return (
     <div className="bg-white">
       {/* Hero Section */}
       <Hero />
       
-      {/* Brand Highlights */}
-      <section className="py-8 md:py-12 border-y border-gray-100 px-4">
-        <div className="container mx-auto">
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {highlights.map((h) => (
-                <div key={h.id} className="flex items-center space-x-4 p-4 hover:bg-gray-50 transition-colors">
-                   <h.icon className="w-10 h-10 text-accent group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                   <div>
-                      <h4 className="text-sm font-black tracking-widest">{h.title}</h4>
-                      <p className="text-gray-500 text-xs font-bold mt-0.5">{h.desc}</p>
-                   </div>
-                </div>
-              ))}
-           </div>
-        </div>
-      </section>
-
       {/* Categories */}
       <CategorySection />
 

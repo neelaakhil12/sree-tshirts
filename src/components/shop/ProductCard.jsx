@@ -1,15 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Star, Heart } from 'lucide-react'
-import { useCart } from '../../context/CartContext'
+import { MessageCircle, Star, Heart } from 'lucide-react'
 
 const ProductCard = ({ product }) => {
-  const { addToCart } = useCart()
+  const whatsappNumber = '9398292014'
 
-  const handleQuickAdd = (e) => {
+  const handleBuyNow = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    addToCart(product, 'M', product.colors[0])
+    const message = `Hello Wear Mingle! I'm interested in: ${product.name}. 
+Can you please provide more details about this product?`
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank')
   }
 
   return (
@@ -26,11 +27,11 @@ const ProductCard = ({ product }) => {
         {/* Hover Overlay */}
         <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-white/90 backdrop-blur-sm shadow-[0_-5px_15px_-5px_rgba(0,0,0,0.1)] flex items-center justify-between">
            <button 
-             onClick={handleQuickAdd}
-             className="bg-black text-white px-4 py-2 text-xs font-black tracking-widest flex items-center space-x-2 w-full justify-center group-hover:opacity-100 transition-opacity hover:bg-accent"
+             onClick={handleBuyNow}
+             className="bg-accent text-white px-4 py-2 text-xs font-black tracking-widest flex items-center space-x-2 w-full justify-center group-hover:opacity-100 transition-opacity hover:bg-black"
            >
-              <Plus size={14} />
-              <span>QUICK ADD</span>
+              <MessageCircle size={14} />
+              <span>BUY NOW</span>
            </button>
         </div>
 
