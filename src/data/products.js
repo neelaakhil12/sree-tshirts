@@ -68,7 +68,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 159,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/premium/white.png",
     "description": "140 GSM. Premium Polyester  Round Neck T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -78,13 +78,21 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "Navy Blue",
-      "white",
+      "White",
       "Black",
-      "Royal blue",
+      "Navy Blue",
+      "Royal Blue",
       "Red",
-      "dark grey"
-    ]
+      "Dark Grey"
+    ],
+    "colorImages": {
+      "White": "/images/products/premium/white.png",
+      "Black": "/images/products/premium/black.png",
+      "Navy Blue": "/images/products/premium/navy-blue.png",
+      "Royal Blue": "/images/products/premium/royal-blue.png",
+      "Red": "/images/products/premium/red.png",
+      "Dark Grey": "/images/products/premium/dark-grey.png"
+    }
   },
   {
     "id": 4,
