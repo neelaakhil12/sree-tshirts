@@ -90,7 +90,7 @@ const AdminDashboard = () => {
                {products.slice(0, 4).map((p, i) => (
                  <div key={i} className="flex items-center space-x-4 group">
                     <div className="w-16 h-16 bg-gray-100 relative overflow-hidden flex-shrink-0">
-                       <img src={p.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                       <img src={p.image} className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform" />
                     </div>
                     <div>
                        <h5 className="text-xs font-black text-black uppercase mb-1">{p.name}</h5>

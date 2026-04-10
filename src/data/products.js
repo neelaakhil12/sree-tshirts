@@ -103,7 +103,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 174,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/selina/white.png",
     "description": "120 to 140 GSM. Selina Round  Neck T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -115,9 +115,15 @@ export const products = [
     "colors": [
       "White",
       "Black",
-      "Navy blue",
+      "Navy Blue",
       "Royal Blue"
-    ]
+    ],
+    "colorImages": {
+      "White": "/images/products/selina/white.png",
+      "Black": "/images/products/selina/black.png",
+      "Navy Blue": "/images/products/selina/navy-blue.png",
+      "Royal Blue": "/images/products/selina/royal-blue.png"
+    }
   },
   {
     "id": 5,
@@ -128,7 +134,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 273,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1574015974293-817f0efebb1b?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/dot-knit/red.png",
     "description": "150 GSM. Dot Knit Round  Neck T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -139,10 +145,16 @@ export const products = [
     ],
     "colors": [
       "Red",
-      "Royal blue",
-      "black",
-      "white"
-    ]
+      "Royal Blue",
+      "Black",
+      "White"
+    ],
+    "colorImages": {
+      "Red": "/images/products/dot-knit/red.png",
+      "Royal Blue": "/images/products/dot-knit/royal-blue.png",
+      "Black": "/images/products/dot-knit/black.png",
+      "White": "/images/products/dot-knit/white.png"
+    }
   },
   {
     "id": 6,
@@ -153,7 +165,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 149,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1576566582402-401ac4378943?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/honey-comb/blue.png",
     "description": "200 GSM. Polyester Honey Comb  Round Neck T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -163,10 +175,15 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
+      "Blue",
       "Black",
-      "Blue"
-    ]
+      "White"
+    ],
+    "colorImages": {
+      "Blue": "/images/products/honey-comb/blue.png",
+      "Black": "/images/products/honey-comb/black.png",
+      "White": "/images/products/honey-comb/white.png"
+    }
   },
   {
     "id": 7,
@@ -177,7 +194,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 133,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1581655353564-df123a1baec2?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/polyester-polo/orange.png",
     "description": "140 GSM. Polyester Polo T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -187,10 +204,15 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
+      "Orange",
       "Black",
-      "Organge"
-    ]
+      "White"
+    ],
+    "colorImages": {
+      "Orange": "/images/products/polyester-polo/orange.png",
+      "Black": "/images/products/polyester-polo/black.png",
+      "White": "/images/products/polyester-polo/white.png"
+    }
   },
   {
     "id": 8,
@@ -201,7 +223,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 118,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1581655353564-df123a1baec2?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/dot-knit-polo-180/navy-blue.png",
     "description": "150 GSM. Dot Knit Polo  180 GSM T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -212,11 +234,18 @@ export const products = [
     ],
     "colors": [
       "Navy Blue",
-      "white",
+      "White",
       "Black",
-      "Royal blue",
-      "sky blue"
-    ]
+      "Royal Blue",
+      "Sky Blue"
+    ],
+    "colorImages": {
+      "Navy Blue": "/images/products/dot-knit-polo-180/navy-blue.png",
+      "White": "/images/products/dot-knit-polo-180/white.png",
+      "Black": "/images/products/dot-knit-polo-180/black.png",
+      "Royal Blue": "/images/products/dot-knit-polo-180/royal-blue.png",
+      "Sky Blue": "/images/products/dot-knit-polo-180/sky-blue.png"
+    }
   },
   {
     "id": 9,
@@ -227,7 +256,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 140,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1598522340035-4475477462cc?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/premium-dot-knit/blue.png",
     "description": "180 GSM. Premium Dot Knit  Round Neck T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -240,7 +269,12 @@ export const products = [
       "Blue",
       "White",
       "Black"
-    ]
+    ],
+    "colorImages": {
+      "Blue": "/images/products/premium-dot-knit/blue.png",
+      "White": "/images/products/premium-dot-knit/white.png",
+      "Black": "/images/products/premium-dot-knit/black.png"
+    }
   },
   {
     "id": 10,
@@ -251,7 +285,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 121,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1611312449412-6cefac5c6845?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/dot-knit-polo-220/black.png",
     "description": "220 GSM. Dot Knit Polo  220 GSM T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -261,11 +295,17 @@ export const products = [
       "XXL"
     ],
     "colors": [
+      "Black",
       "Blue",
       "White",
-      "Black",
       "Navy Blue"
-    ]
+    ],
+    "colorImages": {
+      "Black": "/images/products/dot-knit-polo-220/black.png",
+      "Blue": "/images/products/dot-knit-polo-220/blue.png",
+      "White": "/images/products/dot-knit-polo-220/white.png",
+      "Navy Blue": "/images/products/dot-knit-polo-220/navy-blue.png"
+    }
   },
   {
     "id": 11,
@@ -276,7 +316,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 231,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1611312449412-6cefac5c6845?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/honeycomb-polo/royal-blue.png",
     "description": "180 GSM. Honeycomb Polo T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -286,24 +326,31 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "Blue",
-      "White",
+      "Royal Blue",
       "Black",
-      "Navy Blue",
-      "Royal Blue"
-    ]
+      "White",
+      "Blue",
+      "Navy Blue"
+    ],
+    "colorImages": {
+      "Royal Blue": "/images/products/honeycomb-polo/royal-blue.png",
+      "Black": "/images/products/honeycomb-polo/black.png",
+      "White": "/images/products/honeycomb-polo/white.png",
+      "Blue": "/images/products/honeycomb-polo/blue.png",
+      "Navy Blue": "/images/products/honeycomb-polo/navy-blue.png"
+    }
   },
   {
     "id": 12,
-    "name": "Dri Fit Mars  Polo T-shirt",
-    "price": 479,
-    "originalPrice": 959,
+    "name": "Dri Fit Mars Polo T-shirt",
+    "price": 499,
+    "originalPrice": 999,
     "discount": "50% OFF",
     "rating": 4.5,
-    "reviews": 143,
+    "reviews": 110,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1611312449412-6cefac5c6845?auto=format&fit=crop&q=80&w=800",
-    "description": "200 GSM. Dri Fit Mars  Polo T-shirt. XXL - 10rs extra.",
+    "image": "/images/products/dri-fit-mars/navy-blue.png",
+    "description": "180 GSM. Dri Fit Mars Polo T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
       "M",
@@ -312,10 +359,15 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
+      "Navy Blue",
       "Black",
-      "Navy Blue"
-    ]
+      "White"
+    ],
+    "colorImages": {
+      "Navy Blue": "/images/products/dri-fit-mars/navy-blue.png",
+      "Black": "/images/products/dri-fit-mars/black.png",
+      "White": "/images/products/dri-fit-mars/white.png"
+    }
   },
   {
     "id": 13,
@@ -326,7 +378,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 249,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1611312449412-6cefac5c6845?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/polyester-polo-jersy/black.png",
     "description": "200 GSM. Polyester Polo Jersy. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -336,9 +388,13 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
-      "Black"
-    ]
+      "Black",
+      "White"
+    ],
+    "colorImages": {
+      "Black": "/images/products/polyester-polo-jersy/black.png",
+      "White": "/images/products/polyester-polo-jersy/white.png"
+    }
   },
   {
     "id": 14,
@@ -349,7 +405,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 258,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1611312449412-6cefac5c6845?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/premium-polyester-polo/yellow.png",
     "description": "180 GSM. Premium Polyester Polo T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -359,22 +415,27 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
-      "Black",
-      "yellow"
-    ]
+      "Yellow",
+      "White",
+      "Black"
+    ],
+    "colorImages": {
+      "Yellow": "/images/products/premium-polyester-polo/yellow.png",
+      "White": "/images/products/premium-polyester-polo/white.png",
+      "Black": "/images/products/premium-polyester-polo/black.png"
+    }
   },
   {
     "id": 15,
-    "name": "Premium  Polycotton Polo T-shirt",
+    "name": "Premium Polycotton Polo T-shirt",
     "price": 459,
     "originalPrice": 919,
     "discount": "50% OFF",
     "rating": 4.5,
     "reviews": 208,
     "category": "Polyester",
-    "image": "https://images.unsplash.com/photo-1611312449412-6cefac5c6845?auto=format&fit=crop&q=80&w=800",
-    "description": "240 GSM. Premium  Polycotton Polo T-shirt. XXL - 10rs extra.",
+    "image": "/images/products/premium-polycotton-polo/grey.png",
+    "description": "240 GSM. Premium Polycotton Polo T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
       "M",
@@ -383,23 +444,29 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
+      "Grey",
+      "White",
       "Black",
-      "Navy Blue",
-      "Grey"
-    ]
+      "Navy Blue"
+    ],
+    "colorImages": {
+      "Grey": "/images/products/premium-polycotton-polo/grey.png",
+      "White": "/images/products/premium-polycotton-polo/white.png",
+      "Black": "/images/products/premium-polycotton-polo/black.png",
+      "Navy Blue": "/images/products/premium-polycotton-polo/navy-blue.png"
+    }
   },
   {
     "id": 16,
-    "name": "Prime Polycotton  Polo T-shirt",
+    "name": "Prime Polycotton Polo T-shirt",
     "price": 599,
     "originalPrice": 1199,
     "discount": "50% OFF",
     "rating": 4.5,
     "reviews": 232,
     "category": "PolyCotton",
-    "image": "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&q=80&w=800",
-    "description": "220 GSM. Prime Polycotton  Polo T-shirt. XXL - 10rs extra.",
+    "image": "/images/products/prime-polycotton-polo/blue.png",
+    "description": "220 GSM. Prime Polycotton Polo T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
       "M",
@@ -408,12 +475,19 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "BLACK",
-      "WHITE",
-      "BLUE",
-      "NAVY BLUE",
-      "GREY"
-    ]
+      "Blue",
+      "Black",
+      "White",
+      "Navy Blue",
+      "Grey"
+    ],
+    "colorImages": {
+      "Blue": "/images/products/prime-polycotton-polo/blue.png",
+      "Black": "/images/products/prime-polycotton-polo/black.png",
+      "White": "/images/products/prime-polycotton-polo/white.png",
+      "Navy Blue": "/images/products/prime-polycotton-polo/navy-blue.png",
+      "Grey": "/images/products/prime-polycotton-polo/grey.png"
+    }
   },
   {
     "id": 17,
@@ -424,7 +498,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 186,
     "category": "PolyCotton",
-    "image": "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/polycotton-polo/black.png",
     "description": "180 GSM. Polycotton Polo T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -434,23 +508,29 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "black",
-      "WHITE",
-      "BLUE",
-      "NAVY BLUE"
-    ]
+      "Black",
+      "White",
+      "Blue",
+      "Navy Blue"
+    ],
+    "colorImages": {
+      "Black": "/images/products/polycotton-polo/black.png",
+      "White": "/images/products/polycotton-polo/white.png",
+      "Blue": "/images/products/polycotton-polo/blue.png",
+      "Navy Blue": "/images/products/polycotton-polo/navy-blue.png"
+    }
   },
   {
     "id": 18,
-    "name": "Premium Polycotton Round  Neck Prime T-shirt",
+    "name": "Premium Polycotton Round Neck Prime T-shirt",
     "price": 499,
     "originalPrice": 999,
     "discount": "50% OFF",
     "rating": 4.5,
     "reviews": 270,
     "category": "PolyCotton",
-    "image": "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&q=80&w=800",
-    "description": "180 GSM. Premium Polycotton Round  Neck Prime T-shirt. XXL - 10rs extra.",
+    "image": "/images/products/premium-polycotton-round/yellow.png",
+    "description": "180 GSM. Premium Polycotton Round Neck Prime T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
       "M",
@@ -459,23 +539,29 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
+      "Yellow",
+      "White",
       "Black",
-      "Navy Blue",
-      "yellow"
-    ]
+      "Navy Blue"
+    ],
+    "colorImages": {
+      "Yellow": "/images/products/premium-polycotton-round/yellow.png",
+      "White": "/images/products/premium-polycotton-round/white.png",
+      "Black": "/images/products/premium-polycotton-round/black.png",
+      "Navy Blue": "/images/products/premium-polycotton-round/navy-blue.png"
+    }
   },
   {
     "id": 19,
-    "name": "Polycotton  Round Neck T-shirt",
+    "name": "Polycotton Round Neck T-shirt",
     "price": 649,
     "originalPrice": 1299,
     "discount": "50% OFF",
     "rating": 4.5,
     "reviews": 268,
     "category": "PolyCotton",
-    "image": "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&q=80&w=800",
-    "description": "160 GSM. Polycotton  Round Neck T-shirt. XXL - 10rs extra.",
+    "image": "/images/products/polycotton-round-neck/navy-blue.png",
+    "description": "160 GSM. Polycotton Round Neck T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
       "M",
@@ -484,24 +570,31 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
-      "Black",
       "Navy Blue",
-      "yellow",
+      "White",
+      "Black",
+      "Yellow",
       "Red"
-    ]
+    ],
+    "colorImages": {
+      "Navy Blue": "/images/products/polycotton-round-neck/navy-blue.png",
+      "White": "/images/products/polycotton-round-neck/white.png",
+      "Black": "/images/products/polycotton-round-neck/black.png",
+      "Yellow": "/images/products/polycotton-round-neck/yellow.png",
+      "Red": "/images/products/polycotton-round-neck/red.png"
+    }
   },
   {
     "id": 20,
-    "name": "Polycotton  Round Neck T-shirt",
+    "name": "Polycotton Round Neck T-shirt",
     "price": 349,
     "originalPrice": 699,
     "discount": "50% OFF",
     "rating": 4.5,
     "reviews": 267,
     "category": "PolyCotton",
-    "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=800",
-    "description": "130 GSM. Polycotton  Round Neck T-shirt. XXL - 10rs extra.",
+    "image": "/images/products/polycotton-round-neck-130/red.png",
+    "description": "130 GSM. Polycotton Round Neck T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
       "M",
@@ -510,24 +603,31 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
+      "Red",
+      "White",
       "Black",
       "Navy Blue",
-      "yellow",
-      "Red"
-    ]
+      "Yellow"
+    ],
+    "colorImages": {
+      "Red": "/images/products/polycotton-round-neck-130/red.png",
+      "White": "/images/products/polycotton-round-neck-130/white.png",
+      "Black": "/images/products/polycotton-round-neck-130/black.png",
+      "Navy Blue": "/images/products/polycotton-round-neck-130/navy-blue.png",
+      "Yellow": "/images/products/polycotton-round-neck-130/yellow.png"
+    }
   },
   {
     "id": 21,
-    "name": "Polyctton Polo  T-shirt With Tipping",
+    "name": "Polycotton Polo T-shirt With Tipping",
     "price": 299,
     "originalPrice": 599,
     "discount": "50% OFF",
     "rating": 4.5,
     "reviews": 249,
     "category": "PolyCotton",
-    "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=800",
-    "description": "240 GSM. Polyctton Polo  T-shirt With Tipping. XXL - 10rs extra.",
+    "image": "/images/products/polycotton-polo-tipping/grey.png",
+    "description": "240 GSM. Polycotton Polo T-shirt With Tipping. XXL - 10rs extra.",
     "sizes": [
       "S",
       "M",
@@ -536,22 +636,27 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "black",
-      "white",
-      "Grey"
-    ]
+      "Grey",
+      "White",
+      "Black"
+    ],
+    "colorImages": {
+      "Grey": "/images/products/polycotton-polo-tipping/grey.png",
+      "White": "/images/products/polycotton-polo-tipping/white.png",
+      "Black": "/images/products/polycotton-polo-tipping/black.png"
+    }
   },
   {
     "id": 22,
-    "name": "Pure Cotton Round  Neck Bio Washed T-shirt (Cotton bio washed)",
+    "name": "Pure Cotton Round Neck Bio Washed T-shirt",
     "price": 279,
     "originalPrice": 559,
     "discount": "50% OFF",
     "rating": 4.5,
     "reviews": 235,
     "category": "PolyCotton",
-    "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=800",
-    "description": "160 GSM. Pure Cotton Round  Neck Bio Washed T-shirt (Cotton bio washed). XXL - 10rs extra.",
+    "image": "/images/products/pure-cotton-bio-washed/green.png",
+    "description": "160 GSM. Pure Cotton Round Neck Bio Washed T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
       "M",
@@ -560,25 +665,34 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
+      "Green",
+      "White",
       "Black",
-      "yellow",
+      "Yellow",
       "Red",
       "Maroon",
-      "Navy blue",
-      "Green"
-    ]
+      "Navy Blue"
+    ],
+    "colorImages": {
+      "Green": "/images/products/pure-cotton-bio-washed/green.png",
+      "White": "/images/products/pure-cotton-bio-washed/white.png",
+      "Black": "/images/products/pure-cotton-bio-washed/black.png",
+      "Yellow": "/images/products/pure-cotton-bio-washed/yellow.png",
+      "Red": "/images/products/pure-cotton-bio-washed/red.png",
+      "Maroon": "/images/products/pure-cotton-bio-washed/maroon.png",
+      "Navy Blue": "/images/products/pure-cotton-bio-washed/navy-blue.png"
+    }
   },
   {
     "id": 23,
-    "name": "Cotton Round Neck T-shirt (Cotton bio washed)",
+    "name": "Cotton Round Neck T-shirt",
     "price": 399,
     "originalPrice": 799,
     "discount": "50% OFF",
     "rating": 4.5,
     "reviews": 249,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/cotton-round-neck-bio/maroon.png",
     "description": "180 GSM. Cotton Round Neck T-shirt (Cotton bio washed). XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -588,26 +702,33 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
-      "Black",
-      "yellow",
-      "Red",
       "Maroon",
-      "Navy blue",
+      "White",
+      "Black",
+      "Yellow",
+      "Red",
       "Green"
-    ]
+    ],
+    "colorImages": {
+      "Maroon": "/images/products/cotton-round-neck-bio/maroon.png",
+      "White": "/images/products/cotton-round-neck-bio/white.png",
+      "Black": "/images/products/cotton-round-neck-bio/black.png",
+      "Yellow": "/images/products/cotton-round-neck-bio/yellow.png",
+      "Red": "/images/products/cotton-round-neck-bio/red.png",
+      "Green": "/images/products/cotton-round-neck-bio/green.png"
+    }
   },
   {
     "id": 24,
-    "name": "Cotton Polo  Matty Finish T-shirt (Cotton bio washed)",
+    "name": "Cotton Polo Matty Finish T-shirt",
     "price": 449,
     "originalPrice": 899,
     "discount": "50% OFF",
     "rating": 4.5,
     "reviews": 220,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800",
-    "description": "220 GSM. Cotton Polo  Matty Finish T-shirt (Cotton bio washed). XXL - 10rs extra.",
+    "image": "/images/products/cotton-polo-matty/grey.png",
+    "description": "220 GSM. Cotton Polo Matty Finish T-shirt (Cotton bio washed). XXL - 10rs extra.",
     "sizes": [
       "S",
       "M",
@@ -616,26 +737,34 @@ export const products = [
       "XXL"
     ],
     "colors": [
+      "Grey",
       "White",
       "Black",
-      "yellow",
+      "Yellow",
       "Red",
       "Maroon",
-      "Navy blue",
-      "Green",
-      "grey"
-    ]
+      "Green"
+    ],
+    "colorImages": {
+      "Grey": "/images/products/cotton-polo-matty/grey.png",
+      "White": "/images/products/cotton-polo-matty/white.png",
+      "Black": "/images/products/cotton-polo-matty/black.png",
+      "Yellow": "/images/products/cotton-polo-matty/yellow.png",
+      "Red": "/images/products/cotton-polo-matty/red.png",
+      "Maroon": "/images/products/cotton-polo-matty/maroon.png",
+      "Green": "/images/products/cotton-polo-matty/green.png"
+    }
   },
   {
     "id": 25,
-    "name": "Prime Cotton Polo T-shirt (Cotton bio washed)",
+    "name": "Prime Cotton Polo T-shirt",
     "price": 599,
     "originalPrice": 1199,
     "discount": "50% OFF",
     "rating": 4.5,
     "reviews": 163,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1598522340035-4475477462cc?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/prime-cotton-polo/navy-blue.png",
     "description": "240 GSM. Prime Cotton Polo T-shirt (Cotton bio washed). XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -645,23 +774,29 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "white",
-      "Blac",
-      "Maroon",
-      "Navy Blue"
-    ]
+      "Navy Blue",
+      "White",
+      "Black",
+      "Maroon"
+    ],
+    "colorImages": {
+      "Navy Blue": "/images/products/prime-cotton-polo/navy-blue.png",
+      "White": "/images/products/prime-cotton-polo/white.png",
+      "Black": "/images/products/prime-cotton-polo/black.png",
+      "Maroon": "/images/products/prime-cotton-polo/maroon.png"
+    }
   },
   {
     "id": 26,
-    "name": "Premium Cotton Polo  T-shirt With Tipping (Cotton bio washed)",
+    "name": "Premium Cotton Polo T-shirt With Tipping",
     "price": 649,
     "originalPrice": 1299,
     "discount": "50% OFF",
     "rating": 4.5,
     "reviews": 285,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1598522340035-4475477462cc?auto=format&fit=crop&q=80&w=800",
-    "description": "240 GSM. Premium Cotton Polo  T-shirt With Tipping (Cotton bio washed). XXL - 10rs extra.",
+    "image": "/images/products/premium-cotton-polo-tipping/royal-blue-white.png",
+    "description": "240 GSM. Premium Cotton Polo T-shirt With Tipping (Cotton bio washed). XXL - 10rs extra.",
     "sizes": [
       "S",
       "M",
@@ -670,11 +805,17 @@ export const products = [
       "XXL"
     ],
     "colors": [
-      "navy bluee with white",
-      "Black with red",
-      "cream with Red",
-      "Royal blue with white"
-    ]
+      "Royal Blue With White",
+      "Navy Blue With White",
+      "Black With Red",
+      "Cream With Red"
+    ],
+    "colorImages": {
+      "Royal Blue With White": "/images/products/premium-cotton-polo-tipping/royal-blue-white.png",
+      "Navy Blue With White": "/images/products/premium-cotton-polo-tipping/navy-blue-white.png",
+      "Black With Red": "/images/products/premium-cotton-polo-tipping/black-red.png",
+      "Cream With Red": "/images/products/premium-cotton-polo-tipping/cream-red.png"
+    }
   },
   {
     "id": 27,
@@ -685,7 +826,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 254,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1598522340035-4475477462cc?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/premium-cotton-polo-pocket/dark-navy-blue.png",
     "description": "240 GSM. Premium Cotton  Polo T-shirt With Pocket (Cotton bio washed). XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -698,7 +839,12 @@ export const products = [
       "Soft pink",
       "Dark Navy Blue",
       "Black"
-    ]
+    ],
+    "colorImages": {
+      "Soft pink": "/images/products/premium-cotton-polo-pocket/soft-pink.png",
+      "Dark Navy Blue": "/images/products/premium-cotton-polo-pocket/dark-navy-blue.png",
+      "Black": "/images/products/premium-cotton-polo-pocket/black.png"
+    }
   },
   {
     "id": 28,
@@ -709,7 +855,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 262,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1598522340035-4475477462cc?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/cotton-full-sleeve-round/maroon.png",
     "description": "180 GSM. Cotton Full Sleeve  Round Neck T-shirt (Cotton bio washed). XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -724,7 +870,14 @@ export const products = [
       "Black",
       "Navy Blue",
       "Grey Htr"
-    ]
+    ],
+    "colorImages": {
+      "Maroon": "/images/products/cotton-full-sleeve-round/maroon.png",
+      "white": "/images/products/cotton-full-sleeve-round/white.png",
+      "Black": "/images/products/cotton-full-sleeve-round/black.png",
+      "Navy Blue": "/images/products/cotton-full-sleeve-round/navy-blue.png",
+      "Grey Htr": "/images/products/cotton-full-sleeve-round/grey-htr.png"
+    }
   },
   {
     "id": 29,
@@ -735,7 +888,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 242,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/cotton-oversized-100/white.png",
     "description": "220 GSM. 100% Cotton Oversized T-shirt (Cotton bio washed). XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -748,7 +901,12 @@ export const products = [
       "white",
       "Black",
       "Navy Blue"
-    ]
+    ],
+    "colorImages": {
+      "white": "/images/products/cotton-oversized-100/white.png",
+      "Black": "/images/products/cotton-oversized-100/black.png",
+      "Navy Blue": "/images/products/cotton-oversized-100/navy-blue.png"
+    }
   },
   {
     "id": 30,
@@ -759,7 +917,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 101,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/cotton-oversized/black.png",
     "description": "180 GSM. Cotton Oversized T-shirt (Cotton bio washed). XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -771,7 +929,11 @@ export const products = [
     "colors": [
       "white",
       "Black"
-    ]
+    ],
+    "colorImages": {
+      "white": "/images/products/cotton-oversized/white.png",
+      "Black": "/images/products/cotton-oversized/black.png"
+    }
   },
   {
     "id": 31,
@@ -782,7 +944,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 244,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/v-neck-half-sleeve/black.png",
     "description": "180 GSM. V-Neck Half Sleeve  T-shirt 180 GSM (Cotton bio washed). XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -796,7 +958,13 @@ export const products = [
       "Black",
       "Maroon",
       "Navy Blue"
-    ]
+    ],
+    "colorImages": {
+      "white": "/images/products/v-neck-half-sleeve/white.png",
+      "Black": "/images/products/v-neck-half-sleeve/black.png",
+      "Maroon": "/images/products/v-neck-half-sleeve/maroon.png",
+      "Navy Blue": "/images/products/v-neck-half-sleeve/navy-blue.png"
+    }
   },
   {
     "id": 32,
@@ -807,7 +975,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 104,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1554568212-3c1630c95a4c?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/cotton-round-neck-women/pink.png",
     "description": "160 GSM. Cotton Round  Neck WomenΓÇÖs T-shirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -823,7 +991,15 @@ export const products = [
       "NAVY BLUE",
       "LILAC",
       "Purple"
-    ]
+    ],
+    "colorImages": {
+      "PINK": "/images/products/cotton-round-neck-women/pink.png",
+      "BLACK": "/images/products/cotton-round-neck-women/black.png",
+      "OCEAN BLUE": "/images/products/cotton-round-neck-women/ocean-blue.png",
+      "NAVY BLUE": "/images/products/cotton-round-neck-women/navy-blue.png",
+      "LILAC": "/images/products/cotton-round-neck-women/lilac.png",
+      "Purple": "/images/products/cotton-round-neck-women/purple.png"
+    }
   },
   {
     "id": 33,
@@ -834,7 +1010,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 124,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1554568212-3c1630c95a4c?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/cotton-v-neck/black.png",
     "description": "160 GSM. Cotton  V-Neck T-shirt (Cotton bio washed). XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -846,7 +1022,11 @@ export const products = [
     "colors": [
       "white",
       "Black"
-    ]
+    ],
+    "colorImages": {
+      "white": "/images/products/cotton-v-neck/white.png",
+      "Black": "/images/products/cotton-v-neck/black.png"
+    }
   },
   {
     "id": 34,
@@ -857,7 +1037,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 154,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1554568212-3c1630c95a4c?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/c-premium-colour-cotton/soft-pink.png",
     "description": "160 GSM. C Premium Colour Cotton Round  Neck Bio Washed T-shirt (Cotton bio washed). XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -873,7 +1053,15 @@ export const products = [
       "T PALE  YELLOW",
       "Kiwi Green",
       "sunset"
-    ]
+    ],
+    "colorImages": {
+      "SOFT PINK": "/images/products/c-premium-colour-cotton/soft-pink.png",
+      "OCEAN BLUE": "/images/products/c-premium-colour-cotton/ocean-blue.png",
+      "MIN": "/images/products/c-premium-colour-cotton/min.png",
+      "T PALE  YELLOW": "/images/products/c-premium-colour-cotton/t-pale-yellow.png",
+      "Kiwi Green": "/images/products/c-premium-colour-cotton/kiwi-green.png",
+      "sunset": "/images/products/c-premium-colour-cotton/sunset.png"
+    }
   },
   {
     "id": 35,
@@ -884,7 +1072,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 195,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/french-terry-oversize/white.png",
     "description": "240 GSM. French Teery oversize R.N. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -898,7 +1086,13 @@ export const products = [
       "Black",
       "Cream",
       "Brown"
-    ]
+    ],
+    "colorImages": {
+      "white": "/images/products/french-terry-oversize/white.png",
+      "Black": "/images/products/french-terry-oversize/black.png",
+      "Cream": "/images/products/french-terry-oversize/cream.png",
+      "Brown": "/images/products/french-terry-oversize/brown.png"
+    }
   },
   {
     "id": 36,
@@ -909,7 +1103,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 124,
     "category": "Cotton",
-    "image": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/cotton-round-neck-sweatshirt/black.png",
     "description": "280 GSM. Cotton Round Neck Sweatshirt. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -924,7 +1118,14 @@ export const products = [
       "RED",
       "NAVY BLUE",
       "Black"
-    ]
+    ],
+    "colorImages": {
+      "WHITE": "/images/products/cotton-round-neck-sweatshirt/white.png",
+      "MAROON": "/images/products/cotton-round-neck-sweatshirt/maroon.png",
+      "RED": "/images/products/cotton-round-neck-sweatshirt/red.png",
+      "NAVY BLUE": "/images/products/cotton-round-neck-sweatshirt/navy-blue.png",
+      "Black": "/images/products/cotton-round-neck-sweatshirt/black.png"
+    }
   },
   {
     "id": 37,
@@ -935,7 +1136,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 261,
     "category": "Hoodies",
-    "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/track-shoot/navy-blue.png",
     "description": "300 GSM. track shoot. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -947,7 +1148,11 @@ export const products = [
     "colors": [
       "Black",
       "Navy Blue"
-    ]
+    ],
+    "colorImages": {
+      "Black": "/images/products/track-shoot/black.png",
+      "Navy Blue": "/images/products/track-shoot/navy-blue.png"
+    }
   },
   {
     "id": 38,
@@ -958,7 +1163,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 142,
     "category": "Hoodies",
-    "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/polycotton-hoodies-zipper/black.png",
     "description": "300 GSM. Polycotton Hoodies WitH Zipper. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -970,7 +1175,11 @@ export const products = [
     "colors": [
       "Black",
       "Navy Blue"
-    ]
+    ],
+    "colorImages": {
+      "Black": "/images/products/polycotton-hoodies-zipper/black.png",
+      "Navy Blue": "/images/products/polycotton-hoodies-zipper/navy-blue.png"
+    }
   },
   {
     "id": 39,
@@ -981,7 +1190,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 133,
     "category": "Hoodies",
-    "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/unisex-pullover-hoodies/red.png",
     "description": "300 GSM. unisex pullover  Hoodies premium. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -995,7 +1204,13 @@ export const products = [
       "Black",
       "Navy Blue",
       "Maroon"
-    ]
+    ],
+    "colorImages": {
+      "Red": "/images/products/unisex-pullover-hoodies/red.png",
+      "Black": "/images/products/unisex-pullover-hoodies/black.png",
+      "Navy Blue": "/images/products/unisex-pullover-hoodies/navy-blue.png",
+      "Maroon": "/images/products/unisex-pullover-hoodies/maroon.png"
+    }
   },
   {
     "id": 40,
@@ -1006,7 +1221,7 @@ export const products = [
     "rating": 4.5,
     "reviews": 184,
     "category": "Hoodies",
-    "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800",
+    "image": "/images/products/unisex-full-zipper-hoodies/grey-htr.png",
     "description": "300 GSM. unisex Full Zipper  Hoodies premium. XXL - 10rs extra.",
     "sizes": [
       "S",
@@ -1019,6 +1234,85 @@ export const products = [
       "Black",
       "Navy Blue",
       "Grey HTR"
-    ]
+    ],
+    "colorImages": {
+      "Black": "/images/products/unisex-full-zipper-hoodies/black.png",
+      "Navy Blue": "/images/products/unisex-full-zipper-hoodies/navy-blue.png",
+      "Grey HTR": "/images/products/unisex-full-zipper-hoodies/grey-htr.png"
+    }
+  },
+  {
+    "id": 41,
+    "name": "Classic School Uniform Shirt - Boys",
+    "price": 349,
+    "originalPrice": 699,
+    "discount": "50% OFF",
+    "rating": 4.8,
+    "reviews": 120,
+    "category": "School uniform",
+    "image": "/images/products/school-uniform/shirt-boys.png",
+    "description": "Comfortable and durable school uniform shirt for boys. Standard fit.",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "colors": ["White", "Light Blue"],
+    "colorImages": {
+      "White": "/images/products/school-uniform/shirt-boys.png",
+      "Light Blue": "/images/products/school-uniform/shirt-boys.png"
+    }
+  },
+  {
+    "id": 42,
+    "name": "Classic School Uniform Blouse - Girls",
+    "price": 349,
+    "originalPrice": 699,
+    "discount": "50% OFF",
+    "rating": 4.7,
+    "reviews": 95,
+    "category": "School uniform",
+    "image": "/images/products/school-uniform/blouse-girls.png",
+    "description": "Comfortable and durable school uniform blouse for girls. Standard fit.",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "colors": ["White", "Light Blue"],
+    "colorImages": {
+      "White": "/images/products/school-uniform/blouse-girls.png",
+      "Light Blue": "/images/products/school-uniform/blouse-girls.png"
+    }
+  },
+  {
+    "id": 43,
+    "name": "School Uniform Trousers - Regular Fit",
+    "price": 499,
+    "originalPrice": 999,
+    "discount": "50% OFF",
+    "rating": 4.5,
+    "reviews": 150,
+    "category": "School uniform",
+    "image": "/images/products/school-uniform/trousers.png",
+    "description": "Durable school uniform trousers with adjustable waist.",
+    "sizes": ["28", "30", "32", "34", "36"],
+    "colors": ["Navy Blue", "Black", "Grey"],
+    "colorImages": {
+      "Navy Blue": "/images/products/school-uniform/trousers.png",
+      "Black": "/images/products/school-uniform/trousers.png",
+      "Grey": "/images/products/school-uniform/trousers.png"
+    }
+  },
+  {
+    "id": 44,
+    "name": "School Uniform Skirt - Pleated",
+    "price": 449,
+    "originalPrice": 899,
+    "discount": "50% OFF",
+    "rating": 4.6,
+    "reviews": 110,
+    "category": "School uniform",
+    "image": "/images/products/school-uniform/skirt.png",
+    "description": "Classic pleated school uniform skirt. High-quality fabric.",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Navy Blue", "Black", "Grey"],
+    "colorImages": {
+      "Navy Blue": "/images/products/school-uniform/skirt.png",
+      "Black": "/images/products/school-uniform/skirt.png",
+      "Grey": "/images/products/school-uniform/skirt.png"
+    }
   }
 ];

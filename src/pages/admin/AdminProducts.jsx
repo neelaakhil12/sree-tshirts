@@ -16,7 +16,7 @@ const AdminProducts = () => {
     originalPrice: '',
     description: '',
     sizes: ['S', 'M', 'L', 'XL'],
-    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800',
+    image: '/images/products/pure-cotton-bio-washed/black.png',
   })
 
   const filteredProducts = products.filter(p => 
@@ -89,7 +89,7 @@ const AdminProducts = () => {
                   <tr key={p.id} className="hover:bg-gray-50 transition-colors group">
                      <td className="px-8 py-4 flex items-center space-x-4">
                         <div className="w-14 h-14 bg-gray-100 overflow-hidden ring-2 ring-transparent group-hover:ring-accent transition-all">
-                           <img src={p.image} className="w-full h-full object-cover" />
+                           <img src={p.image} className="w-full h-full object-cover object-top" />
                         </div>
                         <div>
                            <p className="text-sm font-black text-black">{p.name}</p>

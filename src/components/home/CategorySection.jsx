@@ -6,7 +6,7 @@ const categories = [
   {
     id: 1,
     name: "TSHIRTS COLLECTION",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800",
+    image: "/images/products/pure-cotton-bio-washed/black.png",
     path: "/products?category=Tshirts",
     count: 140,
     delay: 0,
@@ -14,7 +14,7 @@ const categories = [
   {
     id: 2,
     name: "SCHOOL UNIFORM",
-    image: "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&q=80&w=800",
+    image: "/images/products/school-uniform/shirt-boys.png",
     path: "/products?category=School uniform",
     count: 45,
     delay: 100,
@@ -22,7 +22,7 @@ const categories = [
   {
     id: 3,
     name: "WOODIES RANGE",
-    image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800",
+    image: "/images/products/unisex-pullover-hoodies/red.png",
     path: "/products?category=Woodies",
     count: 28,
     delay: 200,
@@ -57,8 +57,7 @@ const CategorySection = () => {
             
             {/* Overlay content */}
             <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex flex-col justify-end p-6 md:p-8 text-white">
-               <span className="text-[10px] sm:text-xs font-bold tracking-widest mb-2 transform group-hover:-translate-y-2 transition-transform uppercase">{cat.count} DESIGNS AVAILABLE</span>
-               <h3 className="text-2xl sm:text-3xl font-black tracking-tighter mb-4 transform group-hover:-translate-y-2 transition-transform leading-none whitespace-nowrap">{cat.name}</h3>
+               <h3 className="text-xl sm:text-2xl font-black tracking-tight mb-4 transform group-hover:-translate-y-2 transition-transform leading-snug break-words">{cat.name}</h3>
                <div className="flex items-center space-x-2 transform translate-y-10 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
                   <span className="font-extrabold text-xs sm:text-sm tracking-widest border-b border-white pb-1">EXPLORE COLLECTION</span>
                   <ArrowRight size={16} />

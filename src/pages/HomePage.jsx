@@ -3,7 +3,6 @@ import Hero from '../components/home/Hero'
 import CategorySection from '../components/home/CategorySection'
 import TrendingProducts from '../components/home/TrendingProducts'
 import { Link } from 'react-router-dom'
-import { CheckCircle2, Truck, ShieldCheck, RefreshCw } from 'lucide-react'
 
 const HomePage = () => {
   return (

@@ -21,7 +21,7 @@ Can you please provide more details about this product?`
         <img 
           src={product.image} 
           alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
         />
 
         {/* Wishlist Button */}
@@ -47,8 +47,8 @@ Can you please provide more details about this product?`
           onClick={handleBuyNow}
           className="w-full bg-black text-white py-2.5 text-[10px] font-black tracking-widest flex items-center justify-center space-x-2 hover:bg-accent transition-colors"
         >
-          <MessageCircle size={14} />
-          <span>BUY NOW</span>
+          <MessageCircle size={14} className="hidden sm:block" />
+          <span className="whitespace-nowrap">BUY NOW</span>
         </button>
       </div>
     </div>

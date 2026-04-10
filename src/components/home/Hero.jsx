@@ -7,7 +7,7 @@ const Hero = () => {
       <img 
         src="/hero-main.png" 
         alt="Sree Tshirts Collection"
-        className="absolute inset-0 w-full h-full object-cover" 
+        className="absolute inset-0 w-full h-full object-cover object-top" 
       />
       
       {/* Dark overlay for text readability */}

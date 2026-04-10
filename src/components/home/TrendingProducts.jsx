@@ -32,7 +32,7 @@ const TrendingProducts = () => {
         <div className="mt-16 flex justify-center" data-aos="fade-up">
            <Link 
              to="/products"
-             className="border-2 border-black text-black px-12 py-4 rounded-none font-black tracking-widest flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300"
+             className="border-2 border-black text-black px-8 py-3 sm:px-12 sm:py-4 rounded-none font-black text-xs sm:text-base tracking-widest flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300"
            >
              VIEW ALL PRODUCT
            </Link>

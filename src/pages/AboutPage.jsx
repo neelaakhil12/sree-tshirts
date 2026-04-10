@@ -23,7 +23,7 @@ const AboutPage = () => {
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
            <div data-aos="fade-right">
               <img 
-                src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&q=80&w=1000" 
+                src="/images/products/pure-cotton-bio-washed/black.png" 
                 alt="Our Story"
                 className="w-full h-auto shadow-premium" 
               />
@@ -54,30 +54,6 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="py-12 md:py-24 bg-gray-50 px-4">
-        <div className="container mx-auto">
-           <div className="text-center mb-16" data-aos="fade-up">
-              <h3 className="text-3xl font-black uppercase tracking-tight">WHY CHOOSE US</h3>
-           </div>
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-              {[
-                { icon: Sparkles, title: 'Quality First', desc: 'Every fabric is handpicked and undergoes strict quality checks.' },
-                { icon: Heart, title: 'Made with Love', desc: 'Our designs are inspired by people, for people.' },
-                { icon: Zap, title: 'Fast Delivery', desc: 'We value your time and ensure prompt shipping.' },
-                { icon: Award, title: 'Best Value', desc: 'Premium style that doesn’t break your bank account.' },
-              ].map((v, i) => (
-                <div key={i} className="bg-white p-10 space-y-4 shadow-premium hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay={i*100}>
-                   <div className="w-16 h-16 bg-accent/10 flex items-center justify-center rounded-2xl text-accent mb-6">
-                      <v.icon size={32} />
-                   </div>
-                   <h4 className="text-xl font-black uppercase tracking-widest">{v.title}</h4>
-                   <p className="text-gray-500 text-sm leading-relaxed">{v.desc}</p>
-                </div>
-              ))}
-           </div>
-        </div>
-      </section>
 
       {/* Call to Action */}
       <section className="py-12 md:py-24 px-4 text-center">

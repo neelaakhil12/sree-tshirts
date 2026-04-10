@@ -17,8 +17,7 @@ const ProductsPage = () => {
   const virtualCategories = ['All', 'Tshirts', 'School uniform', 'Woodies']
   const categoryMapping = {
     'Tshirts': ['Polyester', 'PolyCotton', 'Cotton', 'Special', 'Sweatshirts'],
-    'Woodies': ['Hoodies'],
-    'School uniform': []
+    'Woodies': ['Hoodies']
   }
   
   const sizes = ['S', 'M', 'L', 'XL', 'XXL']
