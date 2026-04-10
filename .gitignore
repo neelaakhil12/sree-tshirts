@@ -32,3 +32,6 @@ pnpm-debug.log*
 
 # Vite
 *.tsbuildinfo
+
+# Large Data Files
+*.pdf
