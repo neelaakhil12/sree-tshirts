@@ -9,7 +9,7 @@ export const products = [
   "reviews": 172,
   "category": "Polyester",
   "image": "/images/products/promotional/black.png",
-  "description": "Polyester Round Neck Promotional T-shirt 100 GSM",
+  "description": "100 GSM. Polyester Round Neck Promotional T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -38,7 +38,7 @@ export const products = [
   "reviews": 268,
   "category": "Polyester",
   "image": "/images/products/gym/navy-blue.png",
-  "description": "Polyester Round Neck GYM T-shirt 110 GSM",
+  "description": "110 GSM. Polyester Round Neck GYM T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -69,7 +69,7 @@ export const products = [
   "reviews": 159,
   "category": "Polyester",
   "image": "/images/products/premium/red.png",
-  "description": "Premium Polyester Round Neck T-shirt 140 GSM",
+  "description": "140 GSM. Premium Polyester Round Neck T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -135,7 +135,7 @@ export const products = [
   "reviews": 273,
   "category": "Polyester",
   "image": "/images/products/dot-knit/red.png",
-  "description": "Dot Knit Round Neck T-shirt 150 GSM",
+  "description": "150 GSM. Dot Knit Round Neck T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -166,7 +166,7 @@ export const products = [
   "reviews": 149,
   "category": "Polyester",
   "image": "/images/products/honey-comb/blue.png",
-  "description": "Polyester Honey Comb Round Neck T-shirt 200 GSM",
+  "description": "200 GSM. Polyester Honey Comb Round Neck T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -195,7 +195,7 @@ export const products = [
   "reviews": 133,
   "category": "Polyester",
   "image": "/images/products/polyester-polo/orange.png",
-  "description": "Polyester Polo T-shirt 140 GSM",
+  "description": "140 GSM. Polyester Polo T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -224,7 +224,7 @@ export const products = [
   "reviews": 118,
   "category": "Polyester",
   "image": "/images/products/dot-knit-polo-180/navy-blue.png",
-  "description": "Dot Knit Polo 180 GSM T-shirt 150 GSM",
+  "description": "150 GSM. Dot Knit Polo 180 GSM T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -257,7 +257,7 @@ export const products = [
   "reviews": 140,
   "category": "Polyester",
   "image": "/images/products/premium-dot-knit/blue.png",
-  "description": "Premium Dot Knit Round Neck T-shirt 180 GSM",
+  "description": "180 GSM. Premium Dot Knit Round Neck T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -286,7 +286,7 @@ export const products = [
   "reviews": 121,
   "category": "Polyester",
   "image": "/images/products/dot-knit-polo-220/black.png",
-  "description": "Dot Knit Polo 220 GSM T-shirt 220 GSM",
+  "description": "220 GSM. Dot Knit Polo 220 GSM T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -317,7 +317,7 @@ export const products = [
   "reviews": 231,
   "category": "Polyester",
   "image": "/images/products/honeycomb-polo/royal-blue.png",
-  "description": "Honeycomb Polo T-shirt 180 GSM",
+  "description": "180 GSM. Honeycomb Polo T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -350,7 +350,7 @@ export const products = [
   "reviews": 110,
   "category": "Polyester",
   "image": "/images/products/dri-fit-mars/navy-blue.png",
-  "description": "Dri Fit Mars Polo T-shirt 180 GSM",
+  "description": "180 GSM. Dri Fit Mars Polo T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -379,7 +379,7 @@ export const products = [
   "reviews": 249,
   "category": "Polyester",
   "image": "/images/products/polyester-polo-jersy/black.png",
-  "description": "Polyester Polo Jersy 200 GSM",
+  "description": "200 GSM. Polyester Polo Jersy. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -406,7 +406,7 @@ export const products = [
   "reviews": 258,
   "category": "Polyester",
   "image": "/images/products/premium-polyester-polo/yellow.png",
-  "description": "Premium Polyester Polo T-shirt 180 GSM",
+  "description": "180 GSM. Premium Polyester Polo T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -435,7 +435,7 @@ export const products = [
   "reviews": 208,
   "category": "Polyester",
   "image": "/images/products/premium-polycotton-polo/grey.png",
-  "description": "Premium Polycotton Polo T-shirt 240 GSM",
+  "description": "240 GSM. Premium Polycotton Polo T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -466,7 +466,7 @@ export const products = [
   "reviews": 232,
   "category": "PolyCotton",
   "image": "/images/products/prime-polycotton-polo/blue.png",
-  "description": "Prime Polycotton Polo T-shirt 220 GSM",
+  "description": "220 GSM. Prime Polycotton Polo T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -499,7 +499,7 @@ export const products = [
   "reviews": 186,
   "category": "PolyCotton",
   "image": "/images/products/polycotton-polo/black.png",
-  "description": "Polycotton Polo T-shirt 180 GSM",
+  "description": "180 GSM. Polycotton Polo T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -530,7 +530,7 @@ export const products = [
   "reviews": 270,
   "category": "PolyCotton",
   "image": "/images/products/premium-polycotton-round/yellow.png",
-  "description": "Premium Polycotton Round Neck Prime T-shirt 180 GSM",
+  "description": "180 GSM. Premium Polycotton Round Neck Prime T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -561,7 +561,7 @@ export const products = [
   "reviews": 268,
   "category": "PolyCotton",
   "image": "/images/products/polycotton-round-neck/navy-blue.png",
-  "description": "Polycotton Round Neck T-shirt 160 GSM",
+  "description": "160 GSM. Polycotton Round Neck T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -594,7 +594,7 @@ export const products = [
   "reviews": 267,
   "category": "PolyCotton",
   "image": "/images/products/polycotton-round-neck-130/red.png",
-  "description": "Polycotton Round Neck T-shirt 130 GSM",
+  "description": "130 GSM. Polycotton Round Neck T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -627,7 +627,7 @@ export const products = [
   "reviews": 249,
   "category": "PolyCotton",
   "image": "/images/products/polycotton-polo-tipping/grey.png",
-  "description": "Polycotton Polo T-shirt With Tipping 240 GSM",
+  "description": "240 GSM. Polycotton Polo T-shirt With Tipping. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -656,7 +656,7 @@ export const products = [
   "reviews": 235,
   "category": "PolyCotton",
   "image": "/images/products/pure-cotton-bio-washed/green.png",
-  "description": "Pure Cotton Round Neck Bio Washed T-shirt 160 GSM",
+  "description": "160 GSM. Pure Cotton Round Neck Bio Washed T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -693,7 +693,7 @@ export const products = [
   "reviews": 249,
   "category": "Cotton",
   "image": "/images/products/cotton-round-neck-bio/maroon.png",
-  "description": "Cotton Round Neck T-shirt (Cotton bio washed) 180 GSM",
+  "description": "180 GSM. Cotton Round Neck T-shirt (Cotton bio washed). XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -728,7 +728,7 @@ export const products = [
   "reviews": 220,
   "category": "Cotton",
   "image": "/images/products/cotton-polo-matty/grey.png",
-  "description": "Cotton Polo Matty Finish T-shirt (Cotton bio washed) 220 GSM",
+  "description": "220 GSM. Cotton Polo Matty Finish T-shirt (Cotton bio washed). XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -765,7 +765,7 @@ export const products = [
   "reviews": 163,
   "category": "Cotton",
   "image": "/images/products/prime-cotton-polo/navy-blue.png",
-  "description": "Prime Cotton Polo T-shirt (Cotton bio washed) 240 GSM",
+  "description": "240 GSM. Prime Cotton Polo T-shirt (Cotton bio washed). XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -796,7 +796,7 @@ export const products = [
   "reviews": 285,
   "category": "Cotton",
   "image": "/images/products/premium-cotton-polo-tipping/royal-blue-white.png",
-  "description": "Premium Cotton Polo T-shirt With Tipping (Cotton bio washed) 240 GSM",
+  "description": "240 GSM. Premium Cotton Polo T-shirt With Tipping (Cotton bio washed). XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -827,7 +827,7 @@ export const products = [
   "reviews": 254,
   "category": "Cotton",
   "image": "/images/products/premium-cotton-polo-pocket/dark-navy-blue.png",
-  "description": "Premium Cotton Polo T-shirt With Pocket (Cotton bio washed) 240 GSM",
+  "description": "240 GSM. Premium Cotton Polo T-shirt With Pocket (Cotton bio washed). XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -856,7 +856,7 @@ export const products = [
   "reviews": 262,
   "category": "Cotton",
   "image": "/images/products/cotton-full-sleeve-round/maroon.png",
-  "description": "Cotton Full Sleeve Round Neck T-shirt (Cotton bio washed) 180 GSM",
+  "description": "180 GSM. Cotton Full Sleeve Round Neck T-shirt (Cotton bio washed). XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -889,7 +889,7 @@ export const products = [
   "reviews": 242,
   "category": "Cotton",
   "image": "/images/products/cotton-oversized-100/white.png",
-  "description": "100% Cotton Oversized T-shirt (Cotton bio washed) 220 GSM",
+  "description": "220 GSM. 100% Cotton Oversized T-shirt (Cotton bio washed). XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -918,7 +918,7 @@ export const products = [
   "reviews": 101,
   "category": "Cotton",
   "image": "/images/products/cotton-oversized/black.png",
-  "description": "Cotton Oversized T-shirt (Cotton bio washed) 180 GSM",
+  "description": "180 GSM. Cotton Oversized T-shirt (Cotton bio washed). XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -945,7 +945,7 @@ export const products = [
   "reviews": 244,
   "category": "Cotton",
   "image": "/images/products/v-neck-half-sleeve/black.png",
-  "description": "V-Neck Half Sleeve T-shirt 180 GSM (Cotton bio washed) 180 GSM",
+  "description": "180 GSM. V-Neck Half Sleeve T-shirt 180 GSM (Cotton bio washed). XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -976,7 +976,7 @@ export const products = [
   "reviews": 104,
   "category": "Cotton",
   "image": "/images/products/cotton-round-neck-women/pink.png",
-  "description": "Cotton Round Neck WomenΓÇÖs T-shirt 160 GSM",
+  "description": "160 GSM. Cotton Round Neck WomenΓÇÖs T-shirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -1011,7 +1011,7 @@ export const products = [
   "reviews": 124,
   "category": "Cotton",
   "image": "/images/products/cotton-v-neck/black.png",
-  "description": "Cotton V-Neck T-shirt (Cotton bio washed) 160 GSM",
+  "description": "160 GSM. Cotton V-Neck T-shirt (Cotton bio washed). XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -1038,7 +1038,7 @@ export const products = [
   "reviews": 154,
   "category": "Cotton",
   "image": "/images/products/c-premium-colour-cotton/soft-pink.png",
-  "description": "C Premium Colour Cotton Round Neck Bio Washed T-shirt (Cotton bio washed) 160 GSM",
+  "description": "160 GSM. C Premium Colour Cotton Round Neck Bio Washed T-shirt (Cotton bio washed). XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -1073,7 +1073,7 @@ export const products = [
   "reviews": 195,
   "category": "Cotton",
   "image": "/images/products/french-terry-oversize/white.png",
-  "description": "French Teery oversize R.N 240 GSM",
+  "description": "240 GSM. French Teery oversize R.N. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -1104,7 +1104,7 @@ export const products = [
   "reviews": 124,
   "category": "Cotton",
   "image": "/images/products/cotton-round-neck-sweatshirt/black.png",
-  "description": "Cotton Round Neck Sweatshirt 280 GSM",
+  "description": "280 GSM. Cotton Round Neck Sweatshirt. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -1137,7 +1137,7 @@ export const products = [
   "reviews": 261,
   "category": "Hoodies",
   "image": "/images/products/track-shoot/navy-blue.png",
-  "description": "track shoot 300 GSM",
+  "description": "300 GSM. track shoot. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -1164,7 +1164,7 @@ export const products = [
   "reviews": 142,
   "category": "Hoodies",
   "image": "/images/products/polycotton-hoodies-zipper/black.png",
-  "description": "Polycotton Hoodies WitH Zipper 300 GSM",
+  "description": "300 GSM. Polycotton Hoodies WitH Zipper. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -1191,7 +1191,7 @@ export const products = [
   "reviews": 133,
   "category": "Hoodies",
   "image": "/images/products/unisex-pullover-hoodies/red.png",
-  "description": "unisex pullover Hoodies premium 300 GSM",
+  "description": "300 GSM. unisex pullover Hoodies premium. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",
@@ -1222,7 +1222,7 @@ export const products = [
   "reviews": 184,
   "category": "Hoodies",
   "image": "/images/products/unisex-full-zipper-hoodies/grey-htr.png",
-  "description": "unisex Full Zipper Hoodies premium 300 GSM",
+  "description": "300 GSM. unisex Full Zipper Hoodies premium. XXL - 10rs extra.",
   "sizes": [
    "S",
    "M",

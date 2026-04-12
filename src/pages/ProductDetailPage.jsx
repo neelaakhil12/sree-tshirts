@@ -44,11 +44,6 @@ const ProductDetailPage = () => {
   const [isWishlisted, setIsWishlisted] = useState(false)
   const [error, setError] = useState('')
 
-  // Navigation Logic
-  const currentIndex = products.findIndex(p => p.id === parseInt(id))
-  const prevProduct = currentIndex > 0 ? products[currentIndex - 1] : null
-  const nextProduct = currentIndex < products.length - 1 ? products[currentIndex + 1] : null
-
   useEffect(() => {
     if (product) {
       const defaultColor = product.colors?.[0] || 'White'
@@ -98,47 +93,13 @@ Color: ${selectedColor}`
 
   return (
     <div className="pt-32 pb-16 bg-white">
-      {/* Navigation & Breadcrumbs Bar */}
-      <div className="container mx-auto px-4 md:px-0 mb-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-6">
-          <div className="flex items-center space-x-4">
-             <button 
-               onClick={() => navigate(-1)}
-               className="flex items-center space-x-2 text-[10px] font-black tracking-widest text-black hover:text-accent transition-all group border border-black/10 px-4 py-2 uppercase"
-             >
-                <ChevronRight size={14} className="rotate-180" />
-                <span>Back</span>
-             </button>
-             <div className="hidden sm:flex items-center space-x-2 text-[9px] font-black tracking-[0.2em] text-gray-400">
-                <Link to="/" className="hover:text-black uppercase">Home</Link>
-                <ChevronRight size={10} />
-                <Link to="/products" className="hover:text-black uppercase">Products</Link>
-                <ChevronRight size={10} />
-                <span className="text-black uppercase truncate max-w-[150px]">{product.name}</span>
-             </div>
-          </div>
-
-          <div className="flex items-center space-x-2">
-             {prevProduct && (
-               <Link 
-                 to={`/products/${prevProduct.id}`}
-                 className="flex items-center space-x-2 text-[10px] font-black tracking-widest text-gray-500 hover:text-black transition-all border border-gray-100 px-4 py-2 hover:border-black uppercase bg-gray-50/50"
-               >
-                  <ChevronRight size={14} className="rotate-180" />
-                  <span>Prev</span>
-               </Link>
-             )}
-             {nextProduct && (
-               <Link 
-                 to={`/products/${nextProduct.id}`}
-                 className="flex items-center space-x-2 text-[10px] font-black tracking-widest text-gray-500 hover:text-black transition-all border border-gray-100 px-4 py-2 hover:border-black uppercase bg-gray-50/50"
-               >
-                  <span>Next</span>
-                  <ChevronRight size={14} />
-               </Link>
-             )}
-          </div>
-        </div>
+      {/* Breadcrumbs */}
+      <div className="container mx-auto px-4 py-4 text-[10px] font-black tracking-widest text-gray-400 flex items-center space-x-2">
+        <Link to="/" className="hover:text-black uppercase">Home</Link>
+        <ChevronRight size={10} />
+        <Link to="/products" className="hover:text-black uppercase">Products</Link>
+        <ChevronRight size={10} />
+        <span className="text-black uppercase">{product.name}</span>
       </div>
 
       <div className="container mx-auto px-4 md:px-0">
