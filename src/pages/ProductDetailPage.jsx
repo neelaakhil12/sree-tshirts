@@ -61,7 +61,7 @@ const ProductDetailPage = () => {
 
   if (!isLoaded) return (
      <div className="pt-40 pb-40 text-center animate-pulse">
-        <h2 className="text-2xl font-black text-gray-200">LOADING MINGLE...</h2>
+        <h2 className="text-2xl font-black text-gray-200 uppercase">Loading Mingle Catalog...</h2>
      </div>
   )
 
@@ -95,11 +95,11 @@ Color: ${selectedColor}`
     <div className="pt-32 pb-16 bg-white">
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4 py-4 text-[10px] font-black tracking-widest text-gray-400 flex items-center space-x-2">
-        <Link to="/" className="hover:text-black">HOME</Link>
+        <Link to="/" className="hover:text-black uppercase">Home</Link>
         <ChevronRight size={10} />
-        <Link to="/products" className="hover:text-black">PRODUCTS</Link>
+        <Link to="/products" className="hover:text-black uppercase">Products</Link>
         <ChevronRight size={10} />
-        <span className="text-black">{product.name.toUpperCase()}</span>
+        <span className="text-black uppercase">{product.name}</span>
       </div>
 
       <div className="container mx-auto px-4 md:px-0">
@@ -125,7 +125,7 @@ Color: ${selectedColor}`
                     <span className="bg-black text-white text-[9px] font-black px-2 py-1 tracking-widest">{product.category.toUpperCase()}</span>
                     {product.discount && <span className="text-accent text-[9px] font-black uppercase tracking-widest">({product.discount})</span>}
                  </div>
-                 <h1 className="text-3xl sm:text-4xl font-black tracking-tighter text-gray-900 leading-[1.1]">{product.name}</h1>
+                 <h1 className="text-3xl sm:text-4xl font-black tracking-tighter text-gray-900 leading-[1.1] uppercase">{product.name}</h1>
                  
                  <div className="flex items-center space-x-6 pt-2">
                     <div className="flex items-center space-x-2">
@@ -145,7 +145,7 @@ Color: ${selectedColor}`
              {/* Color Selection */}
              {product.colors && product.colors.length > 0 && (
                <div className="space-y-4">
-                 <h4 className="text-[11px] font-black tracking-widest text-gray-400 uppercase">COLOR / <span className="text-black underline decoration-accent decoration-2 underline-offset-4">{selectedColor.toUpperCase()}</span></h4>
+                 <h4 className="text-[11px] font-black tracking-widest text-gray-400 uppercase">Color / <span className="text-black underline decoration-accent decoration-2 underline-offset-4">{selectedColor.toUpperCase()}</span></h4>
                  <div className="flex flex-wrap gap-3">
                     {product.colors.map(color => {
                       const colorKey = color.toLowerCase().trim()
@@ -183,7 +183,7 @@ Color: ${selectedColor}`
              {/* Size Selection */}
              <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                   <h4 className="text-[11px] font-black tracking-widest text-gray-400 uppercase">SELECT SIZE</h4>
+                   <h4 className="text-[11px] font-black tracking-widest text-gray-400 uppercase">Select Size</h4>
                    <button className="text-black text-[10px] font-black underline hover:text-accent transition-colors">SIZE CHART</button>
                 </div>
                 {error && <p className="text-[10px] font-black text-red-500 bg-red-50 px-3 py-1 border-l-4 border-red-500 uppercase tracking-widest">{error}</p>}
@@ -221,69 +221,82 @@ Color: ${selectedColor}`
                 </button>
              </div>
 
-             {/* Product Description */}
+             {/* Core Description */}
              <div className="space-y-4 border-t border-gray-100 pt-10">
-                <h4 className="text-xs font-black tracking-[0.2em] text-gray-400 uppercase">DESCRIPTION</h4>
+                <h4 className="text-xs font-black tracking-[0.2em] text-gray-400 uppercase">Description</h4>
                 <p className="text-sm text-gray-600 font-medium leading-relaxed tracking-tight">
                    {product.description}
                 </p>
              </div>
 
-             {/* Features List */}
+             {/* Features List - RESTORED ORIGINAL FORMAT */}
              <div className="space-y-6 pt-10 border-t border-gray-100">
-                <h4 className="text-xs font-black tracking-[0.2em] text-gray-400 uppercase">CORE FEATURES</h4>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <h3 className="text-sm font-black text-black underline decoration-black underline-offset-4">Features :-</h3>
+                <ul className="space-y-2 list-disc pl-5">
                    {getProductFeatures(product).map((feature, idx) => (
-                      <li key={idx} className="flex flex-col space-y-1 p-4 bg-gray-50 border border-gray-100">
-                         <span className="text-[10px] font-black text-accent uppercase tracking-widest">{feature.label}</span>
-                         <span className="text-xs font-bold text-black uppercase tracking-tight">{feature.value}</span>
+                      <li key={idx} className="text-xs font-black text-gray-700 tracking-tight">
+                         <span className="text-black">{feature.label}:</span> {feature.value}
                       </li>
                    ))}
                 </ul>
              </div>
 
-             {/* Measurement Chart */}
-             <div className="pt-12 border-t border-gray-100 overflow-hidden">
-                <div className="bg-[#1A1A1A] p-6 sm:p-10 text-white rounded-none shadow-2xl">
-                   <div className="flex flex-col lg:flex-row gap-8">
-                      {/* Diagram Placeholder / Simplified Version */}
-                      <div className="bg-white/5 p-6 rounded flex items-center justify-center min-w-[180px]">
-                         <svg viewBox="0 0 100 120" className="w-24 h-32" fill="none" stroke="white" strokeWidth="1">
-                           <path d="M 25 20 Q 50 35 75 20 L 95 35 L 85 50 L 75 42 L 75 110 L 25 110 L 25 42 L 15 50 L 5 35 Z" stroke="white" strokeWidth="2" />
-                           <path d="M 30 50 L 70 50" stroke="#FF3D00" strokeDasharray="2,2" />
-                           <path d="M 50 30 L 50 110" stroke="#FF3D00" strokeDasharray="2,2" />
+             {/* Measurement Chart - RESTORED ORIGINAL FORMAT */}
+             <div className="pt-12 border-t border-gray-100">
+                <div className="bg-[#2D2D2D] p-10 text-white rounded-none shadow-2xl">
+                   <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start">
+                      {/* Diagram Placeholder Container */}
+                      <div className="bg-white p-6 rounded-none flex items-center justify-center w-[220px] h-[220px] shrink-0 border border-gray-100 shadow-inner">
+                         <svg viewBox="0 0 100 120" className="w-full h-full" fill="none">
+                           {/* T-shirt Outline */}
+                           <path d="M 25 20 Q 50 28 75 20 L 95 32 L 85 45 L 75 38 L 75 110 L 25 110 L 25 38 L 15 45 L 5 32 Z" fill="white" stroke="#333" strokeWidth="1" />
+                           {/* Chest Line (1) */}
+                           <path d="M 30 55 L 70 55" stroke="#FF5252" strokeWidth="1" strokeDasharray="3,3" />
+                           <text x="50" y="52" fill="#FF5252" fontSize="6" fontWeight="900" textAnchor="middle">1</text>
+                           <path d="M 28 55 L 32 55 M 68 55 L 72 55" stroke="#FF5252" strokeWidth="1" />
+                           {/* Length Line (2) */}
+                           <path d="M 50 25 L 50 110" stroke="#FF5252" strokeWidth="1" strokeDasharray="3,3" />
+                           <text x="46" y="70" fill="#FF5252" fontSize="6" fontWeight="900" textAnchor="middle">2</text>
+                           <path d="M 50 23 L 50 27 M 50 108 L 50 112" stroke="#FF5252" strokeWidth="1" />
+                           {/* Shoulder Line (3) */}
+                           <path d="M 25 18 L 75 18" stroke="#FF5252" strokeWidth="1" strokeDasharray="3,3" />
+                           <text x="50" y="15" fill="#FF5252" fontSize="6" fontWeight="900" textAnchor="middle">3</text>
+                           <path d="M 23 18 L 27 18 M 73 18 L 77 18" stroke="#FF5252" strokeWidth="1" />
                          </svg>
                       </div>
 
-                      <div className="flex-1 overflow-x-auto">
-                         <h5 className="text-[10px] font-black tracking-[0.3em] text-accent mb-6">STANDARDIZED MEASUREMENTS (INCHES)</h5>
-                         <table className="w-full text-center text-[10px] font-black uppercase tracking-widest">
-                            <thead>
-                               <tr className="border-b border-white/10 text-gray-400">
-                                  <th className="py-4 text-left">SPEC</th>
-                                  <th>S</th>
-                                  <th>M</th>
-                                  <th>L</th>
-                                  <th>XL</th>
-                                  <th>XXL</th>
+                      <div className="flex-1 w-full overflow-x-auto">
+                         <h5 className="text-[11px] font-black tracking-[0.2em] text-cyan-400 mb-6 uppercase text-center lg:text-left">Measurement Chart</h5>
+                         <table className="w-full text-center text-[10px] font-bold border border-white/20 uppercase">
+                            <thead className="bg-[#1A1A1A]">
+                               <tr className="text-cyan-400">
+                                  <th className="py-4 border-r border-white/20">S.NO</th>
+                                  <th className="py-4 border-r border-white/20 text-left pl-4">MEASUREMENTS</th>
+                                  <th className="py-4 border-r border-white/20">S</th>
+                                  <th className="py-4 border-r border-white/20">M</th>
+                                  <th className="py-4 border-r border-white/20">L</th>
+                                  <th className="py-4 border-r border-white/20">XL</th>
+                                  <th className="py-4">XXL</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-white/5">
-                               {measurementChartData.map(row => (
-                                  <tr key={row.id} className="hover:bg-white/5 transition-colors">
-                                     <td className="py-4 text-left font-bold text-white">{row.name}</td>
-                                     <td className="py-4">{row.s}</td>
-                                     <td className="py-4">{row.m}</td>
-                                     <td className="py-4">{row.l}</td>
-                                     <td className="py-4">{row.xl}</td>
+                            <tbody className="divide-y divide-white/20">
+                               {measurementChartData.map((row, idx) => (
+                                  <tr key={row.id}>
+                                     <td className="py-4 border-r border-white/20">{idx + 1}</td>
+                                     <td className="py-4 border-r border-white/20 text-left pl-4">{row.name.toUpperCase()}</td>
+                                     <td className="py-4 border-r border-white/20">{row.s}</td>
+                                     <td className="py-4 border-r border-white/20">{row.m}</td>
+                                     <td className="py-4 border-r border-white/20">{row.l}</td>
+                                     <td className="py-4 border-r border-white/20">{row.xl}</td>
                                      <td className="py-4">{row.xxl}</td>
                                   </tr>
                                ))}
                             </tbody>
                          </table>
-                         <p className="mt-6 text-[9px] text-gray-500 font-bold tracking-widest leading-relaxed uppercase">
-                            * TOLERANCE +/- 0.5" | PRE-SHRUNK FABRIC | BIO-WASHED FINISH
-                         </p>
+                         <div className="mt-6 space-y-1 text-[9px] text-gray-300 font-bold uppercase tracking-widest text-center lg:text-left">
+                            <p>*All the measurements in inches</p>
+                            <p>*Tolerance(+/- 0.5 inch) acceptable</p>
+                         </div>
                       </div>
                    </div>
                 </div>
