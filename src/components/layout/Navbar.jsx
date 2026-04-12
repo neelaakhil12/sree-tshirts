@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md py-2' : 'bg-white/80 backdrop-blur-md py-4'
+        isScrolled ? 'bg-white shadow-md py-1' : 'bg-white/80 backdrop-blur-md py-2'
       }`}
     >
       <div className="w-full px-4 md:px-8 lg:px-16 xl:px-24">
@@ -39,7 +39,7 @@ const Navbar = () => {
           
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src="/images/logo.png" alt="Wear Mingle Logo" className="h-24 w-24 sm:h-36 sm:w-36 object-contain" />
+            <img src="/images/logo.png" alt="Wear Mingle Logo" className="h-20 w-20 sm:h-28 sm:w-28 object-contain" />
           </Link>
 
           {/* Right Side Items */}
