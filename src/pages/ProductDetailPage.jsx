@@ -19,15 +19,15 @@ const getProductFeatures = (product) => {
    if (isHoodie) material = "Premium Fleece / Cotton Blend"
 
    return [
-     { label: 'Material', value: material },
-     { label: 'Neck Type', value: isHoodie ? 'Hooded / Round' : (isPolo ? 'Polo Collar' : 'Round Neck') },
+     { label: 'Material', value: 'Polyester' },
+     { label: 'Neck Type', value: 'Round Neck' },
      { label: 'Fit', value: 'Regular Fit' },
-     { label: 'Sleeve Type', value: isHoodie ? 'Full Sleeves' : 'Half Sleeves' },
+     { label: 'Sleeve Type', value: 'Half Sleeves' },
      { label: 'Usage', value: 'Ideal for Promotions, Events, Branding, and Gifting' },
-     { label: 'Customization', value: 'Available for Logo Printing' },
+     { label: 'Customization', value: 'Sublimation (Only on white colour), DTF, screen printing can be done' },
      { label: 'Fabric Properties', value: 'Lightweight, Breathable, and Quick-Dry' },
      { label: 'Durability', value: 'Wrinkle-Resistant & Fade-Resistant' },
-     { label: 'Available Sizes', value: product.sizes?.join(', ') || 'S, M, L, XL, XXL' },
+     { label: 'Available Sizes', value: 'S, M, L, XL, XXL' },
      { label: 'Color Options', value: 'Multiple Colors Available' },
    ]
 }
@@ -266,17 +266,20 @@ Color: ${selectedColor}`
                       </div>
 
                       <div className="flex-1 w-full overflow-x-auto">
-                         <h5 className="text-[11px] font-black tracking-[0.2em] text-cyan-400 mb-6 uppercase text-center lg:text-left">Measurement Chart</h5>
-                         <table className="w-full text-center text-[10px] font-bold border border-white/20 uppercase">
-                            <thead className="bg-[#1A1A1A]">
-                               <tr className="text-cyan-400">
-                                  <th className="py-4 border-r border-white/20">S.NO</th>
-                                  <th className="py-4 border-r border-white/20 text-left pl-4">MEASUREMENTS</th>
-                                  <th className="py-4 border-r border-white/20">S</th>
-                                  <th className="py-4 border-r border-white/20">M</th>
-                                  <th className="py-4 border-r border-white/20">L</th>
-                                  <th className="py-4 border-r border-white/20">XL</th>
-                                  <th className="py-4">XXL</th>
+                         {/* TABLE HEADER BAR */}
+                         <div className="bg-white py-3 px-4 mb-0.5">
+                            <h5 className="text-[12px] font-black tracking-[0.2em] text-[#001F5B] uppercase text-center">MEASUREMENT CHART</h5>
+                         </div>
+                         <table className="w-full text-center text-[10px] font-bold border border-white uppercase">
+                            <thead className="bg-transparent">
+                               <tr className="text-white border-b border-white">
+                                  <th className="py-4 border-r border-white">S.NO</th>
+                                  <th className="py-4 border-r border-white text-left pl-4">MEASUREMENTS</th>
+                                  <th className="py-4 border-r border-white font-black">S</th>
+                                  <th className="py-4 border-r border-white font-black">M</th>
+                                  <th className="py-4 border-r border-white font-black">L</th>
+                                  <th className="py-4 border-r border-white font-black">XL</th>
+                                  <th className="py-4 font-black">XXL</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-white/20">
