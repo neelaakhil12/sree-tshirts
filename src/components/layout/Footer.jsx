@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from 'lucide-react'
+import { useData } from '../../context/DataContext'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const { categories } = useData()
 
   const quickLinks = [
     { name: 'Home', path: '/' },
@@ -12,14 +14,11 @@ const Footer = () => {
     { name: 'Contact Us', path: '/contact' },
   ]
 
-  const categories = [
-    { name: 'Men T-Shirts', path: '/products?category=Men' },
-    { name: 'Women T-Shirts', path: '/products?category=Women' },
-    { name: 'Kids T-Shirts', path: '/products?category=Kids' },
-    { name: 'New Arrivals', path: '/products?filter=new' },
-    { name: 'Corporate Gifts', path: '/products?category=Corporate Giftings' },
-    { name: 'Bags & Accessories', path: '/products?category=Laptop Bags' },
-  ]
+  // Take first 6 categories for footer
+  const footerCategories = categories.slice(0, 6).map(cat => ({
+    name: cat.name,
+    path: cat.path
+  }))
 
   return (
     <footer className="bg-gray-100 pt-16 pb-8 px-4 md:px-0">
@@ -52,11 +51,11 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="space-y-6">
-            <h4 className="text-sm font-black tracking-widest text-black">ONLINE SHOPPING</h4>
+            <h4 className="text-sm font-black tracking-widest text-black underline decoration-accent decoration-2 underline-offset-4">ONLINE SHOPPING</h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-gray-600 text-sm hover:text-accent transition-colors">
+                  <Link to={link.path} className="text-gray-600 text-sm hover:text-accent transition-colors font-bold uppercase tracking-tight">
                     {link.name}
                   </Link>
                 </li>
@@ -66,11 +65,11 @@ const Footer = () => {
 
           {/* Categories */}
           <div className="space-y-6">
-             <h4 className="text-sm font-black tracking-widest text-black">CATEGORIES</h4>
+             <h4 className="text-sm font-black tracking-widest text-black underline decoration-accent decoration-2 underline-offset-4">CATEGORIES</h4>
              <ul className="space-y-3">
-               {categories.map((cat) => (
+               {footerCategories.map((cat) => (
                  <li key={cat.name}>
-                   <Link to={cat.path} className="text-gray-600 text-sm hover:text-accent transition-colors">
+                   <Link to={cat.path} className="text-gray-600 text-sm hover:text-accent transition-colors font-bold uppercase tracking-tight">
                      {cat.name}
                    </Link>
                  </li>
@@ -80,19 +79,19 @@ const Footer = () => {
 
           {/* Contact Details */}
           <div className="space-y-6">
-             <h4 className="text-sm font-black tracking-widest text-black">CONTACT US</h4>
+             <h4 className="text-sm font-black tracking-widest text-black underline decoration-accent decoration-2 underline-offset-4">CONTACT US</h4>
              <ul className="space-y-4">
-               <li className="flex items-start space-x-3 text-gray-600 text-sm">
+               <li className="flex items-start space-x-3 text-gray-600 text-sm font-bold">
                  <MapPin size={18} className="text-accent flex-shrink-0 mt-0.5" />
                  <span className="break-words">29/207-F1-8-4, SBI Colony, Revenue Ward -29, Nandyal – 518501</span>
                </li>
-               <li className="flex items-center space-x-3 text-gray-600 text-sm cursor-pointer hover:text-accent transition-colors">
+               <li className="flex items-center space-x-3 text-gray-600 text-sm font-bold cursor-pointer hover:text-accent transition-colors">
                  <Phone size={18} className="text-accent flex-shrink-0" />
                  <span>+91 9398292014</span>
                </li>
-               <li className="flex items-center space-x-3 text-gray-600 text-sm cursor-pointer hover:text-accent transition-colors overflow-hidden">
+               <li className="flex items-center space-x-3 text-gray-600 text-sm font-bold cursor-pointer hover:text-accent transition-colors overflow-hidden">
                  <Mail size={18} className="text-accent flex-shrink-0" />
-                 <span className="truncate">sreesaiapparels7@gmail.com</span>
+                 <span className="truncate">wearmingle@gmail.com</span>
                </li>
              </ul>
           </div>
@@ -100,7 +99,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-16 pt-8 border-t border-gray-200 text-center">
-          <p className="text-gray-500 text-xs">
+          <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">
             © {currentYear} Wear Mingle. All rights reserved. Designed by Srikanth.
           </p>
         </div>

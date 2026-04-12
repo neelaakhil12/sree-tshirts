@@ -1,23 +1,31 @@
 import React, { useState } from 'react'
-import { Plus, Edit2, Trash2, Search, X, Check, Upload, Image as ImageIcon } from 'lucide-react'
-import { products as initialProducts } from '../../data/products'
+import { Plus, Edit2, Trash2, Search, X, Check, Upload, Image as ImageIcon, Star } from 'lucide-react'
+import { useData } from '../../context/DataContext'
 
 const AdminProducts = () => {
-  const [products, setProducts] = useState(initialProducts)
+  const { products, setProducts, categories } = useData()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingProduct, setEditingProduct] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
 
   // Form State
-  const [newProduct, setNewProduct] = useState({
+  const [formProduct, setFormProduct] = useState({
     name: '',
-    category: 'Men',
+    category: 'Tshirts',
     price: '',
     originalPrice: '',
+    discount: '',
+    rating: 4.5,
+    reviews: 0,
     description: '',
-    sizes: ['S', 'M', 'L', 'XL'],
-    image: '/images/products/pure-cotton-bio-washed/black.png',
+    image: '',
+    sizes: [],
+    colors: [],
+    colorImages: {}
   })
+
+  const [tempSize, setTempSize] = useState('')
+  const [tempColor, setTempColor] = useState('')
 
   const filteredProducts = products.filter(p => 
     p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -26,15 +34,23 @@ const AdminProducts = () => {
 
   const handleCreateOrUpdate = (e) => {
     e.preventDefault()
+    
+    const productData = {
+      ...formProduct,
+      price: Number(formProduct.price),
+      originalPrice: Number(formProduct.originalPrice),
+      rating: Number(formProduct.rating),
+      reviews: Number(formProduct.reviews)
+    }
+
     if (editingProduct) {
-      setProducts(prev => prev.map(p => p.id === editingProduct.id ? { ...p, ...newProduct } : p))
+      setProducts(prev => prev.map(p => p.id === editingProduct.id ? { ...productData, id: p.id } : p))
       setEditingProduct(null)
     } else {
-      const id = products.length + 1
-      setProducts(prev => [{ ...newProduct, id, rating: 4.5, reviews: 0, discount: 'NEW' }, ...prev])
+      const id = Date.now()
+      setProducts(prev => [{ ...productData, id }, ...prev])
     }
-    setIsModalOpen(false)
-    setNewProduct({ name: '', category: 'Men', price: '', originalPrice: '', description: '', sizes: ['S', 'M', 'L', 'XL'], image: '' })
+    closeModal()
   }
 
   const handleDelete = (id) => {
@@ -45,8 +61,72 @@ const AdminProducts = () => {
 
   const openEdit = (product) => {
     setEditingProduct(product)
-    setNewProduct(product)
+    setFormProduct(product)
     setIsModalOpen(true)
+  }
+
+  const openAdd = () => {
+    setEditingProduct(null)
+    setFormProduct({
+      name: '',
+      category: 'Tshirts',
+      price: '',
+      originalPrice: '',
+      discount: '',
+      rating: 4.5,
+      reviews: 0,
+      description: '',
+      image: '',
+      sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+      colors: [],
+      colorImages: {}
+    })
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setEditingProduct(null)
+  }
+
+  // List Management
+  const addSize = () => {
+    if (tempSize && !formProduct.sizes.includes(tempSize)) {
+      setFormProduct({ ...formProduct, sizes: [...formProduct.sizes, tempSize] })
+      setTempSize('')
+    }
+  }
+
+  const removeSize = (size) => {
+    setFormProduct({ ...formProduct, sizes: formProduct.sizes.filter(s => s !== size) })
+  }
+
+  const addColor = () => {
+    if (tempColor && !formProduct.colors.includes(tempColor)) {
+      setFormProduct({ 
+        ...formProduct, 
+        colors: [...formProduct.colors, tempColor],
+        colorImages: { ...formProduct.colorImages, [tempColor]: '' }
+      })
+      setTempColor('')
+    }
+  }
+
+  const removeColor = (color) => {
+    const newColorImages = { ...formProduct.colorImages }
+    delete newColorImages[color]
+    setFormProduct({ 
+      ...formProduct, 
+      colors: formProduct.colors.filter(c => c !== color),
+      colorImages: newColorImages
+    })
+  }
+
+  const updateColorImage = (color, path) => {
+    setFormProduct({
+      ...formProduct,
+      colorImages: { ...formProduct.colorImages, [color]: path }
+    })
   }
 
   return (
@@ -64,7 +144,7 @@ const AdminProducts = () => {
              />
           </div>
           <button 
-            onClick={() => {setEditingProduct(null); setIsModalOpen(true)}}
+            onClick={openAdd}
             className="bg-black text-white px-10 py-4 font-black text-xs uppercase tracking-widest flex items-center space-x-3 shadow-xl hover:bg-accent transition-all"
           >
              <Plus size={18} />
@@ -80,7 +160,7 @@ const AdminProducts = () => {
                    <th className="px-8 py-6">PRODUCT</th>
                    <th className="px-8 py-6">CATEGORY</th>
                    <th className="px-8 py-6">PRICE</th>
-                   <th className="px-8 py-6">STATUS</th>
+                   <th className="px-8 py-6">RATING</th>
                    <th className="px-8 py-6 text-right">ACTIONS</th>
                 </tr>
              </thead>
@@ -89,7 +169,7 @@ const AdminProducts = () => {
                   <tr key={p.id} className="hover:bg-gray-50 transition-colors group">
                      <td className="px-8 py-4 flex items-center space-x-4">
                         <div className="w-14 h-14 bg-gray-100 overflow-hidden ring-2 ring-transparent group-hover:ring-accent transition-all">
-                           <img src={p.image} className="w-full h-full object-cover object-top" />
+                           <img src={p.image} className="w-full h-full object-contain" onError={(e) => e.target.src = 'https://via.placeholder.com/150'} />
                         </div>
                         <div>
                            <p className="text-sm font-black text-black">{p.name}</p>
@@ -102,13 +182,15 @@ const AdminProducts = () => {
                      <td className="px-8 py-4">
                          <div className="flex flex-col">
                             <span className="text-sm font-black text-black">₹{p.price}</span>
-                            <span className="text-[10px] text-gray-400 line-through">₹{p.originalPrice}</span>
+                            {p.originalPrice > p.price && (
+                              <span className="text-[10px] text-gray-400 line-through">₹{p.originalPrice}</span>
+                            )}
                          </div>
                      </td>
                      <td className="px-8 py-4">
-                        <div className="flex items-center space-x-2 text-green-500">
-                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                           <span className="text-[10px] font-black uppercase tracking-widest">In Stock</span>
+                        <div className="flex items-center space-x-1 text-yellow-500">
+                           <Star size={12} fill="currentColor" />
+                           <span className="text-xs font-black">{p.rating} ({p.reviews})</span>
                         </div>
                      </td>
                      <td className="px-8 py-4 text-right">
@@ -125,36 +207,30 @@ const AdminProducts = () => {
                 ))}
              </tbody>
           </table>
-          {filteredProducts.length === 0 && (
-            <div className="py-20 text-center space-y-4">
-               <ImageIcon size={48} className="mx-auto text-gray-200" />
-               <p className="text-sm font-black text-gray-400 uppercase tracking-widest">No products found matching your criteria</p>
-            </div>
-          )}
        </div>
 
-       {/* Modal - Add/Edit Product */}
+       {/* Modal - Full Field Access */}
        {isModalOpen && (
          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
-            <div className="bg-white max-w-2xl w-full max-h-[90vh] overflow-y-auto relative z-10 p-10 shadow-2xl animate-zoom-in rounded-none border-t-8 border-accent">
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeModal}></div>
+            <div className="bg-white max-w-4xl w-full max-h-[90vh] overflow-y-auto relative z-10 p-10 shadow-2xl rounded-none border-t-8 border-accent">
                 <div className="flex items-center justify-between mb-10 pb-6 border-b border-gray-100">
-                   <h3 className="text-2xl font-black uppercase tracking-tight">{editingProduct ? 'EDIT PRODUCT' : 'ADD NEW PRODUCT'}</h3>
-                   <button onClick={() => setIsModalOpen(false)} className="p-2 border border-gray-100 hover:bg-gray-50">
+                   <h3 className="text-2xl font-black uppercase tracking-tight">{editingProduct ? 'EDIT FULL DETAILS' : 'CREATE NEW PRODUCT'}</h3>
+                   <button onClick={closeModal} className="p-2 border border-gray-100 hover:bg-gray-50">
                       <X size={20} />
                    </button>
                 </div>
 
-                <form onSubmit={handleCreateOrUpdate} className="space-y-8">
+                <form onSubmit={handleCreateOrUpdate} className="space-y-12">
+                   {/* Row 1: Basic Info */}
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">PRODUCT NAME</label>
                          <input 
                            type="text" 
                            className="w-full bg-gray-50 border-none p-5 text-sm font-bold focus:ring-2 focus:ring-accent transition-all" 
-                           placeholder="Enter product title" 
-                           value={newProduct.name}
-                           onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}
+                           value={formProduct.name}
+                           onChange={(e) => setFormProduct({...formProduct, name: e.target.value})}
                            required
                          />
                       </div>
@@ -162,87 +238,114 @@ const AdminProducts = () => {
                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">CATEGORY</label>
                          <select 
                            className="w-full bg-gray-50 border-none p-5 text-sm font-bold focus:ring-2 focus:ring-accent transition-all"
-                           value={newProduct.category}
-                           onChange={(e) => setNewProduct({...newProduct, category: e.target.value})}
+                           value={formProduct.category}
+                           onChange={(e) => setFormProduct({...formProduct, category: e.target.value})}
                          >
-                            <option value="Men">Men</option>
-                            <option value="Women">Women</option>
-                            <option value="Kids">Kids</option>
-                            <option value="Tshirts">Tshirts</option>
-                            <option value="School uniform">School uniform</option>
-                            <option value="Hoodies">Hoodies</option>
-                            <option value="Caps">Caps</option>
-                            <option value="Tote Bags">Tote Bags</option>
-                            <option value="Diary">Diary</option>
-                            <option value="Pens">Pens</option>
-                            <option value="Bottle">Bottle</option>
-                            <option value="College/School Bag">College/School Bag</option>
-                            <option value="Laptop Bags">Laptop Bags</option>
-                            <option value="Corporate Giftings">Corporate Giftings</option>
+                            {categories.map(cat => (
+                              <option key={cat.id} value={cat.type || cat.name}>{cat.name}</option>
+                            ))}
                          </select>
                       </div>
                    </div>
 
+                   {/* Row 2: Pricing & Metrics */}
+                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                      <div className="space-y-2">
+                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">PRICE (₹)</label>
+                         <input type="number" className="w-full bg-gray-50 border-none p-5 text-sm font-bold" value={formProduct.price} onChange={(e) => setFormProduct({...formProduct, price: e.target.value})} required />
+                      </div>
+                      <div className="space-y-2">
+                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">MRP (₹)</label>
+                         <input type="number" className="w-full bg-gray-50 border-none p-5 text-sm font-bold" value={formProduct.originalPrice} onChange={(e) => setFormProduct({...formProduct, originalPrice: e.target.value})} required />
+                      </div>
+                      <div className="space-y-2">
+                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">DISCOUNT LABEL</label>
+                         <input type="text" className="w-full bg-gray-50 border-none p-5 text-sm font-bold" placeholder="e.g. 50% OFF" value={formProduct.discount} onChange={(e) => setFormProduct({...formProduct, discount: e.target.value})} />
+                      </div>
+                      <div className="space-y-2 flex gap-4">
+                         <div className="flex-1">
+                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">RATING</label>
+                            <input type="number" step="0.1" className="w-full bg-gray-50 border-none p-5 text-sm font-bold" value={formProduct.rating} onChange={(e) => setFormProduct({...formProduct, rating: e.target.value})} />
+                         </div>
+                         <div className="flex-1">
+                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">REVIEWS</label>
+                            <input type="number" className="w-full bg-gray-50 border-none p-5 text-sm font-bold" value={formProduct.reviews} onChange={(e) => setFormProduct({...formProduct, reviews: e.target.value})} />
+                         </div>
+                      </div>
+                   </div>
+
+                   {/* Row 3: Visual Assets */}
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
-                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">SELLING PRICE (₹)</label>
-                         <input 
-                           type="number" 
-                           className="w-full bg-gray-50 border-none p-5 text-sm font-bold focus:ring-2 focus:ring-accent transition-all" 
-                           placeholder="Price" 
-                           value={newProduct.price}
-                           onChange={(e) => setNewProduct({...newProduct, price: e.target.value})}
-                           required
-                         />
+                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">MAIN IMAGE URL</label>
+                          <input type="text" className="w-full bg-gray-50 border-none p-5 text-sm font-bold" value={formProduct.image} onChange={(e) => setFormProduct({...formProduct, image: e.target.value})} required />
                       </div>
                       <div className="space-y-2">
-                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">MRP / ORIGINAL PRICE (₹)</label>
-                         <input 
-                           type="number" 
-                           className="w-full bg-gray-50 border-none p-5 text-sm font-bold focus:ring-2 focus:ring-accent transition-all" 
-                           placeholder="Original Price" 
-                           value={newProduct.originalPrice}
-                           onChange={(e) => setNewProduct({...newProduct, originalPrice: e.target.value})}
-                           required
-                         />
+                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">DESCRIPTION</label>
+                          <textarea className="w-full bg-gray-50 border-none p-5 text-sm font-bold resize-none" rows="1" value={formProduct.description} onChange={(e) => setFormProduct({...formProduct, description: e.target.value})}></textarea>
                       </div>
                    </div>
 
-                   <div className="space-y-2">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">DESCRIPTION</label>
-                      <textarea 
-                        className="w-full bg-gray-50 border-none p-5 text-sm font-bold focus:ring-2 focus:ring-accent transition-all resize-none" 
-                        rows="4" 
-                        placeholder="Product description and details..."
-                        value={newProduct.description}
-                        onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}
-                        required
-                      ></textarea>
-                   </div>
+                   {/* Row 4: Lists/Variants */}
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-6 border-t border-gray-100">
+                      {/* Sizes */}
+                      <div className="space-y-4">
+                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">AVAILABLE SIZES</label>
+                         <div className="flex flex-wrap gap-2 mb-4">
+                            {formProduct.sizes.map(size => (
+                              <span key={size} className="bg-black text-white text-[10px] font-bold px-3 py-2 flex items-center gap-2">
+                                {size} <button type="button" onClick={() => removeSize(size)}><X size={12} /></button>
+                              </span>
+                            ))}
+                         </div>
+                         <div className="flex gap-2">
+                            <input type="text" className="flex-1 bg-gray-50 border-none p-3 text-sm font-bold" value={tempSize} onChange={(e) => setTempSize(e.target.value)} placeholder="e.g. XXL" />
+                            <button type="button" onClick={addSize} className="bg-gray-200 px-4 font-black text-[10px] uppercase">ADD</button>
+                         </div>
+                      </div>
 
-                   <div className="space-y-4">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block">IMAGE UPLOAD (SIMULATED)</label>
-                      <div className="border-2 border-dashed border-gray-200 p-10 text-center hover:border-accent transition-colors cursor-pointer group bg-gray-50">
-                         <Upload size={32} className="mx-auto text-gray-300 group-hover:text-accent mb-3" />
-                         <p className="text-xs font-black uppercase tracking-widest text-gray-400 group-hover:text-black">Drag and drop or click to upload</p>
-                         <p className="text-[10px] text-gray-400 mt-1 uppercase">Support: JPG, PNG (Max 5MB)</p>
-                         {newProduct.image && <p className="mt-4 text-[10px] font-black text-green-500 uppercase">✓ IMAGE SELECTED</p>}
+                      {/* Colors & colorImages */}
+                      <div className="space-y-4">
+                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">AVAILABLE COLORS</label>
+                         <div className="flex flex-wrap gap-2 mb-4">
+                            {formProduct.colors.map(color => (
+                              <span key={color} className="bg-accent text-white text-[10px] font-bold px-3 py-2 flex items-center gap-2">
+                                {color} <button type="button" onClick={() => removeColor(color)}><X size={12} /></button>
+                              </span>
+                            ))}
+                         </div>
+                         <div className="flex gap-2">
+                            <input type="text" className="flex-1 bg-gray-50 border-none p-3 text-sm font-bold" value={tempColor} onChange={(e) => setTempColor(e.target.value)} placeholder="e.g. Navy Blue" />
+                            <button type="button" onClick={addColor} className="bg-gray-200 px-4 font-black text-[10px] uppercase">ADD</button>
+                         </div>
                       </div>
                    </div>
 
-                   <div className="flex space-x-4 pt-10">
-                      <button 
-                        type="button" 
-                        onClick={() => setIsModalOpen(false)}
-                        className="flex-1 border-2 border-black border-opacity-10 py-5 font-black text-xs uppercase tracking-widest hover:bg-gray-50 transition-all"
-                      >
-                         CANCEL
-                      </button>
-                      <button 
-                        type="submit" 
-                        className="flex-1 bg-black text-white py-5 font-black text-xs uppercase tracking-widest hover:bg-accent transition-all shadow-xl"
-                      >
-                         {editingProduct ? 'SAVE CHANGES' : 'PUBLISH PRODUCT'}
+                   {/* Color specific Images Table */}
+                   {formProduct.colors.length > 0 && (
+                     <div className="space-y-4 pt-6">
+                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">COLOR SPECIFIC IMAGES</label>
+                        <div className="bg-gray-50 p-6 space-y-4">
+                           {formProduct.colors.map(color => (
+                             <div key={color} className="flex items-center gap-6">
+                                <span className="w-24 text-[10px] font-black uppercase text-gray-500">{color}</span>
+                                <input 
+                                  type="text" 
+                                  className="flex-1 bg-white border border-gray-100 p-3 text-xs font-bold" 
+                                  placeholder="Image Path..." 
+                                  value={formProduct.colorImages[color] || ''} 
+                                  onChange={(e) => updateColorImage(color, e.target.value)}
+                                />
+                             </div>
+                           ))}
+                        </div>
+                     </div>
+                   )}
+
+                   <div className="flex space-x-4 pt-10 border-t border-gray-100">
+                      <button type="button" onClick={closeModal} className="flex-1 border-2 border-black border-opacity-10 py-5 font-black text-xs uppercase tracking-widest">CANCEL</button>
+                      <button type="submit" className="flex-1 bg-black text-white py-5 font-black text-xs uppercase tracking-widest hover:bg-accent transition-all shadow-xl">
+                         {editingProduct ? 'UPDATE PRODUCT' : 'CREATE PRODUCT'}
                       </button>
                    </div>
                 </form>
