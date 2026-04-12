@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import { useData } from '../../context/DataContext'
 import { supabase } from '../../lib/supabase'
+import AdminSidebar from '../../components/admin/AdminSidebar'
 
 const AdminDashboard = () => {
   const { products, categories } = useData()
@@ -72,41 +73,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-100 flex flex-col fixed h-full z-20">
-        <div className="p-8 border-b border-gray-50">
-          <h1 className="text-xl font-black tracking-tighter uppercase">Mingle Admin</h1>
-        </div>
-        
-        <nav className="flex-1 p-4 space-y-2">
-          <Link to="/admin/dashboard" className="flex items-center space-x-3 p-3 bg-black text-white rounded-none font-black text-xs tracking-widest uppercase">
-            <TrendingUp size={16} />
-            <span>Dashboard</span>
-          </Link>
-          <Link to="/admin/products" className="flex items-center space-x-3 p-3 text-gray-500 hover:bg-gray-50 transition-all font-black text-xs tracking-widest uppercase">
-            <Package size={16} />
-            <span>Products</span>
-          </Link>
-          <Link to="/admin/categories" className="flex items-center space-x-3 p-3 text-gray-500 hover:bg-gray-50 transition-all font-black text-xs tracking-widest uppercase">
-            <Layers size={16} />
-            <span>Categories</span>
-          </Link>
-          <Link to="/admin/invoices" className="flex items-center space-x-3 p-3 text-gray-500 hover:bg-gray-50 transition-all font-black text-xs tracking-widest uppercase">
-            <FileText size={16} />
-            <span>Invoice Gen</span>
-          </Link>
-        </nav>
-
-        <div className="p-4 border-t border-gray-50">
-           <button 
-             onClick={handleLogout}
-             className="flex items-center space-x-3 p-3 text-red-500 hover:bg-red-50 w-full transition-all font-black text-xs tracking-widest uppercase"
-           >
-             <LogOut size={16} />
-             <span>Logout</span>
-           </button>
-        </div>
-      </aside>
+      <AdminSidebar />
 
       {/* Main Content */}
       <main className="flex-1 ml-64 p-12">

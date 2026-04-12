@@ -1,27 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { 
-  Plus, 
-  Search, 
-  Edit2, 
-  Trash2, 
-  Filter,
-  ExternalLink,
-  ChevronRight,
-  TrendingUp,
-  Package,
-  Layers,
-  X,
-  Save,
-  Loader2,
-  Upload,
-  Palette,
-  Ruler,
-  Tag,
-  ImagePlus
+  Plus, Search, Edit2, Trash2, Filter, ExternalLink, ChevronRight,
+  X, Save, Loader2, Upload, Palette, Ruler, Tag, ImagePlus
 } from 'lucide-react'
 import { useData } from '../../context/DataContext'
 import { supabase } from '../../lib/supabase'
+import AdminSidebar from '../../components/admin/AdminSidebar'
 
 const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
@@ -44,6 +29,7 @@ const ProductManager = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [editProduct, setEditProduct] = useState(null)
+  const [addModal, setAddModal] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
   const [imageUploading, setImageUploading] = useState(false)
@@ -289,26 +275,67 @@ const ProductManager = () => {
     }
   }
 
+  /* ── Add New Product ── */
+  const emptyNew = () => ({
+    name: '', category: '', description: '', image: '',
+    sizes: ['S','M','L','XL','XXL'], colors: [], colorImages: {},
+    features: [], measurementChart: { columns: ['S','M','L','XL','XXL'], rows: [] }
+  })
+  const [newProduct, setNewProduct] = useState(emptyNew())
+  const [newImageUploading, setNewImageUploading] = useState(false)
+
+  const handleNewImageUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setNewImageUploading(true)
+    try {
+      const url = await uploadToCloudinary(file)
+      setNewProduct(prev => ({ ...prev, image: url }))
+    } catch (err) { alert('Upload failed: ' + err.message) }
+    finally { setNewImageUploading(false) }
+  }
+
+  const handleAddProduct = async () => {
+    if (!newProduct.name.trim() || !newProduct.category.trim()) {
+      return alert('Please fill in at least Name and Category.')
+    }
+    setIsSaving(true)
+    try {
+      const nextId = Math.max(0, ...products.map(p => Number(p.id) || 0)) + 1
+      const payload = {
+        id: nextId,
+        name: newProduct.name.trim(),
+        category: newProduct.category.trim(),
+        description: newProduct.description || '',
+        image: newProduct.image || '',
+        price: 0, original_price: 0, rating: 4.5, reviews: 0,
+        sizes: newProduct.sizes || [],
+        colors: newProduct.colors || [],
+        color_images: newProduct.colorImages || {},
+        features: newProduct.features || [],
+        measurement_chart: newProduct.measurementChart || [],
+      }
+      const { error } = await supabase.from('products').insert([payload])
+      if (error) throw error
+      setProducts(prev => [...prev, {
+        ...payload,
+        originalPrice: 0,
+        colorImages: payload.color_images,
+        measurementChart: payload.measurement_chart,
+      }])
+      setAddModal(false)
+      setNewProduct(emptyNew())
+    } catch (err) {
+      alert('Error adding product: ' + err.message)
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
   /* ══════════════════════════════ RENDER ══════════════════════════════ */
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-100 flex flex-col fixed h-full z-20">
-        <div className="p-8 border-b border-gray-50">
-          <h1 className="text-xl font-black tracking-tighter uppercase">Mingle Admin</h1>
-        </div>
-        <nav className="flex-1 p-4 space-y-2">
-          <Link to="/admin/dashboard" className="flex items-center space-x-3 p-3 text-gray-500 hover:bg-gray-50 transition-all font-black text-xs tracking-widest uppercase">
-            <TrendingUp size={16} /><span>Dashboard</span>
-          </Link>
-          <Link to="/admin/products" className="flex items-center space-x-3 p-3 bg-black text-white font-black text-xs tracking-widest uppercase">
-            <Package size={16} /><span>Products</span>
-          </Link>
-          <span className="flex items-center space-x-3 p-3 text-gray-300 font-black text-xs tracking-widest uppercase cursor-not-allowed">
-            <Layers size={16} /><span>Categories</span>
-          </span>
-        </nav>
-      </aside>
+      <AdminSidebar />
 
       {/* Main */}
       <main className="flex-1 ml-64 p-12">
@@ -323,7 +350,9 @@ const ProductManager = () => {
               <h2 className="text-3xl font-black tracking-tighter uppercase">Product Catalog</h2>
               <p className="text-gray-400 text-xs font-bold tracking-widest uppercase mt-1">Total {products.length} Items</p>
             </div>
-            <button className="bg-black text-white px-8 h-12 flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all shadow-xl">
+            <button
+              onClick={() => setAddModal(true)}
+              className="bg-black text-white px-8 h-12 flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all shadow-xl">
               <Plus size={16} /><span>Add New Product</span>
             </button>
           </div>
@@ -644,6 +673,88 @@ const ProductManager = () => {
                   <span>{isSaving ? 'Saving...' : 'Save Changes'}</span>
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ════════════ ADD PRODUCT MODAL ════════════ */}
+      {addModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setAddModal(false)}>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div className="relative bg-white w-full max-w-lg shadow-2xl max-h-[90vh] flex flex-col" onClick={e => e.stopPropagation()}>
+
+            {/* Header */}
+            <div className="flex items-center justify-between px-8 py-6 border-b border-gray-100 flex-shrink-0">
+              <div>
+                <h3 className="text-lg font-black tracking-tighter uppercase">Add New Product</h3>
+                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">New product will sync to Supabase</p>
+              </div>
+              <button onClick={() => setAddModal(false)} className="p-2 hover:bg-gray-100 transition-all"><X size={20} /></button>
+            </div>
+
+            {/* Form */}
+            <div className="flex-1 overflow-y-auto p-8 space-y-5">
+
+              {/* Image Upload */}
+              <div>
+                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-3">Product Image</label>
+                <div className="flex items-start space-x-4">
+                  <div className="w-20 h-20 bg-gray-50 border-2 border-dashed border-gray-200 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                    {newProduct.image
+                      ? <img src={newProduct.image} alt="" className="w-full h-full object-contain mix-blend-multiply p-1" />
+                      : <ImagePlus size={24} className="text-gray-300" />}
+                  </div>
+                  <label className={`flex-1 flex items-center justify-center space-x-2 border-2 border-dashed border-gray-200 cursor-pointer hover:border-black transition-all py-5 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-black ${newImageUploading ? 'opacity-50' : ''}`}>
+                    {newImageUploading ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
+                    <span>{newImageUploading ? 'Uploading...' : 'Upload Image'}</span>
+                    <input type="file" accept="image/*" className="hidden" disabled={newImageUploading} onChange={handleNewImageUpload} />
+                  </label>
+                </div>
+              </div>
+
+              {/* Name */}
+              <div>
+                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-2">Product Name *</label>
+                <input type="text" value={newProduct.name}
+                  onChange={e => setNewProduct(p => ({...p, name: e.target.value}))}
+                  placeholder="e.g. Premium Cotton Round Neck T-shirt"
+                  className="w-full bg-gray-50 px-4 py-3 text-sm font-bold outline-none focus:ring-2 ring-black/10 border-none" />
+              </div>
+
+              {/* Category */}
+              <div>
+                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-2">Category *</label>
+                <input type="text" value={newProduct.category}
+                  onChange={e => setNewProduct(p => ({...p, category: e.target.value}))}
+                  placeholder="e.g. Polyester"
+                  className="w-full bg-gray-50 px-4 py-3 text-sm font-bold outline-none focus:ring-2 ring-black/10 border-none" />
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-2">Description</label>
+                <textarea rows={3} value={newProduct.description}
+                  onChange={e => setNewProduct(p => ({...p, description: e.target.value}))}
+                  placeholder="Short product description..."
+                  className="w-full bg-gray-50 px-4 py-3 text-sm font-semibold outline-none focus:ring-2 ring-black/10 border-none resize-none" />
+              </div>
+
+              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest bg-gray-50 px-4 py-3">
+                💡 After creating, open the Edit modal to add colors, features, and measurement chart.
+              </p>
+            </div>
+
+            {/* Footer */}
+            <div className="px-8 py-6 border-t border-gray-100 flex items-center justify-end space-x-4 flex-shrink-0">
+              <button onClick={() => setAddModal(false)} className="px-8 py-3 text-[10px] font-black uppercase tracking-widest border border-gray-200 hover:border-black transition-all">
+                Cancel
+              </button>
+              <button onClick={handleAddProduct} disabled={isSaving}
+                className="px-8 py-3 bg-black text-white text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all flex items-center space-x-3 disabled:opacity-50">
+                {isSaving ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
+                <span>{isSaving ? 'Creating...' : 'Create Product'}</span>
+              </button>
             </div>
           </div>
         </div>
