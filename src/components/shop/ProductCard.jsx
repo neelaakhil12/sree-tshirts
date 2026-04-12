@@ -51,9 +51,9 @@ Can you please provide more details about this product?`
         {/* Buy Now Button */}
         <button 
           onClick={handleBuyNow}
-          className="w-full mt-6 bg-black text-white py-4 text-[9px] font-black tracking-[0.2em] flex items-center justify-center space-x-2 hover:bg-accent transition-all active:scale-95 shadow-xl"
+          className="w-full mt-4 bg-black text-white py-2 text-[8px] font-black tracking-[0.2em] flex items-center justify-center space-x-2 hover:bg-accent transition-all active:scale-95 shadow-xl"
         >
-          <MessageCircle size={14} />
+          <MessageCircle size={12} />
           <span className="whitespace-nowrap uppercase">BUY NOW</span>
         </button>
       </div>
