@@ -10,13 +10,7 @@ const measurementChartData = [
 ]
 
 const getProductFeatures = (product) => {
-   const isPolo = product.name?.toLowerCase().includes('polo')
-   const isHoodie = product.name?.toLowerCase().includes('hoodie') || product.name?.toLowerCase().includes('zipper') || product.name?.toLowerCase().includes('sweatshirt')
-   
-   let material = "100% Polyester"
-   if (product.category?.toLowerCase().includes('cotton') || product.name?.toLowerCase().includes('cotton')) material = "100% Premium Cotton"
-   if (product.name?.toLowerCase().includes('polycotton')) material = "PolyCotton Blend"
-   if (isHoodie) material = "Premium Fleece / Cotton Blend"
+   const isPremium = product.name?.toLowerCase().includes('premium')
 
    return [
      { label: 'Material', value: 'Polyester' },
@@ -24,7 +18,7 @@ const getProductFeatures = (product) => {
      { label: 'Fit', value: 'Regular Fit' },
      { label: 'Sleeve Type', value: 'Half Sleeves' },
      { label: 'Usage', value: 'Ideal for Promotions, Events, Branding, and Gifting' },
-     { label: 'Customization', value: 'Sublimation (Only on white colour), DTF, screen printing can be done' },
+     { label: 'Customization', value: `Sublimation (Only on white colour), ${isPremium ? 'Embroidery, ' : ''}DTF, screen printing can be done` },
      { label: 'Fabric Properties', value: 'Lightweight, Breathable, and Quick-Dry' },
      { label: 'Durability', value: 'Wrinkle-Resistant & Fade-Resistant' },
      { label: 'Available Sizes', value: 'S, M, L, XL, XXL' },
@@ -43,6 +37,11 @@ const ProductDetailPage = () => {
   const [activeImage, setActiveImage] = useState('')
   const [isWishlisted, setIsWishlisted] = useState(false)
   const [error, setError] = useState('')
+
+  // Navigation Logic
+  const currentIndex = products.findIndex(p => p.id === parseInt(id))
+  const prevProduct = currentIndex > 0 ? products[currentIndex - 1] : null
+  const nextProduct = currentIndex < products.length - 1 ? products[currentIndex + 1] : null
 
   useEffect(() => {
     if (product) {
@@ -93,13 +92,47 @@ Color: ${selectedColor}`
 
   return (
     <div className="pt-32 pb-16 bg-white">
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4 py-4 text-[10px] font-black tracking-widest text-gray-400 flex items-center space-x-2">
-        <Link to="/" className="hover:text-black uppercase">Home</Link>
-        <ChevronRight size={10} />
-        <Link to="/products" className="hover:text-black uppercase">Products</Link>
-        <ChevronRight size={10} />
-        <span className="text-black uppercase">{product.name}</span>
+      {/* Navigation & Breadcrumbs Bar */}
+      <div className="container mx-auto px-4 md:px-0 mb-8 border-b border-gray-100 pb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center space-x-4">
+             <button 
+               onClick={() => navigate(-1)}
+               className="flex items-center space-x-2 text-[10px] font-black tracking-widest text-black hover:text-accent transition-all group border border-black/10 px-4 py-2 uppercase"
+             >
+                <ChevronRight size={14} className="rotate-180" />
+                <span>Back</span>
+             </button>
+             <div className="hidden sm:flex items-center space-x-2 text-[9px] font-black tracking-[0.2em] text-gray-400">
+                <Link to="/" className="hover:text-black uppercase">Home</Link>
+                <ChevronRight size={10} />
+                <Link to="/products" className="hover:text-black uppercase">Products</Link>
+                <ChevronRight size={10} />
+                <span className="text-black uppercase truncate max-w-[150px]">{product.name}</span>
+             </div>
+          </div>
+
+          <div className="flex items-center space-x-2">
+             {prevProduct && (
+               <Link 
+                 to={`/products/${prevProduct.id}`}
+                 className="flex items-center space-x-2 text-[10px] font-black tracking-widest text-gray-500 hover:text-black transition-all border border-gray-100 px-4 py-2 hover:border-black uppercase bg-gray-50/50"
+               >
+                  <ChevronRight size={14} className="rotate-180" />
+                  <span>Prev</span>
+               </Link>
+             )}
+             {nextProduct && (
+               <Link 
+                 to={`/products/${nextProduct.id}`}
+                 className="flex items-center space-x-2 text-[10px] font-black tracking-widest text-gray-500 hover:text-black transition-all border border-gray-100 px-4 py-2 hover:border-black uppercase bg-gray-50/50"
+               >
+                  <span>Next</span>
+                  <ChevronRight size={14} />
+               </Link>
+             )}
+          </div>
+        </div>
       </div>
 
       <div className="container mx-auto px-4 md:px-0">
@@ -136,7 +169,7 @@ Color: ${selectedColor}`
                        </div>
                     </div>
                     <span className="text-[10px] sm:text-[11px] font-black text-gray-400 uppercase tracking-widest border-l border-gray-200 pl-6">
-                       Verified {product.reviews} reviews
+                       {product.reviews} reviews
                     </span>
                  </div>
               </div>

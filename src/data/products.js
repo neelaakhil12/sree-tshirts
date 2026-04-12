@@ -69,7 +69,7 @@ export const products = [
   "reviews": 159,
   "category": "Polyester",
   "image": "/images/products/premium/red.png",
-  "description": "140 GSM. Premium Polyester Round Neck T-shirt. XXL - 10rs extra.",
+  "description": "Premium Polyester Round Neck T-shirt 140 GSM",
   "sizes": [
    "S",
    "M",
