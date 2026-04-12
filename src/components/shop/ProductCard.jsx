@@ -32,11 +32,6 @@ Can you please provide more details about this product?`
           </div>
         )}
 
-        {/* Category Badge */}
-        <div className="absolute top-4 right-0 bg-black text-white px-3 py-1 text-[8px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">
-           {product.category}
-        </div>
-
         {/* Wishlist Button */}
         <div className="absolute bottom-4 right-4 w-10 h-10 bg-white shadow-xl flex items-center justify-center rounded-none text-gray-400 hover:text-red-500 transform translate-y-16 group-hover:translate-y-0 transition-all duration-500">
            <Heart size={16} />
@@ -57,13 +52,6 @@ Can you please provide more details about this product?`
            <h3 className="text-xs font-black text-black uppercase leading-tight group-hover:text-accent transition-colors line-clamp-2">
               {product.name}
            </h3>
-
-           <div className="flex items-center space-x-2 pt-2">
-              <span className="text-sm font-black text-black">₹{product.price}</span>
-              {product.originalPrice > product.price && (
-                <span className="text-[10px] text-gray-300 line-through">₹{product.originalPrice}</span>
-              )}
-           </div>
         </div>
         
         {/* Buy Now Button */}
@@ -72,7 +60,7 @@ Can you please provide more details about this product?`
           className="w-full mt-6 bg-black text-white py-4 text-[9px] font-black tracking-[0.2em] flex items-center justify-center space-x-2 hover:bg-accent transition-all active:scale-95 shadow-xl"
         >
           <MessageCircle size={14} />
-          <span className="whitespace-nowrap">QUICK INQUIRY</span>
+          <span className="whitespace-nowrap uppercase">BUY NOW</span>
         </button>
       </div>
     </div>

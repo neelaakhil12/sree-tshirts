@@ -140,13 +140,6 @@ Color: ${selectedColor}`
                        Verified {product.reviews} reviews
                     </span>
                  </div>
-
-                 <div className="flex items-center space-x-4 pt-4">
-                    <span className="text-3xl font-black text-black">₹{product.price}</span>
-                    {product.originalPrice > product.price && (
-                       <span className="text-lg font-bold text-gray-300 line-through">₹{product.originalPrice}</span>
-                    )}
-                 </div>
               </div>
 
              {/* Color Selection */}
@@ -216,7 +209,7 @@ Color: ${selectedColor}`
                   className="flex-1 bg-black text-white px-8 h-16 font-black tracking-[0.2em] flex items-center justify-center space-x-4 hover:bg-accent transition-all shadow-2xl active:scale-95 text-xs"
                 >
                    <MessageCircle size={20} />
-                   <span>INQUIRE ON WHATSAPP</span>
+                   <span>BUY NOW ON WHATSAPP</span>
                 </button>
                 <button 
                   onClick={() => setIsWishlisted(!isWishlisted)}
@@ -273,7 +266,7 @@ Color: ${selectedColor}`
                                   <th>L</th>
                                   <th>XL</th>
                                   <th>XXL</th>
-                               </tr>
+                                </tr>
                             </thead>
                             <tbody className="divide-y divide-white/5">
                                {measurementChartData.map(row => (
