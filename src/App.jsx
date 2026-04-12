@@ -8,18 +8,10 @@ import ProductsPage from './pages/ProductsPage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
-import AdminLayout from './components/admin/AdminLayout'
-import AdminDashboard from './pages/admin/AdminDashboard'
-import AdminProducts from './pages/admin/AdminProducts'
-import AdminCategories from './pages/admin/AdminCategories'
-import AdminInvoice from './pages/admin/AdminInvoice'
-import AdminLogin from './pages/admin/AdminLogin'
 import { DataProvider } from './context/DataContext'
 
 function App() {
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false)
   const location = useLocation()
-  const isAdminPath = location.pathname.startsWith('/admin')
 
   // Scroll to top on route change
   useEffect(() => {
@@ -29,7 +21,7 @@ function App() {
   return (
     <DataProvider>
       <div className="flex flex-col min-h-screen">
-        {!isAdminPath && <Navbar />}
+        <Navbar />
         
         <main className="flex-grow">
           <Routes>
@@ -38,20 +30,11 @@ function App() {
             <Route path="/products/:id" element={<ProductDetailPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            
-            {/* Admin Routes */}
-            <Route path="/admin/login" element={<AdminLogin setIsAdminLoggedIn={setIsAdminLoggedIn} />} />
-            <Route path="/admin" element={<AdminLayout isLoggedIn={isAdminLoggedIn} />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="products" element={<AdminProducts />} />
-              <Route path="categories" element={<AdminCategories />} />
-              <Route path="invoice" element={<AdminInvoice />} />
-            </Route>
           </Routes>
         </main>
 
-        {!isAdminPath && <Footer />}
-        {!isAdminPath && <WhatsAppButton />}
+        <Footer />
+        <WhatsAppButton />
       </div>
     </DataProvider>
   )
