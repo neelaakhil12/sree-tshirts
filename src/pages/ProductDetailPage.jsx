@@ -3,28 +3,26 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { MessageCircle, Heart, Share2, Star, Check, ShieldCheck, ChevronRight } from 'lucide-react'
 import { useData } from '../context/DataContext'
 
-const measurementChartData = [
-  { id: 1, name: 'Chest', s: 19, m: 20, l: 21, xl: 22, xxl: 23 },
-  { id: 2, name: 'Length', s: 26, m: 27, l: 28, xl: 29, xxl: 30 },
-  { id: 3, name: 'Shoulder', s: 17.5, m: 18.5, l: 19.5, xl: 20.5, xxl: 21.5 }
+// Default features shown if none are set in the admin panel
+const DEFAULT_FEATURES = [
+  { label: 'Material', value: 'Polyester' },
+  { label: 'Neck Type', value: 'Round Neck' },
+  { label: 'Fit', value: 'Regular Fit' },
+  { label: 'Sleeve Type', value: 'Half Sleeves' },
+  { label: 'Usage', value: 'Ideal for Promotions, Events, Branding, and Gifting' },
+  { label: 'Customization', value: 'Sublimation (Only on white colour), DTF, screen printing can be done' },
+  { label: 'Fabric Properties', value: 'Lightweight, Breathable, and Quick-Dry' },
+  { label: 'Durability', value: 'Wrinkle-Resistant & Fade-Resistant' },
+  { label: 'Available Sizes', value: 'S, M, L, XL, XXL' },
+  { label: 'Color Options', value: 'Multiple Colors Available' },
 ]
 
-const getProductFeatures = (product) => {
-   const isPremium = product.name?.toLowerCase().includes('premium')
-
-   return [
-     { label: 'Material', value: 'Polyester' },
-     { label: 'Neck Type', value: 'Round Neck' },
-     { label: 'Fit', value: 'Regular Fit' },
-     { label: 'Sleeve Type', value: 'Half Sleeves' },
-     { label: 'Usage', value: 'Ideal for Promotions, Events, Branding, and Gifting' },
-     { label: 'Customization', value: `Sublimation (Only on white colour), ${isPremium ? 'Embroidery, ' : ''}DTF, screen printing can be done` },
-     { label: 'Fabric Properties', value: 'Lightweight, Breathable, and Quick-Dry' },
-     { label: 'Durability', value: 'Wrinkle-Resistant & Fade-Resistant' },
-     { label: 'Available Sizes', value: 'S, M, L, XL, XXL' },
-     { label: 'Color Options', value: 'Multiple Colors Available' },
-   ]
-}
+// Default measurement chart shown if none is set
+const DEFAULT_CHART = [
+  { name: 'Chest', s: 19, m: 20, l: 21, xl: 22, xxl: 23 },
+  { name: 'Length', s: 26, m: 27, l: 28, xl: 29, xxl: 30 },
+  { name: 'Shoulder', s: 17.5, m: 18.5, l: 19.5, xl: 20.5, xxl: 21.5 },
+]
 
 const ProductDetailPage = () => {
   const { id } = useParams()
@@ -261,17 +259,17 @@ Color: ${selectedColor}`
                 </p>
              </div>
 
-             {/* Features List - RESTORED ORIGINAL FORMAT */}
-             <div className="space-y-6 pt-10 border-t border-gray-100">
-                <h3 className="text-sm font-black text-black underline decoration-black underline-offset-4">Features :-</h3>
-                <ul className="space-y-2 list-disc pl-5">
-                   {getProductFeatures(product).map((feature, idx) => (
-                      <li key={idx} className="text-xs font-black text-gray-700 tracking-tight">
-                         <span className="text-black">{feature.label}:</span> {feature.value}
-                      </li>
-                   ))}
-                </ul>
-             </div>
+              {/* Features List - Uses admin-set features, falls back to default */}
+              <div className="space-y-6 pt-10 border-t border-gray-100">
+                 <h3 className="text-sm font-black text-black underline decoration-black underline-offset-4">Features :-</h3>
+                 <ul className="space-y-2 list-disc pl-5">
+                    {(product.features?.length > 0 ? product.features : DEFAULT_FEATURES).map((feature, idx) => (
+                       <li key={idx} className="text-xs font-black text-gray-700 tracking-tight">
+                          <span className="text-black">{feature.label}:</span> {feature.value}
+                       </li>
+                    ))}
+                 </ul>
+              </div>
 
              {/* Measurement Chart - RESTORED ORIGINAL FORMAT */}
              <div className="pt-12 border-t border-gray-100">
@@ -317,19 +315,19 @@ Color: ${selectedColor}`
                                     <th className="py-4 font-black px-4">XXL</th>
                                   </tr>
                               </thead>
-                              <tbody className="divide-y divide-white/20">
-                                 {measurementChartData.map((row, idx) => (
-                                    <tr key={row.id}>
-                                       <td className="py-4 border-r border-white/20 font-medium">{idx + 1}</td>
-                                       <td className="py-4 border-r border-white/20 text-left pl-4 font-medium">{row.name.toUpperCase()}</td>
-                                       <td className="py-4 border-r border-white/20 font-medium">{row.s}</td>
-                                       <td className="py-4 border-r border-white/20 font-medium">{row.m}</td>
-                                       <td className="py-4 border-r border-white/20 font-medium">{row.l}</td>
-                                       <td className="py-4 border-r border-white/20 font-medium">{row.xl}</td>
-                                       <td className="py-4 font-medium">{row.xxl}</td>
-                                    </tr>
-                                 ))}
-                              </tbody>
+                               <tbody className="divide-y divide-white/20">
+                                  {(product.measurementChart?.length > 0 ? product.measurementChart : DEFAULT_CHART).map((row, idx) => (
+                                     <tr key={idx}>
+                                        <td className="py-4 border-r border-white/20 font-medium">{idx + 1}</td>
+                                        <td className="py-4 border-r border-white/20 text-left pl-4 font-medium">{String(row.name).toUpperCase()}</td>
+                                        <td className="py-4 border-r border-white/20 font-medium">{row.s}</td>
+                                        <td className="py-4 border-r border-white/20 font-medium">{row.m}</td>
+                                        <td className="py-4 border-r border-white/20 font-medium">{row.l}</td>
+                                        <td className="py-4 border-r border-white/20 font-medium">{row.xl}</td>
+                                        <td className="py-4 font-medium">{row.xxl}</td>
+                                     </tr>
+                                  ))}
+                               </tbody>
                            </table>
                          </div>
 

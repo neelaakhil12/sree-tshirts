@@ -5,22 +5,49 @@ import {
   Search, 
   Edit2, 
   Trash2, 
-  ChevronLeft, 
   Filter,
-  MoreVertical,
   ExternalLink,
   ChevronRight,
   TrendingUp,
   Package,
-  Layers
+  Layers,
+  X,
+  Save,
+  Loader2,
+  Upload,
+  Palette,
+  Ruler,
+  Tag,
+  ImagePlus
 } from 'lucide-react'
 import { useData } from '../../context/DataContext'
 import { supabase } from '../../lib/supabase'
+
+const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`
+const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
+
+const uploadToCloudinary = async (file) => {
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('upload_preset', UPLOAD_PRESET)
+  const res = await fetch(CLOUDINARY_URL, { method: 'POST', body: formData })
+  const data = await res.json()
+  if (data.error) throw new Error(data.error.message)
+  return data.secure_url
+}
+
+/* ─────────── TABS ─────────── */
+const TABS = ['Basic Info', 'Colors', 'Features', 'Measurement Chart']
 
 const ProductManager = () => {
   const { products, setProducts, categories, isLoaded } = useData()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const [editProduct, setEditProduct] = useState(null)
+  const [isSaving, setIsSaving] = useState(false)
+  const [activeTab, setActiveTab] = useState(0)
+  const [imageUploading, setImageUploading] = useState(false)
+  const [colorImageUploading, setColorImageUploading] = useState(null)
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -29,170 +56,506 @@ const ProductManager = () => {
   })
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
+    if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         const { error } = await supabase.from('products').delete().eq('id', id)
         if (error) throw error
-        
-        // Update local state immediately
         setProducts(prev => prev.filter(p => p.id !== id))
-        alert('Product deleted successfully.')
       } catch (err) {
         alert('Error deleting product: ' + err.message)
       }
     }
   }
 
-  const handleEdit = (product) => {
-    alert(`Edit Mode: You are now editing "${product.name}". (Full Edit Modal coming in next update)`)
+  const handleEditOpen = (product) => {
+    setEditProduct({
+      ...product,
+      features: product.features || [
+        { label: 'Material', value: 'Polyester' },
+        { label: 'Neck Type', value: 'Round Neck' },
+        { label: 'Fit', value: 'Regular Fit' },
+        { label: 'Sleeve Type', value: 'Half Sleeves' },
+      ],
+      measurementChart: product.measurementChart || [
+        { name: 'Chest',    s: 19, m: 20, l: 21, xl: 22, xxl: 23 },
+        { name: 'Length',   s: 26, m: 27, l: 28, xl: 29, xxl: 30 },
+        { name: 'Shoulder', s: 17.5, m: 18.5, l: 19.5, xl: 20.5, xxl: 21.5 },
+      ],
+      colors: product.colors || [],
+      colorImages: product.colorImages || {},
+    })
+    setActiveTab(0)
   }
 
+  /* ── Main image upload ── */
+  const handleMainImageUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setImageUploading(true)
+    try {
+      const url = await uploadToCloudinary(file)
+      setEditProduct(prev => ({ ...prev, image: url }))
+    } catch (err) {
+      alert('Image upload failed: ' + err.message)
+    } finally {
+      setImageUploading(false)
+    }
+  }
+
+  /* ── Color image upload ── */
+  const handleColorImageUpload = async (e, colorName) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setColorImageUploading(colorName)
+    try {
+      const url = await uploadToCloudinary(file)
+      setEditProduct(prev => ({
+        ...prev,
+        colorImages: { ...prev.colorImages, [colorName]: url }
+      }))
+    } catch (err) {
+      alert('Color image upload failed: ' + err.message)
+    } finally {
+      setColorImageUploading(null)
+    }
+  }
+
+  /* ── Add new color ── */
+  const addColor = () => {
+    const name = prompt('Enter color name (e.g. "Dark Green"):')
+    if (!name || !name.trim()) return
+    const color = name.trim()
+    if (editProduct.colors.includes(color)) return alert('Color already exists.')
+    setEditProduct(prev => ({
+      ...prev,
+      colors: [...prev.colors, color],
+    }))
+  }
+
+  const removeColor = (color) => {
+    setEditProduct(prev => {
+      const ci = { ...prev.colorImages }
+      delete ci[color]
+      return {
+        ...prev,
+        colors: prev.colors.filter(c => c !== color),
+        colorImages: ci,
+      }
+    })
+  }
+
+  /* ── Features ── */
+  const updateFeature = (index, key, value) => {
+    const updated = [...editProduct.features]
+    updated[index] = { ...updated[index], [key]: value }
+    setEditProduct(prev => ({ ...prev, features: updated }))
+  }
+
+  const addFeature = () => {
+    setEditProduct(prev => ({
+      ...prev,
+      features: [...prev.features, { label: '', value: '' }]
+    }))
+  }
+
+  const removeFeature = (index) => {
+    setEditProduct(prev => ({
+      ...prev,
+      features: prev.features.filter((_, i) => i !== index)
+    }))
+  }
+
+  /* ── Measurement Chart ── */
+  const updateChartRow = (index, col, value) => {
+    const updated = [...editProduct.measurementChart]
+    updated[index] = { ...updated[index], [col]: value }
+    setEditProduct(prev => ({ ...prev, measurementChart: updated }))
+  }
+
+  const addChartRow = () => {
+    setEditProduct(prev => ({
+      ...prev,
+      measurementChart: [...prev.measurementChart, { name: '', s: '', m: '', l: '', xl: '', xxl: '' }]
+    }))
+  }
+
+  const removeChartRow = (index) => {
+    setEditProduct(prev => ({
+      ...prev,
+      measurementChart: prev.measurementChart.filter((_, i) => i !== index)
+    }))
+  }
+
+  /* ── Save ── */
+  const handleEditSave = async () => {
+    setIsSaving(true)
+    try {
+      const payload = {
+        id: editProduct.id,
+        name: editProduct.name,
+        category: editProduct.category,
+        image: editProduct.image,
+        description: editProduct.description || '',
+        rating: parseFloat(editProduct.rating) || 4.5,
+        reviews: parseInt(editProduct.reviews) || 0,
+        sizes: editProduct.sizes || [],
+        colors: editProduct.colors || [],
+        color_images: editProduct.colorImages || {},
+        features: editProduct.features || [],
+        measurement_chart: editProduct.measurementChart || [],
+      }
+
+      const { error } = await supabase.from('products').update(payload).eq('id', editProduct.id)
+      if (error) throw error
+
+      setProducts(prev => prev.map(p =>
+        p.id === editProduct.id
+          ? { ...p, ...editProduct }
+          : p
+      ))
+      setEditProduct(null)
+    } catch (err) {
+      alert('Error saving: ' + err.message)
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  /* ══════════════════════════════ RENDER ══════════════════════════════ */
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar - Same as Dashboard */}
+      {/* Sidebar */}
       <aside className="w-64 bg-white border-r border-gray-100 flex flex-col fixed h-full z-20">
         <div className="p-8 border-b border-gray-50">
           <h1 className="text-xl font-black tracking-tighter uppercase">Mingle Admin</h1>
         </div>
-        
         <nav className="flex-1 p-4 space-y-2">
           <Link to="/admin/dashboard" className="flex items-center space-x-3 p-3 text-gray-500 hover:bg-gray-50 transition-all font-black text-xs tracking-widest uppercase">
-            <TrendingUp size={16} />
-            <span>Dashboard</span>
+            <TrendingUp size={16} /><span>Dashboard</span>
           </Link>
-          <Link to="/admin/products" className="flex items-center space-x-3 p-3 bg-black text-white rounded-none font-black text-xs tracking-widest uppercase shadow-lg">
-            <Package size={16} />
-            <span>Products</span>
+          <Link to="/admin/products" className="flex items-center space-x-3 p-3 bg-black text-white font-black text-xs tracking-widest uppercase">
+            <Package size={16} /><span>Products</span>
           </Link>
-          <Link to="/admin/categories" className="flex items-center space-x-3 p-3 text-gray-400 font-black text-xs tracking-widest uppercase hover:bg-gray-50 transition-all opacity-50 cursor-not-allowed">
-            <Layers size={16} />
-            <span>Categories</span>
-          </Link>
+          <span className="flex items-center space-x-3 p-3 text-gray-300 font-black text-xs tracking-widest uppercase cursor-not-allowed">
+            <Layers size={16} /><span>Categories</span>
+          </span>
         </nav>
       </aside>
 
-      {/* Main Content */}
+      {/* Main */}
       <main className="flex-1 ml-64 p-12">
         <div className="mb-12">
-           <div className="flex items-center text-[10px] font-black tracking-widest text-gray-400 uppercase mb-4 space-x-2">
-              <Link to="/admin/dashboard" className="hover:text-black">Dashboard</Link>
-              <ChevronRight size={10} />
-              <span className="text-black">Products</span>
-           </div>
-           <div className="flex justify-between items-end">
-              <div>
-                <h2 className="text-3xl font-black tracking-tighter uppercase">Product Catalog</h2>
-                <p className="text-gray-400 text-xs font-bold tracking-widest uppercase mt-1">Total {products.length} Items Listed</p>
-              </div>
-              <button className="bg-black text-white px-8 h-12 flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all shadow-xl">
-                 <Plus size={16} />
-                 <span>Add New Product</span>
-              </button>
-           </div>
+          <div className="flex items-center text-[10px] font-black tracking-widest text-gray-400 uppercase mb-4 space-x-2">
+            <Link to="/admin/dashboard" className="hover:text-black">Dashboard</Link>
+            <ChevronRight size={10} />
+            <span className="text-black">Products</span>
+          </div>
+          <div className="flex justify-between items-end">
+            <div>
+              <h2 className="text-3xl font-black tracking-tighter uppercase">Product Catalog</h2>
+              <p className="text-gray-400 text-xs font-bold tracking-widest uppercase mt-1">Total {products.length} Items</p>
+            </div>
+            <button className="bg-black text-white px-8 h-12 flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all shadow-xl">
+              <Plus size={16} /><span>Add New Product</span>
+            </button>
+          </div>
         </div>
 
-        {/* Filters & Actions Bar */}
+        {/* Filters */}
         <div className="bg-white border border-gray-100 p-6 flex flex-col md:flex-row gap-4 mb-8">
-           <div className="flex-1 relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
-              <input 
-                type="text"
-                placeholder="Search products by name..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-gray-50 border-none px-12 py-3 text-sm font-semibold focus:bg-white focus:ring-1 ring-black/5 outline-none transition-all"
-              />
-           </div>
-           <div className="flex items-center space-x-4">
-              <div className="relative group">
-                 <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" size={16} />
-                 <select 
-                   value={selectedCategory}
-                   onChange={(e) => setSelectedCategory(e.target.value)}
-                   className="bg-gray-50 border-none pl-12 pr-10 py-3 text-[10px] font-black uppercase tracking-widest focus:bg-white focus:ring-1 ring-black/5 outline-none appearance-none cursor-pointer"
-                 >
-                    <option value="All">All Categories</option>
-                    {categories.map(cat => (
-                      <option key={cat.id} value={cat.type}>{cat.name}</option>
-                    ))}
-                 </select>
-              </div>
-           </div>
+          <div className="flex-1 relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
+            <input type="text" placeholder="Search products..." value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              className="w-full bg-gray-50 border-none px-12 py-3 text-sm font-semibold outline-none transition-all" />
+          </div>
+          <div className="relative">
+            <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" size={16} />
+            <select value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)}
+              className="bg-gray-50 border-none pl-12 pr-10 py-3 text-[10px] font-black uppercase tracking-widest outline-none appearance-none cursor-pointer">
+              <option value="All">All Categories</option>
+              {categories.map(cat => <option key={cat.id} value={cat.type}>{cat.name}</option>)}
+            </select>
+          </div>
         </div>
 
-        {/* Product Table */}
+        {/* Table */}
         <div className="bg-white border border-gray-100 shadow-sm overflow-hidden">
-           <table className="w-full text-left">
-              <thead>
-                 <tr className="bg-gray-50 border-b border-gray-100">
-                    <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-gray-400">Product</th>
-                    <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-gray-400">Category</th>
-                    <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-gray-400 text-right">Actions</th>
-                 </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                 {!isLoaded ? (
-                   <tr>
-                      <td colSpan="3" className="px-8 py-20 text-center text-xs font-black text-gray-300 uppercase animate-pulse">
-                         Loading Catalog Details...
-                      </td>
-                   </tr>
-                 ) : filteredProducts.length === 0 ? (
-                   <tr>
-                      <td colSpan="3" className="px-8 py-20 text-center text-xs font-black text-gray-300 uppercase">
-                         No products found matching your search.
-                      </td>
-                   </tr>
-                 ) : (
-                   filteredProducts.map(product => (
-                     <tr key={product.id} className="hover:bg-gray-50 transition-colors group">
-                       <td className="px-8 py-6">
-                          <div className="flex items-center space-x-4">
-                             <div className="w-12 h-12 bg-gray-50 border border-gray-100 p-1">
-                                <img src={product.image} alt="" className="w-full h-full object-contain mix-blend-multiply" />
-                             </div>
-                             <div>
-                                <h4 className="text-xs font-black uppercase tracking-tight text-gray-900">{product.name}</h4>
-                                <p className="text-[10px] text-gray-400 font-bold tracking-widest uppercase mt-1">ID: #{product.id}</p>
-                             </div>
-                          </div>
-                       </td>
-                       <td className="px-8 py-6">
-                          <span className="text-[10px] font-black bg-gray-100 px-3 py-1 uppercase tracking-widest text-gray-500">
-                             {product.category}
-                          </span>
-                       </td>
-                       <td className="px-8 py-6">
-                          <div className="flex items-center justify-end space-x-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                              <button 
-                                onClick={() => handleEdit(product)}
-                                className="p-2 text-gray-400 hover:text-black hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-gray-100"
-                              >
-                                 <Edit2 size={16} />
-                              </button>
-                             <button 
-                               onClick={() => handleDelete(product.id)}
-                               className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all"
-                             >
-                                <Trash2 size={16} />
-                             </button>
-                             <div className="h-4 w-[1px] bg-gray-200"></div>
-                             <Link 
-                               to={`/products/${product.id}`}
-                               target="_blank"
-                               className="p-2 text-gray-400 hover:text-blue-500 transition-all"
-                             >
-                                <ExternalLink size={16} />
-                             </Link>
-                          </div>
-                       </td>
-                     </tr>
-                   ))
-                 )}
-              </tbody>
-           </table>
+          <table className="w-full text-left">
+            <thead>
+              <tr className="bg-gray-50 border-b border-gray-100">
+                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-gray-400">Product</th>
+                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-gray-400">Category</th>
+                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-gray-400 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-50">
+              {!isLoaded ? (
+                <tr><td colSpan="3" className="px-8 py-20 text-center text-xs font-black text-gray-300 uppercase animate-pulse">Loading Catalog...</td></tr>
+              ) : filteredProducts.length === 0 ? (
+                <tr><td colSpan="3" className="px-8 py-20 text-center text-xs font-black text-gray-300 uppercase">No products found.</td></tr>
+              ) : (
+                filteredProducts.map(product => (
+                  <tr key={product.id} className="hover:bg-gray-50 transition-colors group">
+                    <td className="px-8 py-6">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-gray-50 border border-gray-100 p-1 flex-shrink-0">
+                          <img src={product.image} alt="" className="w-full h-full object-contain mix-blend-multiply" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-black uppercase tracking-tight text-gray-900">{product.name}</h4>
+                          <p className="text-[10px] text-gray-400 font-bold tracking-widest uppercase mt-1">ID: #{product.id}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-8 py-6">
+                      <span className="text-[10px] font-black bg-gray-100 px-3 py-1 uppercase tracking-widest text-gray-500">{product.category}</span>
+                    </td>
+                    <td className="px-8 py-6">
+                      <div className="flex items-center justify-end space-x-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button onClick={() => handleEditOpen(product)} className="p-2 text-gray-400 hover:text-black hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-gray-100">
+                          <Edit2 size={16} />
+                        </button>
+                        <button onClick={() => handleDelete(product.id)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all">
+                          <Trash2 size={16} />
+                        </button>
+                        <div className="h-4 w-[1px] bg-gray-200"></div>
+                        <Link to={`/products/${product.id}`} target="_blank" className="p-2 text-gray-400 hover:text-blue-500 transition-all">
+                          <ExternalLink size={16} />
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
       </main>
+
+      {/* ════════════════ EDIT MODAL ════════════════ */}
+      {editProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setEditProduct(null)}>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div className="relative bg-white w-full max-w-3xl max-h-[92vh] flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
+
+            {/* Header */}
+            <div className="flex items-center justify-between px-8 py-6 border-b border-gray-100 flex-shrink-0">
+              <div>
+                <h3 className="text-lg font-black tracking-tighter uppercase">Edit Product</h3>
+                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">ID #{editProduct.id} • {editProduct.name}</p>
+              </div>
+              <button onClick={() => setEditProduct(null)} className="p-2 hover:bg-gray-100 transition-all rounded-sm"><X size={20} /></button>
+            </div>
+
+            {/* Tabs */}
+            <div className="flex border-b border-gray-100 flex-shrink-0">
+              {TABS.map((tab, i) => (
+                <button key={i} onClick={() => setActiveTab(i)}
+                  className={`px-6 py-4 text-[10px] font-black uppercase tracking-widest transition-all border-b-2 flex items-center space-x-2
+                    ${activeTab === i ? 'border-black text-black' : 'border-transparent text-gray-400 hover:text-gray-600'}`}>
+                  {i === 0 && <Tag size={12} />}
+                  {i === 1 && <Palette size={12} />}
+                  {i === 2 && <Tag size={12} />}
+                  {i === 3 && <Ruler size={12} />}
+                  <span>{tab}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Tab Content */}
+            <div className="flex-1 overflow-y-auto p-8">
+
+              {/* ── TAB 0: Basic Info ── */}
+              {activeTab === 0 && (
+                <div className="space-y-6">
+                  {/* Main Image Upload */}
+                  <div>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-3">Main Product Image</label>
+                    <div className="flex items-start space-x-6">
+                      <div className="w-24 h-24 bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center flex-shrink-0">
+                        {editProduct.image
+                          ? <img src={editProduct.image} alt="" className="w-full h-full object-contain mix-blend-multiply p-2" />
+                          : <ImagePlus size={28} className="text-gray-300" />
+                        }
+                      </div>
+                      <div className="flex-1 space-y-3">
+                        <label className={`flex items-center space-x-3 px-6 py-3 border-2 border-dashed border-gray-200 cursor-pointer hover:border-black transition-all w-full justify-center text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-black ${imageUploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                          {imageUploading ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />}
+                          <span>{imageUploading ? 'Uploading...' : 'Upload Image to Cloudinary'}</span>
+                          <input type="file" accept="image/*" className="hidden" disabled={imageUploading} onChange={handleMainImageUpload} />
+                        </label>
+                        <p className="text-[10px] text-gray-300 uppercase tracking-widest">Image uploads directly to your Cloudinary account.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Name */}
+                  <div>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-2">Product Name</label>
+                    <input type="text" value={editProduct.name || ''} onChange={e => setEditProduct(p => ({...p, name: e.target.value}))}
+                      className="w-full bg-gray-50 px-4 py-3 text-sm font-bold outline-none focus:ring-2 ring-black/10 transition-all border-none" />
+                  </div>
+
+                  {/* Category */}
+                  <div>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-2">Category</label>
+                    <input type="text" value={editProduct.category || ''} onChange={e => setEditProduct(p => ({...p, category: e.target.value}))}
+                      className="w-full bg-gray-50 px-4 py-3 text-sm font-bold outline-none focus:ring-2 ring-black/10 transition-all border-none" />
+                  </div>
+
+                  {/* Description */}
+                  <div>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-2">Description</label>
+                    <textarea rows={3} value={editProduct.description || ''} onChange={e => setEditProduct(p => ({...p, description: e.target.value}))}
+                      className="w-full bg-gray-50 px-4 py-3 text-sm font-semibold outline-none focus:ring-2 ring-black/10 transition-all border-none resize-none" />
+                  </div>
+                </div>
+              )}
+
+              {/* ── TAB 1: Colors ── */}
+              {activeTab === 1 && (
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Color Variants ({editProduct.colors.length})</p>
+                    <button onClick={addColor} className="flex items-center space-x-2 bg-black text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all">
+                      <Plus size={12} /><span>Add Color</span>
+                    </button>
+                  </div>
+
+                  {editProduct.colors.length === 0 ? (
+                    <div className="py-12 text-center">
+                      <Palette className="mx-auto text-gray-200 mb-4" size={40} />
+                      <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">No colors yet. Click "Add Color" to start.</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {editProduct.colors.map(color => (
+                        <div key={color} className="flex items-center space-x-4 p-4 bg-gray-50 group">
+                          {/* Color swatch */}
+                          <div className="w-10 h-10 rounded-full border-2 border-white shadow-md flex-shrink-0 overflow-hidden">
+                            {editProduct.colorImages?.[color]
+                              ? <img src={editProduct.colorImages[color]} alt={color} className="w-full h-full object-cover" />
+                              : <div className="w-full h-full bg-gray-200 flex items-center justify-center text-[8px] font-black text-gray-400">?</div>
+                            }
+                          </div>
+
+                          {/* Color name */}
+                          <div className="flex-1">
+                            <p className="text-xs font-black uppercase">{color}</p>
+                            <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
+                              {editProduct.colorImages?.[color] ? 'Image uploaded' : 'No image'}
+                            </p>
+                          </div>
+
+                          {/* Upload image for this color */}
+                          <label className={`flex items-center space-x-2 px-4 py-2 border border-gray-200 text-[10px] font-black uppercase tracking-widest cursor-pointer hover:border-black transition-all text-gray-500 hover:text-black ${colorImageUploading === color ? 'opacity-50' : ''}`}>
+                            {colorImageUploading === color ? <Loader2 size={12} className="animate-spin" /> : <Upload size={12} />}
+                            <span>{colorImageUploading === color ? 'Uploading...' : 'Upload Image'}</span>
+                            <input type="file" accept="image/*" className="hidden" disabled={colorImageUploading !== null}
+                              onChange={e => handleColorImageUpload(e, color)} />
+                          </label>
+
+                          {/* Remove color */}
+                          <button onClick={() => removeColor(color)} className="p-2 text-gray-300 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100">
+                            <X size={16} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* ── TAB 2: Features ── */}
+              {activeTab === 2 && (
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Product Features ({editProduct.features.length})</p>
+                    <button onClick={addFeature} className="flex items-center space-x-2 bg-black text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all">
+                      <Plus size={12} /><span>Add Feature</span>
+                    </button>
+                  </div>
+
+                  <div className="space-y-3">
+                    {editProduct.features.map((feature, index) => (
+                      <div key={index} className="flex items-center space-x-3 group">
+                        <input type="text" placeholder="Label (e.g. Material)" value={feature.label}
+                          onChange={e => updateFeature(index, 'label', e.target.value)}
+                          className="w-1/3 bg-gray-50 border-none px-4 py-3 text-xs font-black outline-none focus:ring-2 ring-black/10" />
+                        <input type="text" placeholder="Value (e.g. 100% Polyester)" value={feature.value}
+                          onChange={e => updateFeature(index, 'value', e.target.value)}
+                          className="flex-1 bg-gray-50 border-none px-4 py-3 text-xs font-semibold outline-none focus:ring-2 ring-black/10" />
+                        <button onClick={() => removeFeature(index)} className="p-2 text-gray-300 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100">
+                          <X size={16} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ── TAB 3: Measurement Chart ── */}
+              {activeTab === 3 && (
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Measurement Chart (in inches)</p>
+                    <button onClick={addChartRow} className="flex items-center space-x-2 bg-black text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all">
+                      <Plus size={12} /><span>Add Row</span>
+                    </button>
+                  </div>
+
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs border border-gray-100">
+                      <thead>
+                        <tr className="bg-gray-50">
+                          {['Measurement', 'S', 'M', 'L', 'XL', 'XXL', ''].map((h, i) => (
+                            <th key={i} className="px-4 py-3 text-[10px] font-black uppercase tracking-widest text-gray-400 border-b border-gray-100 text-center">{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-50">
+                        {editProduct.measurementChart.map((row, index) => (
+                          <tr key={index} className="group hover:bg-gray-50">
+                            {['name', 's', 'm', 'l', 'xl', 'xxl'].map(col => (
+                              <td key={col} className="p-2">
+                                <input type={col === 'name' ? 'text' : 'number'} value={row[col] || ''}
+                                  onChange={e => updateChartRow(index, col, e.target.value)}
+                                  placeholder={col === 'name' ? 'e.g. Chest' : ''}
+                                  className="w-full bg-white border border-gray-100 px-3 py-2 text-xs font-bold outline-none focus:border-black text-center transition-all" />
+                              </td>
+                            ))}
+                            <td className="p-2 text-center">
+                              <button onClick={() => removeChartRow(index)} className="p-1 text-gray-200 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100">
+                                <X size={14} />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="px-8 py-6 border-t border-gray-100 flex items-center justify-between flex-shrink-0 bg-white">
+              <p className="text-[9px] font-black text-gray-300 uppercase tracking-widest">Changes sync directly to Supabase</p>
+              <div className="flex items-center space-x-4">
+                <button onClick={() => setEditProduct(null)} className="px-8 py-3 text-[10px] font-black uppercase tracking-widest border border-gray-200 hover:border-black transition-all">
+                  Cancel
+                </button>
+                <button onClick={handleEditSave} disabled={isSaving}
+                  className="px-8 py-3 bg-black text-white text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all flex items-center space-x-3 disabled:opacity-50">
+                  {isSaving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
+                  <span>{isSaving ? 'Saving...' : 'Save Changes'}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

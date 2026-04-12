@@ -72,6 +72,8 @@ export const DataProvider = ({ children }) => {
                 originalPrice: p.original_price || p.price,
                 discount: p.discount || '',
                 colorImages: p.color_images || {},
+                features: p.features || [],
+                measurementChart: p.measurement_chart || [],
                 displayCategory: internalCategory
              };
           });
