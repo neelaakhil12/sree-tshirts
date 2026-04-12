@@ -123,7 +123,6 @@ Color: ${selectedColor}`
               <div className="space-y-4 border-b border-gray-100 pb-8">
                  <div className="flex items-center space-x-2">
                     <span className="bg-black text-white text-[9px] font-black px-2 py-1 tracking-widest">{product.category.toUpperCase()}</span>
-                    {product.discount && <span className="text-accent text-[9px] font-black uppercase tracking-widest">({product.discount})</span>}
                  </div>
                  <h1 className="text-3xl sm:text-4xl font-black tracking-tighter text-gray-900 leading-[1.1] uppercase">{product.name}</h1>
                  
@@ -265,42 +264,43 @@ Color: ${selectedColor}`
                          </svg>
                       </div>
 
-                      <div className="flex-1 w-full flex flex-col">
-                         {/* TABLE HEADER BAR - CONSTANT */}
-                         <div className="bg-white py-3 px-4 mb-0.5">
+                      <div className="flex-1 w-full min-w-0 flex flex-col">
+                         {/* TABLE HEADER BAR - CONSTANT AT TOP */}
+                         <div className="bg-white py-3 px-4 mb-0.5 w-full shrink-0">
                             <h5 className="text-[12px] font-black tracking-[0.2em] text-[#001F5B] uppercase text-center">MEASUREMENT CHART</h5>
                          </div>
                          
-                         <div className="overflow-x-auto">
-                           <table className="w-full text-center text-[10px] font-bold border border-white uppercase">
-                              <thead className="bg-transparent">
+                         {/* SCROLLABLE TABLE CONTENT */}
+                         <div className="overflow-x-auto w-full border border-white/10">
+                           <table className="w-full text-center text-[10px] font-bold border-collapse border border-white/20 uppercase">
+                              <thead className="bg-[#1A1A1A]">
                                  <tr className="text-white border-b border-white">
-                                    <th className="py-4 border-r border-white">S.NO</th>
-                                    <th className="py-4 border-r border-white text-left pl-4">MEASUREMENTS</th>
-                                    <th className="py-4 border-r border-white font-black">S</th>
-                                    <th className="py-4 border-r border-white font-black">M</th>
-                                    <th className="py-4 border-r border-white font-black">L</th>
-                                    <th className="py-4 border-r border-white font-black">XL</th>
-                                    <th className="py-4 font-black">XXL</th>
+                                    <th className="py-4 border-r border-white font-black px-4">S.NO</th>
+                                    <th className="py-4 border-r border-white text-left pl-4 font-black">MEASUREMENTS</th>
+                                    <th className="py-4 border-r border-white font-black px-4">S</th>
+                                    <th className="py-4 border-r border-white font-black px-4">M</th>
+                                    <th className="py-4 border-r border-white font-black px-4">L</th>
+                                    <th className="py-4 border-r border-white font-black px-4">XL</th>
+                                    <th className="py-4 font-black px-4">XXL</th>
                                   </tr>
                               </thead>
                               <tbody className="divide-y divide-white/20">
                                  {measurementChartData.map((row, idx) => (
                                     <tr key={row.id}>
-                                       <td className="py-4 border-r border-white/20">{idx + 1}</td>
-                                       <td className="py-4 border-r border-white/20 text-left pl-4">{row.name.toUpperCase()}</td>
-                                       <td className="py-4 border-r border-white/20">{row.s}</td>
-                                       <td className="py-4 border-r border-white/20">{row.m}</td>
-                                       <td className="py-4 border-r border-white/20">{row.l}</td>
-                                       <td className="py-4 border-r border-white/20">{row.xl}</td>
-                                       <td className="py-4">{row.xxl}</td>
+                                       <td className="py-4 border-r border-white/20 font-medium">{idx + 1}</td>
+                                       <td className="py-4 border-r border-white/20 text-left pl-4 font-medium">{row.name.toUpperCase()}</td>
+                                       <td className="py-4 border-r border-white/20 font-medium">{row.s}</td>
+                                       <td className="py-4 border-r border-white/20 font-medium">{row.m}</td>
+                                       <td className="py-4 border-r border-white/20 font-medium">{row.l}</td>
+                                       <td className="py-4 border-r border-white/20 font-medium">{row.xl}</td>
+                                       <td className="py-4 font-medium">{row.xxl}</td>
                                     </tr>
                                  ))}
                               </tbody>
                            </table>
                          </div>
 
-                         <div className="mt-6 space-y-1 text-[9px] text-gray-300 font-bold uppercase tracking-widest text-center lg:text-left">
+                         <div className="mt-6 space-y-1 text-[9px] text-gray-400 font-bold uppercase tracking-widest text-center lg:text-left">
                             <p>*All the measurements in inches</p>
                             <p>*Tolerance(+/- 0.5 inch) acceptable</p>
                          </div>

@@ -25,12 +25,6 @@ Can you please provide more details about this product?`
           onError={(e) => e.target.src = 'https://via.placeholder.com/300x400?text=' + product.name}
         />
 
-        {/* Discount Badge */}
-        {product.discount && (
-          <div className="absolute top-4 left-0 bg-accent text-white px-4 py-1.5 text-[10px] font-black tracking-widest uppercase shadow-lg">
-             {product.discount}
-          </div>
-        )}
 
         {/* Wishlist Button */}
         <div className="absolute bottom-4 right-4 w-10 h-10 bg-white shadow-xl flex items-center justify-center rounded-none text-gray-400 hover:text-red-500 transform translate-y-16 group-hover:translate-y-0 transition-all duration-500">
