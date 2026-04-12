@@ -9,6 +9,21 @@
   --accent: #ff6600;
 }
 
+/* Force accent colors globally to override any stale tailwind cache */
+.text-accent { color: var(--accent) !important; }
+.bg-accent { background-color: var(--accent) !important; }
+.border-accent { border-color: var(--accent) !important; }
+.decoration-accent { text-decoration-color: var(--accent) !important; }
+.hover\:text-accent:hover { color: var(--accent) !important; }
+.hover\:bg-accent:hover { background-color: var(--accent) !important; }
+.after\:bg-accent::after { background-color: var(--accent) !important; }
+
+/* Reset global Link behavior to prevent blue text */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 body, #root {
   max-width: 100vw;
   overflow-x: hidden;
