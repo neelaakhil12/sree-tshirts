@@ -11,13 +11,14 @@ import {
   ExternalLink,
   ChevronRight,
   TrendingUp,
-  Package
+  Package,
+  Layers
 } from 'lucide-react'
 import { useData } from '../../context/DataContext'
 import { supabase } from '../../lib/supabase'
 
 const ProductManager = () => {
-  const { products, categories, isLoaded } = useData()
+  const { products, setProducts, categories, isLoaded } = useData()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
 
@@ -32,12 +33,18 @@ const ProductManager = () => {
       try {
         const { error } = await supabase.from('products').delete().eq('id', id)
         if (error) throw error
-        alert('Product deleted successfully from cloud.')
-        // In a real app, we'd trigger a re-fetch in DataContext
+        
+        // Update local state immediately
+        setProducts(prev => prev.filter(p => p.id !== id))
+        alert('Product deleted successfully.')
       } catch (err) {
         alert('Error deleting product: ' + err.message)
       }
     }
+  }
+
+  const handleEdit = (product) => {
+    alert(`Edit Mode: You are now editing "${product.name}". (Full Edit Modal coming in next update)`)
   }
 
   return (
@@ -57,10 +64,10 @@ const ProductManager = () => {
             <Package size={16} />
             <span>Products</span>
           </Link>
-          <div className="flex items-center space-x-3 p-3 text-gray-400 font-black text-xs tracking-widest uppercase cursor-not-allowed opacity-50">
-            <Plus size={16} />
+          <Link to="/admin/categories" className="flex items-center space-x-3 p-3 text-gray-400 font-black text-xs tracking-widest uppercase hover:bg-gray-50 transition-all opacity-50 cursor-not-allowed">
+            <Layers size={16} />
             <span>Categories</span>
-          </div>
+          </Link>
         </nav>
       </aside>
 
@@ -157,9 +164,12 @@ const ProductManager = () => {
                        </td>
                        <td className="px-8 py-6">
                           <div className="flex items-center justify-end space-x-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                             <button className="p-2 text-gray-400 hover:text-black hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-gray-100">
-                                <Edit2 size={16} />
-                             </button>
+                              <button 
+                                onClick={() => handleEdit(product)}
+                                className="p-2 text-gray-400 hover:text-black hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-gray-100"
+                              >
+                                 <Edit2 size={16} />
+                              </button>
                              <button 
                                onClick={() => handleDelete(product.id)}
                                className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all"

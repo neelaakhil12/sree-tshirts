@@ -63,6 +63,14 @@ function App() {
               } 
             />
             <Route 
+              path="/admin/categories" 
+              element={
+                <ProtectedRoute>
+                  <div className="bg-gray-100 min-h-screen p-20 font-black uppercase tracking-widest text-gray-300">Category Management Coming Soon...</div>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/admin/invoices" 
               element={
                 <ProtectedRoute>

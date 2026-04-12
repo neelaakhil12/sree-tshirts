@@ -95,7 +95,7 @@ export const DataProvider = ({ children }) => {
   }, []);
 
   return (
-    <DataContext.Provider value={{ products, categories, isLoaded }}>
+    <DataContext.Provider value={{ products, setProducts, categories, isLoaded }}>
       {children}
     </DataContext.Provider>
   );
