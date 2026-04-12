@@ -30,6 +30,8 @@ const ProductManager = () => {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [editProduct, setEditProduct] = useState(null)
   const [addModal, setAddModal] = useState(false)
+  const [isBulkFeaturesMode, setIsBulkFeaturesMode] = useState(false)
+  const [bulkFeaturesText, setBulkFeaturesText] = useState('')
   const [isSaving, setIsSaving] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
   const [imageUploading, setImageUploading] = useState(false)
@@ -54,6 +56,8 @@ const ProductManager = () => {
   }
 
   const handleEditOpen = (product) => {
+    setIsBulkFeaturesMode(false)
+    setBulkFeaturesText('')
     const defaultFeatures = [
       { label: 'Material', value: 'Polyester' },
       { label: 'Neck Type', value: 'Round Neck' },
@@ -179,6 +183,29 @@ const ProductManager = () => {
     }))
   }
 
+  const toggleFeaturesMode = () => {
+    if (isBulkFeaturesMode) {
+      // Switching from Bulk to Standard: Parse text
+      const lines = bulkFeaturesText.split('\n').filter(line => line.trim())
+      const parsed = lines.map(line => {
+        const firstColon = line.indexOf(':')
+        if (firstColon !== -1) {
+          return {
+            label: line.substring(0, firstColon).trim(),
+            value: line.substring(firstColon + 1).trim()
+          }
+        }
+        return { label: 'Feature', value: line.trim() }
+      })
+      setEditProduct(prev => ({ ...prev, features: parsed }))
+    } else {
+      // Switching from Standard to Bulk: Create text
+      const text = editProduct.features.map(f => `${f.label}: ${f.value}`).join('\n')
+      setBulkFeaturesText(text)
+    }
+    setIsBulkFeaturesMode(!isBulkFeaturesMode)
+  }
+
   /* ── Measurement Chart (Dynamic Columns) ── */
   const updateChartRow = (index, col, value) => {
     const updatedRows = [...editProduct.measurementChart.rows]
@@ -244,6 +271,22 @@ const ProductManager = () => {
   const handleEditSave = async () => {
     setIsSaving(true)
     try {
+      let currentFeatures = editProduct.features
+      if (isBulkFeaturesMode) {
+        // Parse current bulk text before saving
+        const lines = bulkFeaturesText.split('\n').filter(line => line.trim())
+        currentFeatures = lines.map(line => {
+          const firstColon = line.indexOf(':')
+          if (firstColon !== -1) {
+            return {
+              label: line.substring(0, firstColon).trim(),
+              value: line.substring(firstColon + 1).trim()
+            }
+          }
+          return { label: 'Feature', value: line.trim() }
+        })
+      }
+
       const payload = {
         id: editProduct.id,
         name: editProduct.name,
@@ -255,7 +298,7 @@ const ProductManager = () => {
         sizes: editProduct.sizes || [],
         colors: editProduct.colors || [],
         color_images: editProduct.colorImages || {},
-        features: editProduct.features || [],
+        features: currentFeatures || [],
         measurement_chart: editProduct.measurementChart || [],
       }
 
@@ -568,27 +611,61 @@ const ProductManager = () => {
               {activeTab === 2 && (
                 <div className="space-y-6">
                   <div className="flex justify-between items-center">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Product Features ({editProduct.features.length})</p>
-                    <button onClick={addFeature} className="flex items-center space-x-2 bg-black text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all">
-                      <Plus size={12} /><span>Add Feature</span>
-                    </button>
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Product Features</p>
+                      <button 
+                        onClick={toggleFeaturesMode}
+                        className="text-[9px] font-black uppercase tracking-[0.2em] text-accent mt-1 hover:underline underline-offset-4"
+                      >
+                        {isBulkFeaturesMode ? 'Switch to Point-wise Mode' : 'Switch to Bulk Mode (Copy/Paste)'}
+                      </button>
+                    </div>
+                    {!isBulkFeaturesMode && (
+                      <button onClick={addFeature} className="flex items-center space-x-2 bg-black text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all">
+                        <Plus size={12} /><span>Add Feature</span>
+                      </button>
+                    )}
                   </div>
 
-                  <div className="space-y-3">
-                    {editProduct.features.map((feature, index) => (
-                      <div key={index} className="flex items-center space-x-3 group">
-                        <input type="text" placeholder="Label (e.g. Material)" value={feature.label}
-                          onChange={e => updateFeature(index, 'label', e.target.value)}
-                          className="w-1/3 bg-gray-50 border-none px-4 py-3 text-xs font-black outline-none focus:ring-2 ring-black/10" />
-                        <input type="text" placeholder="Value (e.g. 100% Polyester)" value={feature.value}
-                          onChange={e => updateFeature(index, 'value', e.target.value)}
-                          className="flex-1 bg-gray-50 border-none px-4 py-3 text-xs font-semibold outline-none focus:ring-2 ring-black/10" />
-                        <button onClick={() => removeFeature(index)} className="p-2 text-gray-300 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100">
-                          <X size={16} />
-                        </button>
+                  {isBulkFeaturesMode ? (
+                    <div className="space-y-4">
+                      <textarea
+                        value={bulkFeaturesText}
+                        onChange={(e) => setBulkFeaturesText(e.target.value)}
+                        placeholder="Format - Label: Value (e.g. Material: Cotton)"
+                        rows={12}
+                        className="w-full bg-gray-50 border-2 border-dashed border-gray-100 p-6 text-xs font-bold font-mono outline-none focus:border-black transition-all resize-none leading-relaxed"
+                      />
+                      <div className="bg-sky-50 p-4 border-l-4 border-sky-400">
+                         <p className="text-[10px] text-sky-700 font-bold uppercase tracking-widest leading-relaxed">
+                           💡 PASTE YOUR FEATURE LIST HERE. ONE FEATURE PER LINE IN "LABEL: VALUE" FORMAT (E.G. MATERIAL: COTTON). 
+                           SWITCH BACK TO STANDARD MODE TO SEE THEM PARSED.
+                         </p>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {editProduct.features.length === 0 ? (
+                        <div className="py-12 text-center border-2 border-dashed border-gray-100">
+                          <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">No features added yet</p>
+                        </div>
+                      ) : (
+                        editProduct.features.map((feature, index) => (
+                          <div key={index} className="flex items-center space-x-3 group animate-in fade-in duration-300">
+                            <input type="text" placeholder="Label (e.g. Material)" value={feature.label}
+                              onChange={e => updateFeature(index, 'label', e.target.value)}
+                              className="w-1/3 bg-gray-50 border-none px-4 py-3 text-xs font-black outline-none focus:ring-2 ring-black/10 transition-all" />
+                            <input type="text" placeholder="Value (e.g. 100% Polyester)" value={feature.value}
+                              onChange={e => updateFeature(index, 'value', e.target.value)}
+                              className="flex-1 bg-gray-50 border-none px-4 py-3 text-xs font-semibold outline-none focus:ring-2 ring-black/10 transition-all" />
+                            <button onClick={() => removeFeature(index)} className="p-2 text-gray-300 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100">
+                              <X size={16} />
+                            </button>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
 
