@@ -8,8 +8,11 @@ const ProductCard = ({ product }) => {
   const handleBuyNow = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    const message = `Hello Wear Mingle! I'm interested in: ${product.name}. 
-Can you please provide more details about this product?`
+    const productUrl = `${window.location.origin}/products/${product.id}`
+    const message = `Hello Wear Mingle! how can i get this product?
+    
+Product: ${product.name}
+Link: ${productUrl}`
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank')
   }
 

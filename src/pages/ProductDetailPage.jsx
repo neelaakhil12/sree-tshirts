@@ -98,11 +98,13 @@ const ProductDetailPage = () => {
     }
     
     const whatsappNumber = '9398292014'
-    const message = `Hello Wear Mingle! I'm interested in: ${product.name}. 
-Can you please provide more details about this product?
+    const productUrl = window.location.href
+    const message = `Hello Wear Mingle! how can i get this product?
 
+Product: ${product.name}
 Size: ${selectedSize}
-Color: ${selectedColor}`
+Color: ${selectedColor}
+Link: ${productUrl}`
 
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank')
   }
