@@ -9,7 +9,7 @@ export const products = [
   "reviews": 172,
   "category": "Polyester",
   "image": "/images/products/promotional/black.png",
-  "description": "100 GSM. Polyester Round Neck Promotional T-shirt. XXL - 10rs extra.",
+  "description": "Polyester Round Neck Promotional T-shirt 100 GSM",
   "sizes": [
    "S",
    "M",
@@ -38,7 +38,7 @@ export const products = [
   "reviews": 268,
   "category": "Polyester",
   "image": "/images/products/gym/navy-blue.png",
-  "description": "110 GSM. Polyester Round Neck GYM T-shirt. XXL - 10rs extra.",
+  "description": "Polyester Round Neck GYM T-shirt 110 GSM",
   "sizes": [
    "S",
    "M",
