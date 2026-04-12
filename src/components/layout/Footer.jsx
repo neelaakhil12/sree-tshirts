@@ -95,9 +95,10 @@ const Footer = () => {
 
         </div>
 
-        <div className="mt-16 pt-8 border-t border-gray-200 text-center">
-          <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">
-            © {currentYear} Wear Mingle. All rights reserved. Designed by Srikanth.
+        <div className="mt-10 pt-8 border-t border-gray-200 text-center">
+          <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest leading-relaxed">
+            © {currentYear} Wear Mingle. All rights reserved. <br className="sm:hidden" />
+            Developed by <a href="https://codtechitsolutions.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Codtech IT Solutions</a>
           </p>
         </div>
       </div>
