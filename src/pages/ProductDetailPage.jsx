@@ -18,11 +18,30 @@ const DEFAULT_FEATURES = [
 ]
 
 // Default measurement chart shown if none is set
-const DEFAULT_CHART = [
-  { name: 'Chest', s: 19, m: 20, l: 21, xl: 22, xxl: 23 },
-  { name: 'Length', s: 26, m: 27, l: 28, xl: 29, xxl: 30 },
-  { name: 'Shoulder', s: 17.5, m: 18.5, l: 19.5, xl: 20.5, xxl: 21.5 },
-]
+const DEFAULT_CHART = {
+  columns: ['S', 'M', 'L', 'XL', 'XXL'],
+  rows: [
+    { name: 'Chest',    values: { S: 19, M: 20, L: 21, XL: 22, XXL: 23 } },
+    { name: 'Length',   values: { S: 26, M: 27, L: 28, XL: 29, XXL: 30 } },
+    { name: 'Shoulder', values: { S: 17.5, M: 18.5, L: 19.5, XL: 20.5, XXL: 21.5 } },
+  ]
+}
+
+// Parse chart from product — handles both old and new formats
+const getChartData = (measurementChart) => {
+  if (measurementChart?.columns && measurementChart?.rows) {
+    return measurementChart // New format
+  } else if (Array.isArray(measurementChart) && measurementChart.length > 0) {
+    return {
+      columns: ['S', 'M', 'L', 'XL', 'XXL'],
+      rows: measurementChart.map(r => ({
+        name: r.name,
+        values: { S: r.s, M: r.m, L: r.l, XL: r.xl, XXL: r.xxl }
+      }))
+    }
+  }
+  return DEFAULT_CHART
+}
 
 const ProductDetailPage = () => {
   const { id } = useParams()
@@ -304,29 +323,33 @@ Color: ${selectedColor}`
                          {/* SCROLLABLE TABLE CONTENT */}
                          <div className="overflow-x-auto w-full border border-white/10">
                            <table className="w-full text-center text-[10px] font-bold border-collapse border border-white/20 uppercase">
-                              <thead className="bg-[#1A1A1A]">
-                                 <tr className="text-white border-b border-white">
-                                    <th className="py-4 border-r border-white font-black px-4">S.NO</th>
-                                    <th className="py-4 border-r border-white text-left pl-4 font-black">MEASUREMENTS</th>
-                                    <th className="py-4 border-r border-white font-black px-4">S</th>
-                                    <th className="py-4 border-r border-white font-black px-4">M</th>
-                                    <th className="py-4 border-r border-white font-black px-4">L</th>
-                                    <th className="py-4 border-r border-white font-black px-4">XL</th>
-                                    <th className="py-4 font-black px-4">XXL</th>
-                                  </tr>
-                              </thead>
+                               <thead className="bg-[#1A1A1A]">
+                                  {(() => {
+                                    const { columns } = getChartData(product.measurementChart)
+                                    return (
+                                      <tr className="text-white border-b border-white">
+                                        <th className="py-4 border-r border-white font-black px-4">S.NO</th>
+                                        <th className="py-4 border-r border-white text-left pl-4 font-black">MEASUREMENTS</th>
+                                        {columns.map(col => (
+                                          <th key={col} className="py-4 border-r border-white font-black px-4">{col}</th>
+                                        ))}
+                                      </tr>
+                                    )
+                                  })()}
+                               </thead>
                                <tbody className="divide-y divide-white/20">
-                                  {(product.measurementChart?.length > 0 ? product.measurementChart : DEFAULT_CHART).map((row, idx) => (
-                                     <tr key={idx}>
+                                  {(() => {
+                                    const { columns, rows } = getChartData(product.measurementChart)
+                                    return rows.map((row, idx) => (
+                                      <tr key={idx}>
                                         <td className="py-4 border-r border-white/20 font-medium">{idx + 1}</td>
                                         <td className="py-4 border-r border-white/20 text-left pl-4 font-medium">{String(row.name).toUpperCase()}</td>
-                                        <td className="py-4 border-r border-white/20 font-medium">{row.s}</td>
-                                        <td className="py-4 border-r border-white/20 font-medium">{row.m}</td>
-                                        <td className="py-4 border-r border-white/20 font-medium">{row.l}</td>
-                                        <td className="py-4 border-r border-white/20 font-medium">{row.xl}</td>
-                                        <td className="py-4 font-medium">{row.xxl}</td>
-                                     </tr>
-                                  ))}
+                                        {columns.map(col => (
+                                          <td key={col} className="py-4 border-r border-white/20 font-medium">{row.values?.[col] ?? ''}</td>
+                                        ))}
+                                      </tr>
+                                    ))
+                                  })()}
                                </tbody>
                            </table>
                          </div>

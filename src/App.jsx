@@ -12,6 +12,7 @@ import LoginPage from './pages/admin/LoginPage'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import ProductManager from './pages/admin/ProductManager'
 import InvoiceGenerator from './pages/admin/InvoiceGenerator'
+import CategoryManager from './pages/admin/CategoryManager'
 import ProtectedRoute from './components/admin/ProtectedRoute'
 import { DataProvider } from './context/DataContext'
 
@@ -58,15 +59,7 @@ function App() {
               path="/admin/categories" 
               element={
                 <ProtectedRoute>
-                  <div className="bg-gray-100 min-h-screen p-10 font-bold uppercase">Category Manager Coming Soon...</div>
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin/categories" 
-              element={
-                <ProtectedRoute>
-                  <div className="bg-gray-100 min-h-screen p-20 font-black uppercase tracking-widest text-gray-300">Category Management Coming Soon...</div>
+                  <CategoryManager />
                 </ProtectedRoute>
               } 
             />

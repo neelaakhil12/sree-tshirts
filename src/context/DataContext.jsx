@@ -36,6 +36,23 @@ export const DataProvider = ({ children }) => {
   const [categories, setCategories] = useState(initialCategories);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Helper: map a raw DB product to app format
+  const mapDbProduct = (p) => {
+    let internalCategory = p.category;
+    if (['Polyester', 'PolyCotton', 'Cotton'].includes(p.category)) {
+      internalCategory = 'Tshirts';
+    }
+    return {
+      ...p,
+      originalPrice: p.original_price || p.price,
+      discount: p.discount || '',
+      colorImages: p.color_images || {},
+      features: p.features || [],
+      measurementChart: p.measurement_chart || [],
+      displayCategory: internalCategory,
+    };
+  };
+
   // Hybrid Loading Logic
   useEffect(() => {
     const loadData = async () => {
@@ -62,22 +79,7 @@ export const DataProvider = ({ children }) => {
           .order('id', { ascending: true });
 
         if (!pError && dbProducts && dbProducts.length > 0) {
-          const processedDb = dbProducts.map(p => {
-             let internalCategory = p.category;
-             if (['Polyester', 'PolyCotton', 'Cotton'].includes(p.category)) {
-               internalCategory = 'Tshirts';
-             }
-             return {
-                ...p,
-                originalPrice: p.original_price || p.price,
-                discount: p.discount || '',
-                colorImages: p.color_images || {},
-                features: p.features || [],
-                measurementChart: p.measurement_chart || [],
-                displayCategory: internalCategory
-             };
-          });
-          setProducts(processedDb);
+          setProducts(dbProducts.map(mapDbProduct));
         }
 
         const { data: dbCategories, error: cError } = await supabase
@@ -86,7 +88,7 @@ export const DataProvider = ({ children }) => {
           .order('id', { ascending: true });
 
         if (!cError && dbCategories && dbCategories.length > 0) {
-           setCategories(dbCategories);
+          setCategories(dbCategories);
         }
       } catch (err) {
         console.warn('Supabase sync skipped - using local data fallback:', err.message);
@@ -94,10 +96,34 @@ export const DataProvider = ({ children }) => {
     };
 
     loadData();
+
+    // 3. Supabase Realtime — instant cross-tab updates
+    const channel = supabase
+      .channel('products-live')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'products' },
+        (payload) => {
+          if (payload.eventType === 'UPDATE') {
+            setProducts(prev =>
+              prev.map(p => p.id === payload.new.id ? mapDbProduct(payload.new) : p)
+            );
+          } else if (payload.eventType === 'INSERT') {
+            setProducts(prev => [...prev, mapDbProduct(payload.new)]);
+          } else if (payload.eventType === 'DELETE') {
+            setProducts(prev => prev.filter(p => p.id !== payload.old.id));
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   return (
-    <DataContext.Provider value={{ products, setProducts, categories, isLoaded }}>
+    <DataContext.Provider value={{ products, setProducts, categories, setCategories, isLoaded }}>
       {children}
     </DataContext.Provider>
   );

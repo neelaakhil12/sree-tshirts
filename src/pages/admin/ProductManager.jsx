@@ -68,19 +68,47 @@ const ProductManager = () => {
   }
 
   const handleEditOpen = (product) => {
+    const defaultFeatures = [
+      { label: 'Material', value: 'Polyester' },
+      { label: 'Neck Type', value: 'Round Neck' },
+      { label: 'Fit', value: 'Regular Fit' },
+      { label: 'Sleeve Type', value: 'Half Sleeves' },
+      { label: 'Usage', value: 'Ideal for Promotions, Events, Branding, and Gifting' },
+      { label: 'Customization', value: 'Sublimation (Only on white colour), DTF, screen printing can be done' },
+      { label: 'Fabric Properties', value: 'Lightweight, Breathable, and Quick-Dry' },
+      { label: 'Durability', value: 'Wrinkle-Resistant & Fade-Resistant' },
+      { label: 'Available Sizes', value: 'S, M, L, XL, XXL' },
+      { label: 'Color Options', value: 'Multiple Colors Available' },
+    ]
+
+    // Convert chart to dynamic { columns, rows } format
+    const rawChart = product.measurementChart
+    let chartData
+    if (rawChart?.columns && rawChart?.rows) {
+      chartData = rawChart // Already new format
+    } else if (Array.isArray(rawChart) && rawChart.length > 0) {
+      chartData = {
+        columns: ['S', 'M', 'L', 'XL', 'XXL'],
+        rows: rawChart.map(r => ({
+          name: r.name,
+          values: { S: r.s ?? '', M: r.m ?? '', L: r.l ?? '', XL: r.xl ?? '', XXL: r.xxl ?? '' }
+        }))
+      }
+    } else {
+      chartData = {
+        columns: ['S', 'M', 'L', 'XL', 'XXL'],
+        rows: [
+          { name: 'Chest',    values: { S: 19, M: 20, L: 21, XL: 22, XXL: 23 } },
+          { name: 'Length',   values: { S: 26, M: 27, L: 28, XL: 29, XXL: 30 } },
+          { name: 'Shoulder', values: { S: 17.5, M: 18.5, L: 19.5, XL: 20.5, XXL: 21.5 } },
+        ]
+      }
+    }
+
     setEditProduct({
       ...product,
-      features: product.features || [
-        { label: 'Material', value: 'Polyester' },
-        { label: 'Neck Type', value: 'Round Neck' },
-        { label: 'Fit', value: 'Regular Fit' },
-        { label: 'Sleeve Type', value: 'Half Sleeves' },
-      ],
-      measurementChart: product.measurementChart || [
-        { name: 'Chest',    s: 19, m: 20, l: 21, xl: 22, xxl: 23 },
-        { name: 'Length',   s: 26, m: 27, l: 28, xl: 29, xxl: 30 },
-        { name: 'Shoulder', s: 17.5, m: 18.5, l: 19.5, xl: 20.5, xxl: 21.5 },
-      ],
+      features: product.features?.length > 0 ? product.features : defaultFeatures,
+      measurementChart: chartData,
       colors: product.colors || [],
       colorImages: product.colorImages || {},
     })
@@ -165,24 +193,64 @@ const ProductManager = () => {
     }))
   }
 
-  /* ── Measurement Chart ── */
+  /* ── Measurement Chart (Dynamic Columns) ── */
   const updateChartRow = (index, col, value) => {
-    const updated = [...editProduct.measurementChart]
-    updated[index] = { ...updated[index], [col]: value }
-    setEditProduct(prev => ({ ...prev, measurementChart: updated }))
+    const updatedRows = [...editProduct.measurementChart.rows]
+    if (col === 'name') {
+      updatedRows[index] = { ...updatedRows[index], name: value }
+    } else {
+      updatedRows[index] = { ...updatedRows[index], values: { ...updatedRows[index].values, [col]: value } }
+    }
+    setEditProduct(prev => ({ ...prev, measurementChart: { ...prev.measurementChart, rows: updatedRows } }))
   }
 
   const addChartRow = () => {
+    const emptyValues = {}
+    editProduct.measurementChart.columns.forEach(col => { emptyValues[col] = '' })
     setEditProduct(prev => ({
       ...prev,
-      measurementChart: [...prev.measurementChart, { name: '', s: '', m: '', l: '', xl: '', xxl: '' }]
+      measurementChart: {
+        ...prev.measurementChart,
+        rows: [...prev.measurementChart.rows, { name: '', values: emptyValues }]
+      }
     }))
   }
 
   const removeChartRow = (index) => {
     setEditProduct(prev => ({
       ...prev,
-      measurementChart: prev.measurementChart.filter((_, i) => i !== index)
+      measurementChart: {
+        ...prev.measurementChart,
+        rows: prev.measurementChart.rows.filter((_, i) => i !== index)
+      }
+    }))
+  }
+
+  const addColumn = () => {
+    const name = prompt('Enter new column name (e.g. "3XL"):')
+    if (!name || !name.trim()) return
+    const col = name.trim().toUpperCase()
+    if (editProduct.measurementChart.columns.includes(col)) return alert('Column already exists.')
+    setEditProduct(prev => ({
+      ...prev,
+      measurementChart: {
+        columns: [...prev.measurementChart.columns, col],
+        rows: prev.measurementChart.rows.map(row => ({ ...row, values: { ...row.values, [col]: '' } }))
+      }
+    }))
+  }
+
+  const removeColumn = (col) => {
+    setEditProduct(prev => ({
+      ...prev,
+      measurementChart: {
+        columns: prev.measurementChart.columns.filter(c => c !== col),
+        rows: prev.measurementChart.rows.map(row => {
+          const values = { ...row.values }
+          delete values[col]
+          return { ...row, values }
+        })
+      }
     }))
   }
 
@@ -499,34 +567,58 @@ const ProductManager = () => {
               {activeTab === 3 && (
                 <div className="space-y-6">
                   <div className="flex justify-between items-center">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Measurement Chart (in inches)</p>
-                    <button onClick={addChartRow} className="flex items-center space-x-2 bg-black text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all">
-                      <Plus size={12} /><span>Add Row</span>
-                    </button>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">
+                      Chart — {editProduct.measurementChart.rows.length} rows · {editProduct.measurementChart.columns.length} columns
+                    </p>
+                    <div className="flex items-center space-x-2">
+                      <button onClick={addColumn}
+                        className="flex items-center space-x-2 border border-black text-black px-4 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+                        <Plus size={12} /><span>Add Column</span>
+                      </button>
+                      <button onClick={addChartRow}
+                        className="flex items-center space-x-2 bg-black text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all">
+                        <Plus size={12} /><span>Add Row</span>
+                      </button>
+                    </div>
                   </div>
 
                   <div className="overflow-x-auto">
-                    <table className="w-full text-xs border border-gray-100">
+                    <table className="text-xs border border-gray-100" style={{minWidth: '100%'}}>
                       <thead>
                         <tr className="bg-gray-50">
-                          {['Measurement', 'S', 'M', 'L', 'XL', 'XXL', ''].map((h, i) => (
-                            <th key={i} className="px-4 py-3 text-[10px] font-black uppercase tracking-widest text-gray-400 border-b border-gray-100 text-center">{h}</th>
+                          <th className="px-4 py-3 text-[10px] font-black uppercase tracking-widest text-gray-400 border-b border-gray-100 text-left min-w-[120px]">Measurement</th>
+                          {editProduct.measurementChart.columns.map(col => (
+                            <th key={col} className="px-3 py-3 text-[10px] font-black uppercase tracking-widest text-gray-400 border-b border-gray-100 text-center min-w-[70px]">
+                              <div className="flex items-center justify-center space-x-1 group">
+                                <span>{col}</span>
+                                <button onClick={() => removeColumn(col)}
+                                  className="text-gray-200 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100">
+                                  <X size={10} />
+                                </button>
+                              </div>
+                            </th>
                           ))}
+                          <th className="w-8 border-b border-gray-100"></th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-50">
-                        {editProduct.measurementChart.map((row, index) => (
+                        {editProduct.measurementChart.rows.map((row, index) => (
                           <tr key={index} className="group hover:bg-gray-50">
-                            {['name', 's', 'm', 'l', 'xl', 'xxl'].map(col => (
+                            <td className="p-2">
+                              <input type="text" value={row.name || ''} placeholder="e.g. Chest"
+                                onChange={e => updateChartRow(index, 'name', e.target.value)}
+                                className="w-full bg-white border border-gray-100 px-3 py-2 text-xs font-bold outline-none focus:border-black transition-all" />
+                            </td>
+                            {editProduct.measurementChart.columns.map(col => (
                               <td key={col} className="p-2">
-                                <input type={col === 'name' ? 'text' : 'number'} value={row[col] || ''}
+                                <input type="number" value={row.values?.[col] ?? ''}
                                   onChange={e => updateChartRow(index, col, e.target.value)}
-                                  placeholder={col === 'name' ? 'e.g. Chest' : ''}
                                   className="w-full bg-white border border-gray-100 px-3 py-2 text-xs font-bold outline-none focus:border-black text-center transition-all" />
                               </td>
                             ))}
                             <td className="p-2 text-center">
-                              <button onClick={() => removeChartRow(index)} className="p-1 text-gray-200 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100">
+                              <button onClick={() => removeChartRow(index)}
+                                className="p-1 text-gray-200 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100">
                                 <X size={14} />
                               </button>
                             </td>
