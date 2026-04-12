@@ -8,9 +8,9 @@ const TrendingProducts = () => {
   const trending = products.slice(0, 8);
 
   return (
-    <section className="py-12 md:py-24 bg-gray-50 px-4">
+    <section className="py-8 md:py-24 bg-gray-50 px-4">
       <div className="container mx-auto">
-        <div className="flex flex-col items-center mb-16" data-aos="fade-up">
+        <div className="flex flex-col items-center mb-8" data-aos="fade-up">
            <span className="text-accent font-black tracking-widest text-xs mb-3">CURATED FOR YOU</span>
            <h2 className="text-4xl md:text-5xl font-black text-black tracking-tighter text-center uppercase">
              MOST WANTED <span className="text-accent">TRENDS.</span>

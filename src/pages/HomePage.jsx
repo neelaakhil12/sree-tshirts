@@ -17,7 +17,7 @@ const HomePage = () => {
       <TrendingProducts />
 
       {/* Promotion/Offer Section */}
-      <section className="py-14 md:py-24 bg-black text-white relative overflow-hidden" data-aos="zoom-in">
+      <section className="py-8 md:py-24 bg-black text-white relative overflow-hidden" data-aos="zoom-in">
        <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
           <div className="absolute w-96 h-96 bg-accent rounded-full -top-10 -left-10 blur-3xl animate-pulse"></div>
           <div className="absolute w-96 h-96 bg-orange-600 rounded-full -bottom-10 -right-10 blur-3xl animate-pulse"></div>

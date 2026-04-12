@@ -7,8 +7,8 @@ const CategorySection = () => {
   const { categories } = useData()
 
   return (
-    <section className="py-12 md:py-24 bg-white overflow-hidden">
-      <div className="container mx-auto px-4 mb-12 flex flex-col items-center" data-aos="fade-up">
+    <section className="py-8 md:py-24 bg-white overflow-hidden">
+      <div className="container mx-auto px-4 mb-6 flex flex-col items-center" data-aos="fade-up">
          <span className="text-accent font-black tracking-widest text-xs mb-3">SHOP BY CATEGORY</span>
          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-black tracking-tighter text-center uppercase">
            DISCOVER YOUR <br /> PERFECT <span className="text-accent">MINGLE.</span>

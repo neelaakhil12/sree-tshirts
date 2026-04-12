@@ -53,6 +53,28 @@ export const DataProvider = ({ children }) => {
     };
   };
 
+  // Prioritized sorting for categories
+  const sortCategories = (cats) => {
+    const order = ['tshirt', 'hoodie', 'uniform'];
+    return [...cats].sort((a, b) => {
+      const nameA = a.name.toLowerCase();
+      const nameB = b.name.toLowerCase();
+      
+      const getRank = (name) => {
+        if (name.includes('tshirt') || name.includes('t-shirt')) return 1;
+        if (name.includes('hoodie') || name.includes('woodie')) return 2;
+        if (name.includes('uniform') || name.includes('school')) return 3;
+        return 99;
+      };
+
+      const rankA = getRank(nameA);
+      const rankB = getRank(nameB);
+
+      if (rankA !== rankB) return rankA - rankB;
+      return nameA.localeCompare(nameB);
+    });
+  };
+
   // Hybrid Loading Logic
   useEffect(() => {
     const loadData = async () => {
@@ -69,6 +91,7 @@ export const DataProvider = ({ children }) => {
         };
       });
       setProducts(processedLocal);
+      setCategories(sortCategories(initialCategories));
       setIsLoaded(true);
 
       // 2. Effort to sync from Supabase
@@ -84,11 +107,10 @@ export const DataProvider = ({ children }) => {
 
         const { data: dbCategories, error: cError } = await supabase
           .from('categories')
-          .select('*')
-          .order('id', { ascending: true });
+          .select('*');
 
         if (!cError && dbCategories && dbCategories.length > 0) {
-          setCategories(dbCategories);
+          setCategories(sortCategories(dbCategories));
         }
       } catch (err) {
         console.warn('Supabase sync skipped - using local data fallback:', err.message);

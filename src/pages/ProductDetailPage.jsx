@@ -152,7 +152,7 @@ Color: ${selectedColor}`
         </div>
       </div>
 
-      <div className="container mx-auto px-4 md:px-0">
+      <div className="container mx-auto px-4 md:px-8 py-8 md:py-16">
         <div className="flex flex-col lg:flex-row lg:space-x-16">
           
           {/* Images Section */}

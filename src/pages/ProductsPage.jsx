@@ -55,7 +55,7 @@ const ProductsPage = () => {
   if (!isLoaded) return null
 
   return (
-    <div className="pt-28 min-h-screen bg-white">
+    <div className="pt-20 min-h-screen bg-white">
       <div className="container mx-auto px-4 md:px-0">
         
         {/* Header */}
@@ -79,7 +79,7 @@ const ProductsPage = () => {
           </div>
         </div>
 
-        <div className="flex pt-12 pb-24">
+        <div className="flex pt-8 pb-12">
           {/* Desktop Sidebar */}
           <aside className="hidden md:block w-72 pr-12 space-y-12">
             {/* Main Categories */}

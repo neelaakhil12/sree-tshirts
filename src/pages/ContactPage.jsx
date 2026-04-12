@@ -10,8 +10,8 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="pt-28 bg-white">
-      <section className="py-12 md:py-24 bg-gray-50 border-b border-gray-100">
+    <div className="pt-24 bg-white">
+      <section className="py-8 md:py-12 bg-gray-50 border-b border-gray-100">
         <div className="container mx-auto px-4" data-aos="fade-up">
            <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 uppercase text-center">GET IN <span className="text-accent">TOUCH.</span></h1>
            <p className="text-center text-gray-500 font-bold uppercase tracking-widest text-sm max-w-xl mx-auto">

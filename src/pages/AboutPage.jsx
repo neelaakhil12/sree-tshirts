@@ -47,7 +47,7 @@ const CATALOG_INDEX = [
 
 const AboutPage = () => {
   return (
-    <div className="pt-28 bg-white">
+    <div className="pt-24 bg-white">
       {/* Hero Section */}
       <section className="py-12 md:py-24 bg-black text-white px-4">
         <div className="container mx-auto text-center space-y-8" data-aos="fade-up">
@@ -62,7 +62,7 @@ const AboutPage = () => {
       </section>
 
       {/* Story Section */}
-      <section className="py-12 md:py-24 px-4 overflow-hidden">
+      <section className="py-12 md:py-24 bg-white relative overflow-hidden">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
            <div data-aos="fade-right">
               <img 
@@ -99,7 +99,7 @@ const AboutPage = () => {
 
 
       {/* Catalog Index Section */}
-      <section className="py-24 bg-gray-50 overflow-hidden relative">
+      <section className="py-12 md:py-24 bg-gray-50 overflow-hidden relative">
         <div className="absolute inset-0 opacity-5 pointer-events-none overflow-hidden">
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-accent rounded-full blur-[120px]"></div>
           <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-black rounded-full blur-[120px]"></div>
