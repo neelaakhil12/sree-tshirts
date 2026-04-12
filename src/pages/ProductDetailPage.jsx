@@ -258,7 +258,7 @@ Color: ${selectedColor}`
                   className="flex-1 bg-black text-white px-8 h-16 font-black tracking-[0.2em] flex items-center justify-center space-x-4 hover:bg-accent transition-all shadow-2xl active:scale-95 text-xs"
                 >
                    <MessageCircle size={20} />
-                   <span>BUY NOW ON WHATSAPP</span>
+                   <span>BUY NOW</span>
                 </button>
                 <button 
                   onClick={() => setIsWishlisted(!isWishlisted)}
