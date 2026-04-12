@@ -17,7 +17,7 @@ const TrendingProducts = () => {
            </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 lg:gap-10">
           {trending.map((product, index) => (
             <div 
               key={product.id} 

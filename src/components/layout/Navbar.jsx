@@ -38,11 +38,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 sm:space-x-4">
-            <img src="/images/logo.png" alt="Sree T-Shirts Logo" className="h-10 w-10 sm:h-12 sm:w-12 object-contain" />
-            <span className="text-xl sm:text-2xl font-black tracking-tighter text-black">
-              WEAR <span className="text-accent">MINGLE</span>
-            </span>
+          <Link to="/" className="flex items-center">
+            <img src="/images/logo.png" alt="Wear Mingle Logo" className="h-14 sm:h-20 w-auto object-contain" />
           </Link>
 
           {/* Right Side Items */}

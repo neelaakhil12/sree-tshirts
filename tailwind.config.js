@@ -16,7 +16,7 @@ export default {
           foreground: '#000000',
         },
         accent: {
-          DEFAULT: '#0ea5e9', // Sky Blue
+          DEFAULT: '#ff6600', // Vibrant Orange
           foreground: '#FFFFFF',
         },
         muted: {

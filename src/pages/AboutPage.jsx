@@ -2,6 +2,49 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Sparkles, Heart, Zap, Award } from 'lucide-react'
 
+const CATALOG_INDEX = [
+  { id: '04', name: 'Polyester Round Neck Promotional T-shirt' },
+  { id: '05', name: 'Polyester Round Neck GYM T-shirt' },
+  { id: '06', name: 'Premium Polyester Round Neck T-shirt' },
+  { id: '07', name: 'Selina Round Neck T-shirt' },
+  { id: '08', name: 'Polyester Honey Comb Round Neck T-shirt' },
+  { id: '09', name: 'Polyester Honey Comb Round Neck T-shirt' },
+  { id: '10', name: 'Polyester Polo T-shirt' },
+  { id: '11', name: 'Dot Knit Polo 180 GSM T-shirt' },
+  { id: '12', name: 'Premium Dot Knit Round Neck T-shirt' },
+  { id: '13', name: 'Dot Knit Polo 220 GSM T-shirt' },
+  { id: '14', name: 'Honeycomb Polo T-shirt' },
+  { id: '15', name: 'Dri Fit Mars Polo T-shirt' },
+  { id: '16', name: 'Polyester Polo Jersy' },
+  { id: '17', name: 'Premium Polyester Polo T-shirt' },
+  { id: '18', name: 'Premium Polycotton Polo T-shirt' },
+  { id: '19', name: 'Prime Polycotton Polo T-shirt' },
+  { id: '20', name: 'Polycotton Polo T-shirt' },
+  { id: '21', name: 'Premium Polycotton Round Neck Prime T-shirt' },
+  { id: '22', name: 'Polycotton Round Neck T-shirt' },
+  { id: '23', name: 'Polycotton Round Neck T-shirt' },
+  { id: '24', name: 'Polycotton Polo T-shirt With Tipping' },
+  { id: '25', name: 'Pure Cotton Round Neck Bio Washed T-shirt' },
+  { id: '26', name: 'Cotton Round Neck T-shirt' },
+  { id: '27', name: 'Cotton Polo Matty Finish T-shirt' },
+  { id: '28', name: 'Prime Cotton Polo T-shirt' },
+  { id: '29', name: 'Premium Cotton Polo T-shirt With Tipping' },
+  { id: '30', name: 'Premium Cotton Polo T-shirt With Pocket' },
+  { id: '31', name: 'Cotton Full Sleeve Round Neck T-shirt' },
+  { id: '32', name: '100% Cotton Oversized T-shirt' },
+  { id: '33', name: 'Cotton Oversized T-shirt' },
+  { id: '34', name: 'V-Neck Half Sleeve T-shirt 180 GSM' },
+  { id: '35', name: "Cotton Round Neck Women's T-shirt" },
+  { id: '36', name: 'Cotton V-Neck T-shirt' },
+  { id: '37', name: 'C Premium Colour Cotton Round Neck Bio Washed T-shirt' },
+  { id: '38', name: 'French Teery oversize R.N' },
+  { id: '39', name: 'Cotton Round Neck Sweatshirt' },
+  { id: '40', name: 'Track Shoot' },
+  { id: '41', name: 'Polycotton Hoodies With Zipper' },
+  { id: '42', name: 'unisex pullover Hoodies premium' },
+  { id: '43', name: 'unisex Full Zipper Hoodies premium' },
+];
+
 const AboutPage = () => {
   return (
     <div className="pt-28 bg-white">
@@ -54,6 +97,61 @@ const AboutPage = () => {
         </div>
       </section>
 
+
+      {/* Catalog Index Section */}
+      <section className="py-24 bg-gray-50 overflow-hidden relative">
+        <div className="absolute inset-0 opacity-5 pointer-events-none overflow-hidden">
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-accent rounded-full blur-[120px]"></div>
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-black rounded-full blur-[120px]"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-20" data-aos="fade-up">
+            <span className="text-[10px] font-black tracking-[0.3em] text-accent uppercase">The Collection</span>
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase mt-4">
+              PRODUCT <span className="text-accent italic">INDEX</span>
+            </h2>
+            <div className="w-20 h-1 bg-black mx-auto mt-6"></div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+            {CATALOG_INDEX.map((item, idx) => (
+              <div 
+                key={item.id} 
+                data-aos="fade-up" 
+                data-aos-delay={idx * 50}
+                className="group relative bg-white p-6 border border-gray-100 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-black cursor-default overflow-hidden"
+              >
+                {/* Number Background */}
+                <div className="absolute top-0 right-0 p-2 opacity-5 translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-10 transition-all duration-700">
+                  <span className="text-8xl font-black">{item.id}</span>
+                </div>
+
+                <div className="relative z-10">
+                  <div className="text-3xl font-black text-black tracking-tighter mb-1 transition-all duration-500 group-hover:text-accent">
+                    {item.id}
+                  </div>
+                  <div className="h-0.5 w-8 bg-gray-200 mb-4 transition-all duration-500 group-hover:w-16 group-hover:bg-accent"></div>
+                  <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest leading-relaxed group-hover:text-black transition-colors duration-500">
+                    {item.name}
+                  </p>
+                </div>
+
+                {/* Corner Decoration */}
+                <div className="absolute bottom-0 right-0 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute bottom-3 right-3 w-1.5 h-1.5 bg-accent transform rotate-45"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-20 text-center" data-aos="fade-up">
+            <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">
+              * This index represents our current production range. Items may vary based on seasonal updates.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Call to Action */}
       <section className="py-12 md:py-24 px-4 text-center">

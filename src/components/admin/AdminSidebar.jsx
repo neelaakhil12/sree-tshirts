@@ -20,8 +20,10 @@ const AdminSidebar = () => {
 
   return (
     <aside className="w-64 bg-white border-r border-gray-100 flex flex-col fixed h-full z-20">
-      <div className="p-8 border-b border-gray-50">
-        <h1 className="text-xl font-black tracking-tighter uppercase">Mingle Admin</h1>
+      <div className="p-8 border-b border-gray-50 flex justify-center">
+        <Link to="/admin/dashboard">
+          <img src="/images/logo.png" alt="Wear Mingle" className="h-20 w-20 object-contain" />
+        </Link>
       </div>
 
       <nav className="flex-1 p-4 space-y-1">
