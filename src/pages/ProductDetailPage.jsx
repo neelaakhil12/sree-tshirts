@@ -265,37 +265,41 @@ Color: ${selectedColor}`
                          </svg>
                       </div>
 
-                      <div className="flex-1 w-full overflow-x-auto">
-                         {/* TABLE HEADER BAR */}
+                      <div className="flex-1 w-full flex flex-col">
+                         {/* TABLE HEADER BAR - CONSTANT */}
                          <div className="bg-white py-3 px-4 mb-0.5">
                             <h5 className="text-[12px] font-black tracking-[0.2em] text-[#001F5B] uppercase text-center">MEASUREMENT CHART</h5>
                          </div>
-                         <table className="w-full text-center text-[10px] font-bold border border-white uppercase">
-                            <thead className="bg-transparent">
-                               <tr className="text-white border-b border-white">
-                                  <th className="py-4 border-r border-white">S.NO</th>
-                                  <th className="py-4 border-r border-white text-left pl-4">MEASUREMENTS</th>
-                                  <th className="py-4 border-r border-white font-black">S</th>
-                                  <th className="py-4 border-r border-white font-black">M</th>
-                                  <th className="py-4 border-r border-white font-black">L</th>
-                                  <th className="py-4 border-r border-white font-black">XL</th>
-                                  <th className="py-4 font-black">XXL</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-white/20">
-                               {measurementChartData.map((row, idx) => (
-                                  <tr key={row.id}>
-                                     <td className="py-4 border-r border-white/20">{idx + 1}</td>
-                                     <td className="py-4 border-r border-white/20 text-left pl-4">{row.name.toUpperCase()}</td>
-                                     <td className="py-4 border-r border-white/20">{row.s}</td>
-                                     <td className="py-4 border-r border-white/20">{row.m}</td>
-                                     <td className="py-4 border-r border-white/20">{row.l}</td>
-                                     <td className="py-4 border-r border-white/20">{row.xl}</td>
-                                     <td className="py-4">{row.xxl}</td>
+                         
+                         <div className="overflow-x-auto">
+                           <table className="w-full text-center text-[10px] font-bold border border-white uppercase">
+                              <thead className="bg-transparent">
+                                 <tr className="text-white border-b border-white">
+                                    <th className="py-4 border-r border-white">S.NO</th>
+                                    <th className="py-4 border-r border-white text-left pl-4">MEASUREMENTS</th>
+                                    <th className="py-4 border-r border-white font-black">S</th>
+                                    <th className="py-4 border-r border-white font-black">M</th>
+                                    <th className="py-4 border-r border-white font-black">L</th>
+                                    <th className="py-4 border-r border-white font-black">XL</th>
+                                    <th className="py-4 font-black">XXL</th>
                                   </tr>
-                               ))}
-                            </tbody>
-                         </table>
+                              </thead>
+                              <tbody className="divide-y divide-white/20">
+                                 {measurementChartData.map((row, idx) => (
+                                    <tr key={row.id}>
+                                       <td className="py-4 border-r border-white/20">{idx + 1}</td>
+                                       <td className="py-4 border-r border-white/20 text-left pl-4">{row.name.toUpperCase()}</td>
+                                       <td className="py-4 border-r border-white/20">{row.s}</td>
+                                       <td className="py-4 border-r border-white/20">{row.m}</td>
+                                       <td className="py-4 border-r border-white/20">{row.l}</td>
+                                       <td className="py-4 border-r border-white/20">{row.xl}</td>
+                                       <td className="py-4">{row.xxl}</td>
+                                    </tr>
+                                 ))}
+                              </tbody>
+                           </table>
+                         </div>
+
                          <div className="mt-6 space-y-1 text-[9px] text-gray-300 font-bold uppercase tracking-widest text-center lg:text-left">
                             <p>*All the measurements in inches</p>
                             <p>*Tolerance(+/- 0.5 inch) acceptable</p>
