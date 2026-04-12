@@ -28,7 +28,7 @@ const Footer = () => {
           {/* Brand & Socials */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center">
-              <img src="/images/logo.png" alt="Wear Mingle Logo" className="h-20 w-20 object-contain" />
+              <img src="/images/logo.png" alt="Wear Mingle Logo" className="h-28 w-28 object-contain" />
             </Link>
             <p className="text-gray-600 text-sm leading-relaxed">
               Your one-stop destination for premium quality T-shirts. We mingle comfort with style to bring you the best fashion experience.

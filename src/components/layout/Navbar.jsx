@@ -39,7 +39,7 @@ const Navbar = () => {
           
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src="/images/logo.png" alt="Wear Mingle Logo" className="h-14 sm:h-20 w-auto object-contain" />
+            <img src="/images/logo.png" alt="Wear Mingle Logo" className="h-24 w-24 sm:h-36 sm:w-36 object-contain" />
           </Link>
 
           {/* Right Side Items */}
