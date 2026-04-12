@@ -34,60 +34,59 @@ const Navbar = () => {
         isScrolled ? 'bg-white shadow-md py-2' : 'bg-white/80 backdrop-blur-md py-4'
       }`}
     >
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="w-full px-4 md:px-8 lg:px-16 xl:px-24">
         <div className="flex items-center justify-between">
           
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2 sm:space-x-4">
+            <img src="/images/logo.png" alt="Sree T-Shirts Logo" className="h-10 w-10 sm:h-12 sm:w-12 object-contain" />
             <span className="text-xl sm:text-2xl font-black tracking-tighter text-black">
               WEAR <span className="text-accent">MINGLE</span>
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
-                to={link.path}
-                className={`text-sm font-bold tracking-wide transition-colors hover:text-accent ${
-                  isActive(link.path) ? 'text-accent border-b-2 border-accent' : 'text-black'
-                }`}
-              >
-                {link.name.toUpperCase()}
-              </Link>
-            ))}
-          </div>
+          {/* Right Side Items */}
+          <div className="flex items-center justify-end space-x-4 lg:space-x-8">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.name} 
+                  to={link.path}
+                  className={`text-sm font-bold tracking-wide transition-colors hover:text-accent ${
+                    isActive(link.path) ? 'text-accent border-b-2 border-accent' : 'text-black'
+                  }`}
+                >
+                  {link.name.toUpperCase()}
+                </Link>
+              ))}
+            </div>
 
-          {/* Search Bar - Myntra Style */}
-          <form 
-            onSubmit={(e) => {
-              e.preventDefault();
-              const term = e.target.search.value;
-              window.location.href = `/products?search=${encodeURIComponent(term)}`;
-            }}
-            className="hidden lg:flex flex-grow max-w-md mx-8 px-4 py-2 bg-gray-100 rounded-lg items-center border border-transparent focus-within:border-gray-300 transition-all"
-          >
-            <Search className="w-4 h-4 text-gray-500" />
-            <input 
-              name="search"
-              type="text" 
-              placeholder="Search for products, brands and more" 
-              className="bg-transparent border-none outline-none w-full ml-2 text-sm text-gray-700 font-bold"
-            />
-          </form>
+            {/* Search Bar */}
+            <form 
+              onSubmit={(e) => {
+                e.preventDefault();
+                const term = e.target.search.value;
+                window.location.href = `/products?search=${encodeURIComponent(term)}`;
+              }}
+              className="hidden lg:flex w-64 xl:w-80 px-4 py-2 bg-gray-100 rounded-lg items-center border border-transparent focus-within:border-gray-300 transition-all"
+            >
+              <Search className="w-4 h-4 text-gray-500" />
+              <input 
+                name="search"
+                type="text" 
+                placeholder="Search products..." 
+                className="bg-transparent border-none outline-none w-full ml-2 text-sm text-gray-700 font-bold"
+              />
+            </form>
 
-          {/* Right Icons */}
-          <div className="flex items-center space-x-5">
-             {/* Cart Button Removed */}
-
-             {/* Mobile Menu Icon */}
-             <button 
-               className="md:hidden p-2"
-               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-             >
-               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-             </button>
+            {/* Mobile Menu Icon */}
+            <button 
+              className="md:hidden p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
         </div>
       </div>

@@ -1314,5 +1314,617 @@ export const products = [
       "Black": "/images/products/school-uniform/skirt.png",
       "Grey": "/images/products/school-uniform/skirt.png"
     }
+  },
+  {
+    "id": 1000,
+    "name": "Premium Caps Product 1",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Caps",
+    "image": "https://picsum.photos/seed/Caps1/800/800",
+    "description": "This is a premium product for Caps. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Caps1Standard/800/800"
+    }
+  },
+  {
+    "id": 1001,
+    "name": "Premium Caps Product 2",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Caps",
+    "image": "https://picsum.photos/seed/Caps2/800/800",
+    "description": "This is a premium product for Caps. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Caps2Standard/800/800"
+    }
+  },
+  {
+    "id": 1002,
+    "name": "Premium Caps Product 3",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Caps",
+    "image": "https://picsum.photos/seed/Caps3/800/800",
+    "description": "This is a premium product for Caps. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Caps3Standard/800/800"
+    }
+  },
+  {
+    "id": 1003,
+    "name": "Premium Caps Product 4",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Caps",
+    "image": "https://picsum.photos/seed/Caps4/800/800",
+    "description": "This is a premium product for Caps. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Caps4Standard/800/800"
+    }
+  },
+  {
+    "id": 1004,
+    "name": "Premium Hoodies Product 1",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Hoodies",
+    "image": "https://picsum.photos/seed/Hoodies1/800/800",
+    "description": "This is a premium product for Hoodies. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Hoodies1Standard/800/800"
+    }
+  },
+  {
+    "id": 1005,
+    "name": "Premium Hoodies Product 2",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Hoodies",
+    "image": "https://picsum.photos/seed/Hoodies2/800/800",
+    "description": "This is a premium product for Hoodies. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Hoodies2Standard/800/800"
+    }
+  },
+  {
+    "id": 1006,
+    "name": "Premium Hoodies Product 3",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Hoodies",
+    "image": "https://picsum.photos/seed/Hoodies3/800/800",
+    "description": "This is a premium product for Hoodies. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Hoodies3Standard/800/800"
+    }
+  },
+  {
+    "id": 1007,
+    "name": "Premium Hoodies Product 4",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Hoodies",
+    "image": "https://picsum.photos/seed/Hoodies4/800/800",
+    "description": "This is a premium product for Hoodies. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Hoodies4Standard/800/800"
+    }
+  },
+  {
+    "id": 1008,
+    "name": "Premium Tote Bags Product 1",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Tote Bags",
+    "image": "https://picsum.photos/seed/ToteBags1/800/800",
+    "description": "This is a premium product for Tote Bags. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/ToteBags1Standard/800/800"
+    }
+  },
+  {
+    "id": 1009,
+    "name": "Premium Tote Bags Product 2",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Tote Bags",
+    "image": "https://picsum.photos/seed/ToteBags2/800/800",
+    "description": "This is a premium product for Tote Bags. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/ToteBags2Standard/800/800"
+    }
+  },
+  {
+    "id": 1010,
+    "name": "Premium Tote Bags Product 3",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Tote Bags",
+    "image": "https://picsum.photos/seed/ToteBags3/800/800",
+    "description": "This is a premium product for Tote Bags. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/ToteBags3Standard/800/800"
+    }
+  },
+  {
+    "id": 1011,
+    "name": "Premium Tote Bags Product 4",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Tote Bags",
+    "image": "https://picsum.photos/seed/ToteBags4/800/800",
+    "description": "This is a premium product for Tote Bags. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/ToteBags4Standard/800/800"
+    }
+  },
+  {
+    "id": 1012,
+    "name": "Premium Diary Product 1",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Diary",
+    "image": "https://picsum.photos/seed/Diary1/800/800",
+    "description": "This is a premium product for Diary. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Diary1Standard/800/800"
+    }
+  },
+  {
+    "id": 1013,
+    "name": "Premium Diary Product 2",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Diary",
+    "image": "https://picsum.photos/seed/Diary2/800/800",
+    "description": "This is a premium product for Diary. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Diary2Standard/800/800"
+    }
+  },
+  {
+    "id": 1014,
+    "name": "Premium Diary Product 3",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Diary",
+    "image": "https://picsum.photos/seed/Diary3/800/800",
+    "description": "This is a premium product for Diary. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Diary3Standard/800/800"
+    }
+  },
+  {
+    "id": 1015,
+    "name": "Premium Diary Product 4",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Diary",
+    "image": "https://picsum.photos/seed/Diary4/800/800",
+    "description": "This is a premium product for Diary. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Diary4Standard/800/800"
+    }
+  },
+  {
+    "id": 1016,
+    "name": "Premium Pens Product 1",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Pens",
+    "image": "https://picsum.photos/seed/Pens1/800/800",
+    "description": "This is a premium product for Pens. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Pens1Standard/800/800"
+    }
+  },
+  {
+    "id": 1017,
+    "name": "Premium Pens Product 2",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Pens",
+    "image": "https://picsum.photos/seed/Pens2/800/800",
+    "description": "This is a premium product for Pens. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Pens2Standard/800/800"
+    }
+  },
+  {
+    "id": 1018,
+    "name": "Premium Pens Product 3",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Pens",
+    "image": "https://picsum.photos/seed/Pens3/800/800",
+    "description": "This is a premium product for Pens. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Pens3Standard/800/800"
+    }
+  },
+  {
+    "id": 1019,
+    "name": "Premium Pens Product 4",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Pens",
+    "image": "https://picsum.photos/seed/Pens4/800/800",
+    "description": "This is a premium product for Pens. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Pens4Standard/800/800"
+    }
+  },
+  {
+    "id": 1020,
+    "name": "Premium Bottle Product 1",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Bottle",
+    "image": "https://picsum.photos/seed/Bottle1/800/800",
+    "description": "This is a premium product for Bottle. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Bottle1Standard/800/800"
+    }
+  },
+  {
+    "id": 1021,
+    "name": "Premium Bottle Product 2",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Bottle",
+    "image": "https://picsum.photos/seed/Bottle2/800/800",
+    "description": "This is a premium product for Bottle. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Bottle2Standard/800/800"
+    }
+  },
+  {
+    "id": 1022,
+    "name": "Premium Bottle Product 3",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Bottle",
+    "image": "https://picsum.photos/seed/Bottle3/800/800",
+    "description": "This is a premium product for Bottle. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Bottle3Standard/800/800"
+    }
+  },
+  {
+    "id": 1023,
+    "name": "Premium Bottle Product 4",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Bottle",
+    "image": "https://picsum.photos/seed/Bottle4/800/800",
+    "description": "This is a premium product for Bottle. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/Bottle4Standard/800/800"
+    }
+  },
+  {
+    "id": 1024,
+    "name": "Premium College/School Bag Product 1",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "College/School Bag",
+    "image": "https://picsum.photos/seed/CollegeSchoolBag1/800/800",
+    "description": "This is a premium product for College/School Bag. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/CollegeSchoolBag1Standard/800/800"
+    }
+  },
+  {
+    "id": 1025,
+    "name": "Premium College/School Bag Product 2",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "College/School Bag",
+    "image": "https://picsum.photos/seed/CollegeSchoolBag2/800/800",
+    "description": "This is a premium product for College/School Bag. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/CollegeSchoolBag2Standard/800/800"
+    }
+  },
+  {
+    "id": 1026,
+    "name": "Premium College/School Bag Product 3",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "College/School Bag",
+    "image": "https://picsum.photos/seed/CollegeSchoolBag3/800/800",
+    "description": "This is a premium product for College/School Bag. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/CollegeSchoolBag3Standard/800/800"
+    }
+  },
+  {
+    "id": 1027,
+    "name": "Premium College/School Bag Product 4",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "College/School Bag",
+    "image": "https://picsum.photos/seed/CollegeSchoolBag4/800/800",
+    "description": "This is a premium product for College/School Bag. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/CollegeSchoolBag4Standard/800/800"
+    }
+  },
+  {
+    "id": 1028,
+    "name": "Premium Laptop Bags Product 1",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Laptop Bags",
+    "image": "https://picsum.photos/seed/LaptopBags1/800/800",
+    "description": "This is a premium product for Laptop Bags. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/LaptopBags1Standard/800/800"
+    }
+  },
+  {
+    "id": 1029,
+    "name": "Premium Laptop Bags Product 2",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Laptop Bags",
+    "image": "https://picsum.photos/seed/LaptopBags2/800/800",
+    "description": "This is a premium product for Laptop Bags. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/LaptopBags2Standard/800/800"
+    }
+  },
+  {
+    "id": 1030,
+    "name": "Premium Laptop Bags Product 3",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Laptop Bags",
+    "image": "https://picsum.photos/seed/LaptopBags3/800/800",
+    "description": "This is a premium product for Laptop Bags. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/LaptopBags3Standard/800/800"
+    }
+  },
+  {
+    "id": 1031,
+    "name": "Premium Laptop Bags Product 4",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Laptop Bags",
+    "image": "https://picsum.photos/seed/LaptopBags4/800/800",
+    "description": "This is a premium product for Laptop Bags. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/LaptopBags4Standard/800/800"
+    }
+  },
+  {
+    "id": 1032,
+    "name": "Premium Corporate Giftings Product 1",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Corporate Giftings",
+    "image": "https://picsum.photos/seed/CorporateGiftings1/800/800",
+    "description": "This is a premium product for Corporate Giftings. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/CorporateGiftings1Standard/800/800"
+    }
+  },
+  {
+    "id": 1033,
+    "name": "Premium Corporate Giftings Product 2",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Corporate Giftings",
+    "image": "https://picsum.photos/seed/CorporateGiftings2/800/800",
+    "description": "This is a premium product for Corporate Giftings. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/CorporateGiftings2Standard/800/800"
+    }
+  },
+  {
+    "id": 1034,
+    "name": "Premium Corporate Giftings Product 3",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Corporate Giftings",
+    "image": "https://picsum.photos/seed/CorporateGiftings3/800/800",
+    "description": "This is a premium product for Corporate Giftings. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/CorporateGiftings3Standard/800/800"
+    }
+  },
+  {
+    "id": 1035,
+    "name": "Premium Corporate Giftings Product 4",
+    "price": 299,
+    "originalPrice": 499,
+    "discount": "40% OFF",
+    "rating": 4.5,
+    "reviews": 12,
+    "category": "Corporate Giftings",
+    "image": "https://picsum.photos/seed/CorporateGiftings4/800/800",
+    "description": "This is a premium product for Corporate Giftings. Actual images and details will be updated later.",
+    "sizes": ["Standard"],
+    "colors": ["Standard"],
+    "colorImages": {
+      "Standard": "https://picsum.photos/seed/CorporateGiftings4Standard/800/800"
+    }
   }
 ];

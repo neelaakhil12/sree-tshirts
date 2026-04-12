@@ -21,11 +21,76 @@ const categories = [
   },
   {
     id: 3,
-    name: "WOODIES RANGE",
+    name: "HOODIES RANGE",
     image: "/images/products/unisex-pullover-hoodies/red.png",
-    path: "/products?category=Woodies",
+    path: "/products?category=Hoodies",
     count: 28,
     delay: 200,
+  },
+  {
+    id: 4,
+    name: "CAPS",
+    image: "/images/products/categories/caps.png",
+    path: "/products?category=Caps",
+    count: 12,
+    delay: 300,
+  },
+
+  {
+    id: 6,
+    name: "TOTE BAGS",
+    image: "/images/products/categories/tote-bags.png",
+    path: "/products?category=Tote Bags",
+    count: 15,
+    delay: 500,
+  },
+  {
+    id: 7,
+    name: "DIARY",
+    image: "/images/products/categories/diary.png",
+    path: "/products?category=Diary",
+    count: 8,
+    delay: 600,
+  },
+  {
+    id: 8,
+    name: "PENS",
+    image: "/images/products/categories/pens.png",
+    path: "/products?category=Pens",
+    count: 25,
+    delay: 700,
+  },
+  {
+    id: 9,
+    name: "BOTTLE",
+    image: "/images/products/categories/bottle.png",
+    path: "/products?category=Bottle",
+    count: 20,
+    delay: 800,
+  },
+  {
+    id: 10,
+    name: "COLLEGE/SCHOOL BAG",
+    image: "/images/products/categories/school-bag.png",
+    path: "/products?category=College/School Bag",
+    count: 10,
+    delay: 900,
+  },
+  {
+    id: 11,
+    name: "LAPTOP BAGS",
+    image: "/images/products/categories/laptop-bag.png",
+    path: "/products?category=Laptop Bags",
+    count: 14,
+    delay: 1000,
+  },
+  {
+    id: 12,
+    name: "CORPORATE GIFTINGS",
+    image: "/images/products/categories/corporate-gift.png",
+    path: "/products?category=Corporate Giftings",
+    count: 30,
+    delay: 1100,
   }
 ];
 
@@ -39,7 +104,7 @@ const CategorySection = () => {
          </h2>
       </div>
 
-      <div className="flex overflow-x-auto md:justify-center gap-4 md:gap-8 px-4 md:px-[5%] pb-12 snap-x snap-mandatory scrollbar-hide no-scrollbar">
+      <div className="flex overflow-x-auto gap-4 md:gap-8 px-4 md:px-[5%] pb-12 snap-x snap-mandatory scrollbar-hide no-scrollbar">
         {categories.map((cat) => (
           <Link 
             key={cat.id} 
@@ -52,7 +117,7 @@ const CategorySection = () => {
             <img 
               src={cat.image} 
               alt={cat.name}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 bg-gray-100"
             />
             
             {/* Overlay content */}

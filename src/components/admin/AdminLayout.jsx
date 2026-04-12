@@ -18,6 +18,8 @@ const AdminLayout = ({ isLoggedIn }) => {
   const menuItems = [
     { name: 'DASHBOARD', icon: LayoutDashboard, path: '/admin' },
     { name: 'PRODUCTS LIST', icon: ShoppingBag, path: '/admin/products' },
+    { name: 'CATEGORIES', icon: PlusCircle, path: '/admin/categories' },
+    { name: 'INVOICES', icon: User, path: '/admin/invoice' },
   ];
 
   const handleLogout = () => {

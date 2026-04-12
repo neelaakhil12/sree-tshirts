@@ -17,6 +17,8 @@ const Footer = () => {
     { name: 'Women T-Shirts', path: '/products?category=Women' },
     { name: 'Kids T-Shirts', path: '/products?category=Kids' },
     { name: 'New Arrivals', path: '/products?filter=new' },
+    { name: 'Corporate Gifts', path: '/products?category=Corporate Giftings' },
+    { name: 'Bags & Accessories', path: '/products?category=Laptop Bags' },
   ]
 
   return (
@@ -26,8 +28,9 @@ const Footer = () => {
           
           {/* Brand & Socials */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-black tracking-tighter text-black">
+            <Link to="/" className="flex items-center space-x-2 sm:space-x-4">
+              <img src="/images/logo.png" alt="Sree T-Shirts Logo" className="h-10 w-10 object-contain" />
+              <span className="text-xl sm:text-2xl font-black tracking-tighter text-black">
                 WEAR <span className="text-accent">MINGLE</span>
               </span>
             </Link>
@@ -98,7 +101,7 @@ const Footer = () => {
 
         <div className="mt-16 pt-8 border-t border-gray-200 text-center">
           <p className="text-gray-500 text-xs">
-            © {currentYear} Wear Mingle (Sree Sai Apparels). All rights reserved. Designed by Srikanth.
+            © {currentYear} Wear Mingle. All rights reserved. Designed by Srikanth.
           </p>
         </div>
       </div>

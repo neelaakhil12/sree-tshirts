@@ -14,10 +14,9 @@ const ProductsPage = () => {
   const [sortBy, setSortBy] = useState('Recommended')
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false)
 
-  const virtualCategories = ['All', 'Tshirts', 'School uniform', 'Woodies']
+  const virtualCategories = ['All', 'Tshirts', 'School uniform', 'Hoodies', 'Caps', 'Tote Bags', 'Diary', 'Pens', 'Bottle', 'College/School Bag', 'Laptop Bags', 'Corporate Giftings']
   const categoryMapping = {
-    'Tshirts': ['Polyester', 'PolyCotton', 'Cotton', 'Special', 'Sweatshirts'],
-    'Woodies': ['Hoodies']
+    'Tshirts': ['Polyester', 'PolyCotton', 'Cotton', 'Special', 'Sweatshirts']
   }
   
   const sizes = ['S', 'M', 'L', 'XL', 'XXL']

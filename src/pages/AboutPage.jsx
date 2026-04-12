@@ -30,14 +30,14 @@ const AboutPage = () => {
            </div>
            <div className="space-y-8" data-aos="fade-left">
               <h2 className="text-4xl font-black tracking-tighter uppercase leading-tight">
-                 THE SREE SAI <br /> APPAREL <span className="text-accent">LEGACY.</span>
+                 THE WEAR <span className="text-accent">MINGLE</span> <br /> LEGACY.
               </h2>
               <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
                  <p>
-                    Founded in Nandyal, Sree Sai Apparels started with a simple belief: everyone deserves to look good without compromising on comfort. Under the leadership of Srikanth, we’ve grown from a local store to a dynamic online platform: Wear Mingle.
+                    Founded in the heart of Nandyal and Bangalore that fashion should be a perfect blend of style and ease. Under the visionary leadership of SRIKANTH G and VENKATASIVA CM, our journey began as a dedicated local store and has now evolved into Wear Mingle a dynamic online destination for the modern wardrobe.
                  </p>
                  <p>
-                    We specialize in premium cotton T-shirts that are bio-washed and pre-shrunk to ensure they feel as good as they look, even after many washes.
+                    At Wear Mingle, we don't just sell clothes; we deliver confidence. We specialize in premium cotton T-shirts crafted with precision. Each piece is bio-washed for ultimate softness and pre-shrunk to ensure a perfect fit that lasts, wash after wash. Driven by the passion of our founders, we are committed to bringing you high-quality essentials that feel as good as they look.
                  </p>
               </div>
               <div className="grid grid-cols-2 gap-8 pt-8">

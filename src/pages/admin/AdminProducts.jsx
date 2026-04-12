@@ -168,6 +168,17 @@ const AdminProducts = () => {
                             <option value="Men">Men</option>
                             <option value="Women">Women</option>
                             <option value="Kids">Kids</option>
+                            <option value="Tshirts">Tshirts</option>
+                            <option value="School uniform">School uniform</option>
+                            <option value="Hoodies">Hoodies</option>
+                            <option value="Caps">Caps</option>
+                            <option value="Tote Bags">Tote Bags</option>
+                            <option value="Diary">Diary</option>
+                            <option value="Pens">Pens</option>
+                            <option value="Bottle">Bottle</option>
+                            <option value="College/School Bag">College/School Bag</option>
+                            <option value="Laptop Bags">Laptop Bags</option>
+                            <option value="Corporate Giftings">Corporate Giftings</option>
                          </select>
                       </div>
                    </div>
