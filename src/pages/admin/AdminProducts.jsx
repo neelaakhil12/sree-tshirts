@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Plus, Edit2, Trash2, Search, X, Check, Upload, Image as ImageIcon, Star, Loader2 } from 'lucide-react'
 import { useData } from '../../context/DataContext'
 import { supabase } from '../../lib/supabase'
+import { uploadToCloudinary } from '../../lib/cloudinary'
 
 const AdminProducts = () => {
   const { products, fetchData, categories } = useData()
@@ -9,6 +10,7 @@ const AdminProducts = () => {
   const [editingProduct, setEditingProduct] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [uploadStatus, setUploadStatus] = useState('')
 
   // Form State
   const [formProduct, setFormProduct] = useState({
@@ -33,6 +35,27 @@ const AdminProducts = () => {
     p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
     p.category.toLowerCase().includes(searchTerm.toLowerCase())
   )
+
+  const handleImageUpload = async (file, type = 'main', color = null) => {
+    try {
+      setUploadStatus('Uploading...')
+      const url = await uploadToCloudinary(file)
+      
+      if (type === 'main') {
+        setFormProduct({ ...formProduct, image: url })
+      } else if (type === 'color' && color) {
+        setFormProduct({
+          ...formProduct,
+          color_images: { ...formProduct.color_images, [color]: url }
+        })
+      }
+      setUploadStatus('Success!')
+      setTimeout(() => setUploadStatus(''), 2000)
+    } catch (err) {
+      alert('Upload failed: ' + err.message)
+      setUploadStatus('Failed')
+    }
+  }
 
   const handleCreateOrUpdate = async (e) => {
     e.preventDefault()
@@ -67,7 +90,7 @@ const AdminProducts = () => {
         if (error) throw error
       }
       
-      await fetchData() // Refresh global state
+      await fetchData()
       closeModal()
     } catch (err) {
       alert('Error saving product: ' + err.message)
@@ -95,7 +118,7 @@ const AdminProducts = () => {
     setEditingProduct(product)
     setFormProduct({
       ...product,
-      original_price: product.original_price || product.originalPrice // Handle legacy naming if any
+      original_price: product.original_price || product.originalPrice
     })
     setIsModalOpen(true)
   }
@@ -157,13 +180,6 @@ const AdminProducts = () => {
     })
   }
 
-  const updateColorImage = (color, path) => {
-    setFormProduct({
-      ...formProduct,
-      color_images: { ...formProduct.color_images, [color]: path }
-    })
-  }
-
   return (
     <div className="space-y-8 pb-32">
        {/* Actions Bar */}
@@ -204,7 +220,7 @@ const AdminProducts = () => {
                    <tr key={p.id} className="hover:bg-gray-50 transition-colors group">
                       <td className="px-8 py-4 flex items-center space-x-4">
                          <div className="w-14 h-14 bg-gray-100 overflow-hidden ring-2 ring-transparent group-hover:ring-accent transition-all flex items-center justify-center">
-                            <img src={p.image} className="w-full h-full object-contain mix-blend-multiply" onError={(e) => e.target.src = 'https://via.placeholder.com/150'} />
+                            <img src={p.image} className="w-full h-full object-contain mix-blend-multiply" />
                          </div>
                          <div>
                             <p className="text-sm font-black text-black">{p.name}</p>
@@ -259,7 +275,7 @@ const AdminProducts = () => {
                 </div>
 
                 <form onSubmit={handleCreateOrUpdate} className="space-y-12">
-                   {/* Basic Info */}
+                   {/* ROW 1: BASIC INFO */}
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">PRODUCT NAME</label>
@@ -285,7 +301,7 @@ const AdminProducts = () => {
                       </div>
                    </div>
 
-                   {/* Pricing */}
+                   {/* ROW 2: PRICING */}
                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                       <div className="space-y-2">
                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">PRICE (₹)</label>
@@ -311,19 +327,41 @@ const AdminProducts = () => {
                       </div>
                    </div>
 
-                   {/* Image & Description */}
+                   {/* ROW 3: MEDIA UPLOAD */}
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div className="space-y-2">
-                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">MEDIA URL (MAIN)</label>
-                          <input type="text" className="w-full bg-gray-50 border-none p-5 text-sm font-bold font-mono" value={formProduct.image} onChange={(e) => setFormProduct({...formProduct, image: e.target.value})} required />
+                       <div className="space-y-4">
+                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">MAIN PRODUCT IMAGE</label>
+                          <div className="flex items-start space-x-6">
+                             <div className="w-24 h-24 bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center relative group">
+                                {formProduct.image ? (
+                                   <img src={formProduct.image} className="w-full h-full object-contain mix-blend-multiply" />
+                                ) : (
+                                   <ImageIcon className="text-gray-300" size={32} />
+                                )}
+                             </div>
+                             <div className="flex-1 space-y-2">
+                                <label className="inline-block bg-accent text-white px-6 py-3 text-[10px] font-black uppercase tracking-widest cursor-pointer hover:bg-black transition-all">
+                                   <Upload size={14} className="inline mr-2" />
+                                   SELECT FILE
+                                   <input 
+                                     type="file" 
+                                     className="hidden" 
+                                     accept="image/*"
+                                     onChange={(e) => handleImageUpload(e.target.files[0], 'main')}
+                                   />
+                                </label>
+                                {uploadStatus && <p className="text-[9px] font-black text-accent uppercase tracking-[0.2em]">{uploadStatus}</p>}
+                                <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">JPG, PNG, WebP (Max 10MB)</p>
+                             </div>
+                          </div>
                       </div>
                       <div className="space-y-2">
                           <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">DESCRIPTION</label>
-                          <textarea className="w-full bg-gray-50 border-none p-5 text-sm font-bold resize-none" rows="1" value={formProduct.description} onChange={(e) => setFormProduct({...formProduct, description: e.target.value})}></textarea>
+                          <textarea className="w-full bg-gray-50 border-none p-5 text-sm font-bold resize-none" rows="3" value={formProduct.description} onChange={(e) => setFormProduct({...formProduct, description: e.target.value})}></textarea>
                       </div>
                    </div>
 
-                   {/* Variants */}
+                   {/* ROW 4: VARIANTS */}
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-6 border-t border-gray-100">
                       <div className="space-y-4">
                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">SIZES</label>
@@ -356,21 +394,32 @@ const AdminProducts = () => {
                       </div>
                    </div>
 
-                   {/* Color Images Mapping */}
+                   {/* COLOR SPECIFIC IMAGES */}
                    {formProduct.colors?.length > 0 && (
-                      <div className="space-y-4 pt-6 bg-gray-50 p-6">
-                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">COLOR-IMAGE MAPPING</label>
-                         <div className="space-y-3">
+                      <div className="space-y-6 pt-10 border-t border-gray-100 italic">
+                         <label className="text-[11px] font-black text-accent uppercase tracking-[0.2em] underline decoration-accent underline-offset-4 decoration-2">Color-Specific Image Uploads</label>
+                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             {formProduct.colors.map(color => (
-                               <div key={color} className="flex items-center gap-4">
-                                  <span className="w-32 text-[10px] font-black uppercase text-accent truncate">{color}</span>
-                                  <input 
-                                    type="text" 
-                                    className="flex-1 bg-white border border-gray-100 p-3 text-[10px] font-bold font-mono" 
-                                    placeholder="Image URL..." 
-                                    value={formProduct.color_images?.[color] || ''} 
-                                    onChange={(e) => updateColorImage(color, e.target.value)}
-                                  />
+                               <div key={color} className="bg-gray-50 p-6 flex items-center space-x-6">
+                                  <div className="w-16 h-16 bg-white border border-gray-100 overflow-hidden flex items-center justify-center">
+                                     {formProduct.color_images?.[color] ? (
+                                        <img src={formProduct.color_images[color]} className="w-full h-full object-contain mix-blend-multiply" />
+                                     ) : (
+                                        <div className="text-[8px] font-black text-gray-200 text-center uppercase tracking-tighter">No<br/>Image</div>
+                                     )}
+                                  </div>
+                                  <div className="flex-1 overflow-hidden">
+                                     <p className="text-[10px] font-black text-gray-900 mb-2 uppercase truncate">{color}</p>
+                                     <label className="text-[10px] font-black text-accent uppercase tracking-widest border border-accent px-4 py-2 cursor-pointer hover:bg-accent hover:text-white transition-all block text-center">
+                                        UPLOAD
+                                        <input 
+                                           type="file" 
+                                           className="hidden" 
+                                           accept="image/*"
+                                           onChange={(e) => handleImageUpload(e.target.files[0], 'color', color)}
+                                        />
+                                     </label>
+                                  </div>
                                </div>
                             ))}
                          </div>
