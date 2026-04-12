@@ -172,9 +172,6 @@ const CategoryManager = () => {
                     Type: <span className="text-gray-600">{cat.type}</span>
                   </p>
                   <p className="text-[10px] text-gray-400 font-bold tracking-widest uppercase">
-                    Path: <span className="text-gray-600">{cat.path}</span>
-                  </p>
-                  <p className="text-[10px] text-gray-400 font-bold tracking-widest uppercase">
                     ID: <span className="text-gray-600">{cat.id}</span>
                   </p>
                 </div>
@@ -269,16 +266,6 @@ const CategoryManager = () => {
                   className="w-full bg-gray-50 border-none px-4 py-3 text-sm font-bold outline-none focus:ring-2 ring-black/10 transition-all" />
               </div>
 
-              {/* Path */}
-              <div>
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-2">
-                  URL Path <span className="text-gray-300 normal-case font-semibold">(auto-generated if left blank)</span>
-                </label>
-                <input type="text" value={modal.data.path}
-                  onChange={e => setModal(prev => ({ ...prev, data: { ...prev.data, path: e.target.value } }))}
-                  placeholder="/products?category=Hoodies"
-                  className="w-full bg-gray-50 border-none px-4 py-3 text-sm font-bold outline-none focus:ring-2 ring-black/10 transition-all" />
-              </div>
             </div>
 
             {/* Footer */}
