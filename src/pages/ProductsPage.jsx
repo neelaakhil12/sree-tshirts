@@ -16,7 +16,6 @@ const ProductsPage = () => {
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false)
 
   // Sub-categories for T-shirts
-  const tshirtSubCategories = ['Polyester', 'PolyCotton', 'Cotton']
   const sizes = ['S', 'M', 'L', 'XL', 'XXL']
   const sortOptions = ['Recommended', 'Best Rated', 'Price: Low to High', 'Price: High to Low']
 
@@ -31,10 +30,6 @@ const ProductsPage = () => {
       result = result.filter(p => p.displayCategory === selectedCategory || p.category === selectedCategory)
     }
 
-    // Sub-category Filter (Material)
-    if (selectedCategory === 'Tshirts' && selectedSubCategories.length > 0) {
-      result = result.filter(p => selectedSubCategories.includes(p.category))
-    }
 
     // Search Query
     if (searchQuery) {
@@ -56,11 +51,6 @@ const ProductsPage = () => {
     setFilteredProducts(result)
   }, [selectedCategory, selectedSubCategories, sortBy, searchParams, products, isLoaded])
 
-  const toggleSubCategory = (sub) => {
-    setSelectedSubCategories(prev => 
-      prev.includes(sub) ? prev.filter(s => s !== sub) : [...prev, sub]
-    )
-  }
 
   if (!isLoaded) return null
 
@@ -112,27 +102,6 @@ const ProductsPage = () => {
               </div>
             </div>
 
-            {/* Sub-categories (Tshirt Materials) - RESTORED ORIGINAL FILTER UI */}
-            {selectedCategory === 'Tshirts' && (
-              <div className="p-6 border border-gray-100 italic">
-                <h4 className="text-[10px] font-black tracking-[0.2em] text-accent uppercase mb-6 border-b border-gray-200 pb-2">Material Type</h4>
-                <div className="space-y-3">
-                   {tshirtSubCategories.map(sub => (
-                     <label key={sub} className="flex items-center space-x-3 cursor-pointer group">
-                        <div 
-                          onClick={() => toggleSubCategory(sub)}
-                          className={`w-4 h-4 border-2 flex items-center justify-center transition-all ${
-                            selectedSubCategories.includes(sub) ? 'bg-black border-black' : 'border-gray-300 group-hover:border-black'
-                          }`}
-                        >
-                           {selectedSubCategories.includes(sub) && <Check size={12} className="text-white" />}
-                        </div>
-                        <span className={`text-[11px] font-black uppercase tracking-widest ${selectedSubCategories.includes(sub) ? 'text-black' : 'text-gray-400 group-hover:text-black'}`}>{sub}</span>
-                     </label>
-                   ))}
-                </div>
-              </div>
-            )}
 
             {/* Sizes */}
             <div className="p-6 border border-gray-100">
@@ -186,25 +155,6 @@ const ProductsPage = () => {
                 <button onClick={() => setIsFilterSidebarOpen(false)}><X size={24} /></button>
              </div>
              
-             {/* Sub-categories */}
-             {selectedCategory === 'Tshirts' && (
-               <div className="space-y-6">
-                  <h4 className="text-[10px] font-black tracking-[0.2em] text-accent uppercase">MATERIAL</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {tshirtSubCategories.map(sub => (
-                      <button 
-                         key={sub} 
-                         onClick={() => toggleSubCategory(sub)}
-                         className={`px-6 py-4 text-[10px] font-black border transition-all uppercase ${
-                           selectedSubCategories.includes(sub) ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-500 border-transparent'
-                         }`}
-                      >
-                        {sub}
-                      </button>
-                    ))}
-                  </div>
-               </div>
-             )}
              
              <button 
                onClick={() => setIsFilterSidebarOpen(false)}
