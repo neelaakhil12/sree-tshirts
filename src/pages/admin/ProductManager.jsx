@@ -540,8 +540,16 @@ const ProductManager = () => {
                   {/* Category */}
                   <div>
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-2">Category</label>
-                    <input type="text" value={editProduct.category || ''} onChange={e => setEditProduct(p => ({...p, category: e.target.value}))}
-                      className="w-full bg-gray-50 px-4 py-3 text-sm font-bold outline-none focus:ring-2 ring-black/10 transition-all border-none" />
+                    <select 
+                      value={editProduct.category || ''} 
+                      onChange={e => setEditProduct(p => ({...p, category: e.target.value}))}
+                      className="w-full bg-gray-50 px-4 py-3 text-sm font-bold outline-none focus:ring-2 ring-black/10 transition-all border-none cursor-pointer appearance-none"
+                    >
+                      <option value="" disabled>Select Category</option>
+                      {categories.map(cat => (
+                        <option key={cat.id} value={cat.type}>{cat.name}</option>
+                      ))}
+                    </select>
                   </div>
 
                   {/* Description */}
@@ -802,10 +810,16 @@ const ProductManager = () => {
               {/* Category */}
               <div>
                 <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-2">Category *</label>
-                <input type="text" value={newProduct.category}
+                <select 
+                  value={newProduct.category}
                   onChange={e => setNewProduct(p => ({...p, category: e.target.value}))}
-                  placeholder="e.g. Polyester"
-                  className="w-full bg-gray-50 px-4 py-3 text-sm font-bold outline-none focus:ring-2 ring-black/10 border-none" />
+                  className="w-full bg-gray-50 px-4 py-3 text-sm font-bold outline-none focus:ring-2 ring-black/10 border-none cursor-pointer appearance-none"
+                >
+                  <option value="" disabled>Select Category</option>
+                  {categories.map(cat => (
+                    <option key={cat.id} value={cat.type}>{cat.name}</option>
+                  ))}
+                </select>
               </div>
 
               {/* Description */}
