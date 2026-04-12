@@ -9,7 +9,8 @@ import {
   User,
   Phone,
   MapPin,
-  Calendar
+  Calendar,
+  Package
 } from 'lucide-react'
 import { useData } from '../../context/DataContext'
 import jsPDF from 'jspdf'

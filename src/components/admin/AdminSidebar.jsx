@@ -14,7 +14,7 @@ const AdminSidebar = () => {
   const navigate = useNavigate()
 
   const handleLogout = () => {
-    sessionStorage.removeItem('adminAuth')
+    localStorage.removeItem('admin_auth')
     navigate('/admin/login')
   }
 
