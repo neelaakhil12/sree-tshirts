@@ -78,23 +78,6 @@ const ProductsPage = () => {
           </div>
           
           <div className="flex items-center space-x-6">
-             <div className="relative group">
-                <button className="flex items-center space-x-2 border border-gray-200 px-6 py-3 text-[10px] font-black tracking-widest hover:border-black transition-all bg-white uppercase">
-                   <span>SORT BY: <span className="text-accent underline decoration-black underline-offset-4">{sortBy}</span></span>
-                   <ChevronDown size={14} />
-                </button>
-                <div className="absolute top-full right-0 mt-1 bg-white shadow-2xl border border-gray-100 min-w-[200px] z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                   {sortOptions.map(opt => (
-                     <button 
-                       key={opt}
-                       onClick={() => setSortBy(opt)}
-                       className={`w-full text-left px-6 py-4 text-[10px] font-black hover:bg-gray-50 transition-colors uppercase tracking-widest ${sortBy === opt ? 'text-accent' : 'text-gray-500'}`}
-                     >
-                       {opt}
-                     </button>
-                   ))}
-                </div>
-             </div>
              
              <button 
                onClick={() => setIsFilterSidebarOpen(true)}

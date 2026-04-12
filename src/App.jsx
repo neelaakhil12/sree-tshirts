@@ -8,6 +8,11 @@ import ProductsPage from './pages/ProductsPage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
+import LoginPage from './pages/admin/LoginPage'
+import AdminDashboard from './pages/admin/AdminDashboard'
+import ProductManager from './pages/admin/ProductManager'
+import InvoiceGenerator from './pages/admin/InvoiceGenerator'
+import ProtectedRoute from './components/admin/ProtectedRoute'
 import { DataProvider } from './context/DataContext'
 
 function App() {
@@ -18,23 +23,62 @@ function App() {
     window.scrollTo(0, 0)
   }, [location.pathname])
 
+  const isAdminPage = location.pathname.startsWith('/admin')
+
   return (
     <DataProvider>
       <div className="flex flex-col min-h-screen">
-        <Navbar />
+        {!isAdminPage && <Navbar />}
         
-        <main className="flex-grow">
+        <main className={`${!isAdminPage ? 'flex-grow' : ''}`}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/products/:id" element={<ProductDetailPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/admin/login" element={<LoginPage />} />
+            <Route 
+              path="/admin/dashboard" 
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin/products" 
+              element={
+                <ProtectedRoute>
+                  <ProductManager />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin/categories" 
+              element={
+                <ProtectedRoute>
+                  <div className="bg-gray-100 min-h-screen p-10 font-bold uppercase">Category Manager Coming Soon...</div>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin/invoices" 
+              element={
+                <ProtectedRoute>
+                  <InvoiceGenerator />
+                </ProtectedRoute>
+              } 
+            />
           </Routes>
         </main>
 
-        <Footer />
-        <WhatsAppButton />
+        {!isAdminPage && (
+          <>
+            <Footer />
+            <WhatsAppButton />
+          </>
+        )}
       </div>
     </DataProvider>
   )
