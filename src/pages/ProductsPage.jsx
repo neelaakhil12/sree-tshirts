@@ -69,13 +69,6 @@ const ProductsPage = () => {
           
           <div className="flex items-center space-x-6">
              
-             <button 
-               onClick={() => setIsFilterSidebarOpen(true)}
-               className="md:hidden flex items-center space-x-2 border-2 border-black bg-black text-white px-6 py-3 text-[10px] font-black tracking-widest shadow-xl transition-all"
-             >
-                <Filter size={14} />
-                <span>FILTERS</span>
-             </button>
           </div>
         </div>
 
