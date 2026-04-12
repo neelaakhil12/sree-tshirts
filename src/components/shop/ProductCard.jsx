@@ -25,18 +25,6 @@ Can you please provide more details about this product?`
           onError={(e) => e.target.src = 'https://via.placeholder.com/300x400?text=' + product.name}
         />
 
-        {/* Labels Overlay */}
-        <div className="absolute top-4 left-0 space-y-2 flex flex-col items-start pointer-events-none">
-           {product.discount && (
-              <span className="bg-accent text-white text-[9px] font-black px-3 py-1 uppercase tracking-widest shadow-lg italic">
-                {product.discount}
-              </span>
-           )}
-           <span className="bg-black text-white text-[8px] font-black px-3 py-1 uppercase tracking-widest shadow-lg">
-              {product.category}
-           </span>
-        </div>
-
         {/* Wishlist Button */}
         <div className="absolute top-4 right-4 w-10 h-10 bg-white shadow-xl flex items-center justify-center rounded-full text-gray-400 hover:text-red-500 transform translate-x-16 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
            <Heart size={16} />
