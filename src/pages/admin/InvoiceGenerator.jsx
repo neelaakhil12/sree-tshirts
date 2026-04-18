@@ -8,32 +8,37 @@ import {
   ChevronRight,
   User,
   Phone,
+  Mail,
   MapPin,
   Calendar,
-  Package
+  Package,
+  Loader2
 } from 'lucide-react'
 import { useData } from '../../context/DataContext'
 import jsPDF from 'jspdf'
-import 'jspdf-autotable'
+import autoTable from 'jspdf-autotable'
 import AdminSidebar from '../../components/admin/AdminSidebar'
 
 const InvoiceGenerator = () => {
   const { products } = useData()
-  const [customer, setCustomer] = useState({ name: '', phone: '', address: '', date: new Date().toISOString().split('T')[0] })
+  const [customer, setCustomer] = useState({ name: '', phone: '', email: '', date: new Date().toISOString().split('T')[0] })
   const [selectedItems, setSelectedItems] = useState([])
   const [isGenerating, setIsGenerating] = useState(false)
 
-  const addItem = (productId) => {
-    const product = products.find(p => p.id === parseInt(productId))
-    if (product) {
-      setSelectedItems([...selectedItems, { ...product, quantity: 1, total: product.price }])
-    }
+  const addCustomItem = () => {
+    setSelectedItems([...selectedItems, { name: '', price: '', quantity: 1, color: '', details: '', total: 0 }])
   }
 
-  const updateQuantity = (index, qty) => {
+  const updateItemField = (index, field, value) => {
     const updated = [...selectedItems]
-    updated[index].quantity = parseInt(qty) || 1
-    updated[index].total = updated[index].quantity * updated[index].price
+    if (field === 'price' || field === 'quantity') {
+      updated[index][field] = value
+      const parsedQty = parseFloat(updated[index].quantity) || 0
+      const parsedPrice = parseFloat(updated[index].price) || 0
+      updated[index].total = parsedQty * parsedPrice
+    } else {
+      updated[index][field] = value
+    }
     setSelectedItems(updated)
   }
 
@@ -42,83 +47,144 @@ const InvoiceGenerator = () => {
   }
 
   const subtotal = selectedItems.reduce((acc, item) => acc + item.total, 0)
-  const tax = subtotal * 0.05 // 5% GST example
+  const tax = subtotal * 0.03 // 3% GST
   const total = subtotal + tax
 
-  const generatePDF = () => {
+  const generatePDF = async () => {
     setIsGenerating(true)
-    const doc = new jsPDF()
+    try {
+        const doc = new jsPDF()
 
-    // Header Branding
-    doc.setFontSize(22)
-    doc.setFont('helvetica', 'bold')
-    doc.text('WEAR MINGLE', 20, 25)
-    doc.setFontSize(9)
-    doc.setFont('helvetica', 'normal')
-    doc.text('Modern Fashion for Men, Women & Kids', 20, 32)
-    
-    // Invoice Label
-    doc.setFontSize(20)
-    doc.text('INVOICE', 160, 25)
-    doc.setFontSize(9)
-    doc.text(`No: #WM-${Math.floor(Math.random() * 90000) + 10000}`, 160, 32)
+        // Fetch Logo
+        const loadLogo = () => new Promise((resolve) => {
+            const img = new Image()
+            img.src = '/images/logo.png'
+            img.onload = () => resolve(img)
+            img.onerror = () => resolve(null)
+        })
 
-    // Customer Info
-    doc.line(20, 45, 190, 45)
-    doc.setFont('helvetica', 'bold')
-    doc.text('BILL TO:', 20, 55)
-    doc.setFont('helvetica', 'normal')
-    doc.text(customer.name.toUpperCase() || 'WALK-IN CUSTOMER', 20, 62)
-    doc.text(customer.phone || 'N/A', 20, 68)
-    doc.text(customer.address || 'N/A', 20, 74)
+        const logoImg = await loadLogo()
+        
+        // Render Top Header
+        if (logoImg) {
+            // Check aspect ratio to maintain shape roughly
+            // Assuming square or slight rectangle based on logo
+            doc.addImage(logoImg, 'PNG', 15, 10, 35, 35)
+        } else {
+            doc.setFontSize(20)
+            doc.setFont('helvetica', 'bold')
+            doc.text('Wear Mingle', 15, 25)
+        }
 
-    doc.setFont('helvetica', 'bold')
-    doc.text('DATE:', 150, 55)
-    doc.setFont('helvetica', 'normal')
-    doc.text(customer.date, 165, 55)
+        // Right side address
+        doc.setFontSize(12)
+        doc.setFont('helvetica', 'bold')
+        doc.text('Wear Mingle', 195, 15, { align: 'right' })
+        doc.setFont('helvetica', 'normal')
+        doc.setFontSize(9)
+        doc.text('29/207-F1-8-4, SBI Colony, Revenue Ward -29', 195, 21, { align: 'right' })
+        doc.text('Nandyal – 518501', 195, 26, { align: 'right' })
+        doc.text('Phone: +91 9398292014', 195, 31, { align: 'right' })
+        doc.text('Email: wearmingle@gmail.com', 195, 36, { align: 'right' })
+        doc.setFont('helvetica', 'bold')
+        doc.text('GST No: 29AAVHA4998Q1ZV', 195, 41, { align: 'right' })
 
-    // Table
-    const tableData = selectedItems.map(item => [
-      item.name.toUpperCase(),
-      item.quantity.toString(),
-      item.price.toFixed(2),
-      item.total.toFixed(2)
-    ])
+        // Divider
+        doc.setLineWidth(0.5)
+        doc.line(15, 48, 195, 48)
 
-    doc.autoTable({
-      startY: 85,
-      head: [['PRODUCT DESCRIPTION', 'QTY', 'UNIT PRICE', 'AMOUNT']],
-      body: tableData,
-      theme: 'grid',
-      headStyles: { fillGray: 200, textColor: 0, fontStyle: 'bold', fontSize: 9 },
-      bodyStyles: { fontSize: 8 },
-      columnStyles: { 0: { cellWidth: 100 } }
-    })
+        // Invoice Title
+        doc.setFontSize(14)
+        doc.setFont('helvetica', 'bold')
+        doc.text('TAX INVOICE', 105, 58, { align: 'center' })
 
-    // Footer Totals
-    const finalY = doc.lastAutoTable.finalY + 10
-    doc.setFont('helvetica', 'bold')
-    doc.text(`SUBTOTAL:`, 140, finalY)
-    doc.setFont('helvetica', 'normal')
-    doc.text(`${subtotal.toFixed(2)}`, 175, finalY)
+        // Customer Info
+        doc.setFontSize(10)
+        doc.text('Bill To:', 15, 70)
+        doc.setFont('helvetica', 'normal')
+        doc.text(`M/S: ${customer.name || 'Walk-in'}`, 15, 76)
+        doc.text(`Phone: ${customer.phone || 'N/A'}`, 15, 81)
+        doc.text(`Email: ${customer.email || 'N/A'}`, 15, 86)
 
-    doc.setFont('helvetica', 'bold')
-    doc.text(`GST (5%):`, 140, finalY + 8)
-    doc.setFont('helvetica', 'normal')
-    doc.text(`${tax.toFixed(2)}`, 175, finalY + 8)
+        // Order Info
+        doc.setFont('helvetica', 'bold')
+        doc.text('Order Details:', 120, 70)
+        doc.setFont('helvetica', 'normal')
+        doc.text(`Invoice No: TTHSO-${Math.floor(Math.random() * 9000) + 1000}`, 120, 76)
+        doc.text(`Date: ${customer.date}`, 120, 81)
+        doc.text(`Agency: Direct`, 120, 86)
 
-    doc.setFontSize(14)
-    doc.setFont('helvetica', 'bold')
-    doc.text(`TOTAL AMOUNT:`, 110, finalY + 20)
-    doc.text(`${total.toFixed(2)}`, 175, finalY + 20)
+        // Table
+        const tableData = selectedItems.map((item, idx) => {
+          const priceVal = parseFloat(item.price) || 0;
+          const totalVal = parseFloat(item.total) || 0;
+          return [
+            (idx + 1).toString(),
+            (item.name || 'Custom Item').substring(0, 30),
+            item.color || 'N/A',
+            item.details || 'N/A',
+            (item.quantity || 0).toString(),
+            priceVal.toFixed(2),
+            totalVal.toFixed(2)
+          ];
+        })
 
-    // Footer Note
-    doc.setFontSize(8)
-    doc.setFont('helvetica', 'italic')
-    doc.text('Thank you for shopping with Wear Mingle! Visit again.', 105, 270, { align: 'center' })
+        autoTable(doc, {
+          startY: 95,
+          head: [['Sr. No.', 'Design / Item', 'Color', 'Details', 'Qty', 'Rate', 'Amount']],
+          body: tableData,
+          theme: 'grid',
+          styles: { font: 'helvetica', fontSize: 9, cellPadding: 3, lineColor: [200, 200, 200], lineWidth: 0.1 },
+          headStyles: { fillColor: [0, 0, 0], textColor: [255, 255, 255], fontStyle: 'bold' },
+          columnStyles: { 
+            0: { cellWidth: 15, halign: 'center' }, 
+            1: { cellWidth: 50 },
+            4: { halign: 'center', cellWidth: 15 },
+            5: { halign: 'right' },
+            6: { halign: 'right' }
+          }
+        })
 
-    doc.save(`Invoice_${customer.name || 'Order'}.pdf`)
-    setIsGenerating(false)
+        const finalY = doc.lastAutoTable.finalY + 10
+        const tableWidth = 195 // right margin
+
+        // Totals Block on the right
+        doc.setFont('helvetica', 'normal')
+        doc.text(`Subtotal`, 150, finalY)
+        doc.text(`Rs ${subtotal.toFixed(2)}`, tableWidth, finalY, { align: 'right' })
+
+        doc.text(`GST (3%)`, 150, finalY + 6)
+        doc.text(`Rs ${tax.toFixed(2)}`, tableWidth, finalY + 6, { align: 'right' })
+
+        doc.setFont('helvetica', 'bold')
+        doc.setFontSize(11)
+        doc.text(`Grand Total`, 150, finalY + 16)
+        doc.text(`Rs ${total.toFixed(2)}`, tableWidth, finalY + 16, { align: 'right' })
+
+        // Total Qty left 
+        const totalQty = selectedItems.reduce((acc, item) => acc + (parseFloat(item.quantity) || 0), 0)
+        doc.setFontSize(10)
+        doc.text(`Total Quantity: ${totalQty}`, 15, finalY)
+
+        // Footer Block
+        const footY = doc.internal.pageSize.getHeight() - 25
+        doc.setFont('helvetica', 'bold')
+        doc.text('Scan and Pay', 15, footY)
+        doc.setFont('helvetica', 'normal')
+        doc.text('UPI id: wearmingle@upi', 15, footY + 5)
+        doc.text('Created by : Admin', 15, footY + 10)
+
+        doc.setFontSize(8)
+        doc.setFont('helvetica', 'italic')
+        doc.text('Thank you for your order. We appreciate the opportunity and looking forward to a long term relationship.', 105, footY + 18, { align: 'center' })
+
+        doc.save(`Invoice_${customer.name || 'Order'}.pdf`)
+    } catch (error) {
+        console.error("PDF Generation Error: ", error)
+        alert("Failed to generate PDF. Check the console for details: " + error.message)
+    } finally {
+        setIsGenerating(false)
+    }
   }
 
   return (
@@ -171,15 +237,16 @@ const InvoiceGenerator = () => {
                        </div>
                     </div>
                     <div className="md:col-span-2 space-y-2">
-                       <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Shipping Address</label>
+                       <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
                        <div className="relative">
-                          <MapPin className="absolute left-4 top-4 text-gray-300" size={16} />
-                          <textarea 
-                            className="w-full bg-gray-50 border-none px-12 py-3 text-xs font-bold outline-none focus:bg-white focus:ring-1 ring-black/5 min-h-[80px]" 
-                            placeholder="Complete Address"
-                            value={customer.address}
-                            onChange={(e) => setCustomer({...customer, address: e.target.value})}
-                          ></textarea>
+                          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" size={16} />
+                          <input 
+                            type="email" 
+                            className="w-full bg-gray-50 border-none px-12 py-3 text-xs font-bold outline-none focus:bg-white focus:ring-1 ring-black/5" 
+                            placeholder="Customer Email"
+                            value={customer.email}
+                            onChange={(e) => setCustomer({...customer, email: e.target.value})}
+                          />
                        </div>
                     </div>
                  </div>
@@ -188,16 +255,12 @@ const InvoiceGenerator = () => {
               <div className="bg-white border border-gray-100 p-10 space-y-8 shadow-sm">
                  <div className="flex justify-between items-center border-b border-gray-50 pb-4">
                     <h3 className="text-xs font-black uppercase tracking-widest text-gray-400">Order Items</h3>
-                    <select 
-                      onChange={(e) => addItem(e.target.value)}
-                      value=""
-                      className="bg-black text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest outline-none cursor-pointer"
+                    <button 
+                      onClick={addCustomItem} 
+                      className="bg-black text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest outline-none hover:bg-gray-800 transition-colors"
                     >
-                       <option value="" disabled>+ Add Product</option>
-                       {products.map(p => (
-                         <option key={p.id} value={p.id}>{p.name} - ₹{p.price}</option>
-                       ))}
-                    </select>
+                      + ADD PRODUCT
+                    </button>
                  </div>
 
                  {selectedItems.length === 0 ? (
@@ -213,20 +276,52 @@ const InvoiceGenerator = () => {
                               <div className="w-10 h-10 bg-white p-1">
                                  <img src={item.image} alt="" className="w-full h-full object-contain mix-blend-multiply" />
                               </div>
-                              <div>
-                                 <h4 className="text-[11px] font-black uppercase tracking-tight">{item.name}</h4>
-                                 <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">₹{item.price} each</p>
+                              <div className="flex-1 min-w-[150px]">
+                                 <input 
+                                   type="text"
+                                   placeholder="Product Name"
+                                   value={item.name}
+                                   onChange={(e) => updateItemField(index, 'name', e.target.value)}
+                                   className="w-full bg-transparent border-b border-dashed border-gray-300 px-0 py-1 mb-1 text-[11px] font-black uppercase tracking-tight outline-none focus:border-black"
+                                 />
+                                 <div className="flex items-center space-x-1">
+                                   <span className="text-[9px] text-gray-400 font-bold uppercase">₹</span>
+                                   <input 
+                                     type="number"
+                                     placeholder="Price"
+                                     value={item.price}
+                                     onChange={(e) => updateItemField(index, 'price', e.target.value)}
+                                     className="w-20 bg-transparent border-b border-dashed border-gray-300 px-1 py-0.5 text-[9px] font-bold outline-none focus:border-black"
+                                   />
+                                   <span className="text-[9px] text-gray-400 font-bold uppercase">each</span>
+                                 </div>
+                              </div>
+                              <div className="flex flex-col space-y-2 col-span-2 md:col-span-1 border-l border-gray-200 pl-4 ml-4">
+                                 <input 
+                                   type="text" 
+                                   placeholder="Color"
+                                   value={item.color}
+                                   onChange={(e) => updateItemField(index, 'color', e.target.value)}
+                                   className="w-full bg-white border border-gray-200 px-3 py-1 text-xs font-bold outline-none"
+                                 />
+                                 <input 
+                                   type="text" 
+                                   placeholder="Details (e.g. XL, Cotton)"
+                                   value={item.details}
+                                   onChange={(e) => updateItemField(index, 'details', e.target.value)}
+                                   className="w-full bg-white border border-gray-200 px-3 py-1 text-xs font-bold outline-none"
+                                 />
                               </div>
                            </div>
-                           <div className="flex items-center space-x-6">
+                           <div className="flex items-center space-x-6 mt-4 md:mt-0">
                               <input 
                                 type="number" 
                                 min="1"
                                 value={item.quantity}
-                                onChange={(e) => updateQuantity(index, e.target.value)}
+                                onChange={(e) => updateItemField(index, 'quantity', e.target.value)}
                                 className="w-16 bg-white border border-gray-200 px-3 py-1 text-xs font-black outline-none"
                               />
-                              <p className="w-20 text-right text-xs font-black uppercase tracking-widest">₹{item.total.toFixed(2)}</p>
+                              <p className="w-20 text-right text-xs font-black uppercase tracking-widest">₹{(parseFloat(item.total) || 0).toFixed(2)}</p>
                               <button onClick={() => removeItem(index)} className="text-gray-300 hover:text-red-500 transition-colors">
                                  <Trash2 size={16} />
                               </button>
@@ -250,7 +345,7 @@ const InvoiceGenerator = () => {
                        <span>₹{subtotal.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-[11px] font-bold tracking-widest uppercase">
-                       <span className="text-gray-400">GST (5%)</span>
+                       <span className="text-gray-400">GST (3%)</span>
                        <span>₹{tax.toFixed(2)}</span>
                     </div>
                     <div className="pt-6 border-t border-white/10 flex justify-between items-end">
@@ -266,7 +361,7 @@ const InvoiceGenerator = () => {
                    disabled={selectedItems.length === 0 || isGenerating}
                    className="w-full bg-white text-black h-16 font-black tracking-[0.2em] uppercase text-xs flex items-center justify-center space-x-3 hover:bg-accent hover:text-white transition-all disabled:opacity-30 shadow-xl"
                  >
-                    {isGenerating ? <TrendingUp className="animate-spin" size={20} /> : <Download size={20} />}
+                    {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Download size={20} />}
                     <span>{isGenerating ? 'Generating...' : 'Export Invoice PDF'}</span>
                  </button>
               </div>
