@@ -23,6 +23,7 @@ const InvoiceGenerator = () => {
   const { products } = useData()
   const [customer, setCustomer] = useState({ name: '', phone: '', email: '', date: new Date().toISOString().split('T')[0] })
   const [selectedItems, setSelectedItems] = useState([])
+  const [shipping, setShipping] = useState(0)
   const [isGenerating, setIsGenerating] = useState(false)
 
   const addCustomItem = () => {
@@ -47,8 +48,9 @@ const InvoiceGenerator = () => {
   }
 
   const subtotal = selectedItems.reduce((acc, item) => acc + item.total, 0)
+  const shippingVal = parseFloat(shipping) || 0
   const tax = subtotal * 0.03 // 3% GST
-  const total = subtotal + tax
+  const total = subtotal + shippingVal + tax
 
   const generatePDF = async () => {
     setIsGenerating(true)
@@ -64,58 +66,51 @@ const InvoiceGenerator = () => {
         })
 
         const logoImg = await loadLogo()
+
+        // 1. Top Centered "Sales Order"
+        doc.setFontSize(10)
+        doc.setFont('helvetica', 'normal')
+        doc.text('Sales Order', 105, 8, { align: 'center' })
         
-        // Render Top Header
+        // Horizontal Line
+        doc.setLineWidth(0.1)
+        doc.line(15, 10, 195, 10)
+
+        // 2. Logo and Company Info
         if (logoImg) {
-            // Check aspect ratio to maintain shape roughly
-            // Assuming square or slight rectangle based on logo
-            doc.addImage(logoImg, 'PNG', 15, 10, 35, 35)
-        } else {
-            doc.setFontSize(20)
-            doc.setFont('helvetica', 'bold')
-            doc.text('Wear Mingle', 15, 25)
+            doc.addImage(logoImg, 'PNG', 15, 12, 30, 25)
         }
 
-        // Right side address
-        doc.setFontSize(12)
+        doc.setFontSize(11)
         doc.setFont('helvetica', 'bold')
-        doc.text('Wear Mingle', 195, 15, { align: 'right' })
-        doc.setFont('helvetica', 'normal')
+        doc.text('Wear Mingle (Nandyal)', 195, 18, { align: 'right' })
         doc.setFontSize(9)
-        doc.text('29/207-F1-8-4, SBI Colony, Revenue Ward -29', 195, 21, { align: 'right' })
-        doc.text('Nandyal – 518501', 195, 26, { align: 'right' })
-        doc.text('Phone: +91 9398292014', 195, 31, { align: 'right' })
-        doc.text('Email: wearmingle@gmail.com', 195, 36, { align: 'right' })
-        doc.setFont('helvetica', 'bold')
-        doc.text('GST No: 29AAVHA4998Q1ZV', 195, 41, { align: 'right' })
-
-        // Divider
-        doc.setLineWidth(0.5)
-        doc.line(15, 48, 195, 48)
-
-        // Invoice Title
-        doc.setFontSize(14)
-        doc.setFont('helvetica', 'bold')
-        doc.text('TAX INVOICE', 105, 58, { align: 'center' })
-
-        // Customer Info
-        doc.setFontSize(10)
-        doc.text('Bill To:', 15, 70)
         doc.setFont('helvetica', 'normal')
-        doc.text(`M/S: ${customer.name || 'Walk-in'}`, 15, 76)
-        doc.text(`Phone: ${customer.phone || 'N/A'}`, 15, 81)
-        doc.text(`Email: ${customer.email || 'N/A'}`, 15, 86)
+        doc.text('29/207-F1-8-4, SBI Colony, Revenue Ward -29', 195, 23, { align: 'right' })
+        doc.text('Nandyal – 518501', 195, 27, { align: 'right' })
+        doc.text('(O) 9398292014 GST No: 29AAVHA4998Q1ZV', 195, 31, { align: 'right' })
 
-        // Order Info
+        // 3. Customer & Order Box
+        const boxY = 40
+        doc.rect(15, boxY, 180, 22) // Draw rectangle
+        
+        // Labels
+        doc.setFontSize(9)
         doc.setFont('helvetica', 'bold')
-        doc.text('Order Details:', 120, 70)
-        doc.setFont('helvetica', 'normal')
-        doc.text(`Invoice No: TTHSO-${Math.floor(Math.random() * 9000) + 1000}`, 120, 76)
-        doc.text(`Date: ${customer.date}`, 120, 81)
-        doc.text(`Agency: Direct`, 120, 86)
+        doc.text(`M/S:  ${customer.name || 'Walk-in'}`, 18, boxY + 7)
+        doc.text(`Phone No: ${customer.phone || 'N/A'}`, 18, boxY + 13)
+        doc.text(`Agency: Direct`, 18, boxY + 19)
 
-        // Table
-        const tableData = selectedItems.map((item, idx) => {
+        doc.text(`Order No: TTHSO-${Math.floor(Math.random() * 9000) + 1000}`, 135, boxY + 7)
+        const dateStr = new Date(customer.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+        doc.text(`Issue Date: ${dateStr}`, 135, boxY + 13)
+
+        // 4. Design Details Title
+        doc.setFont('helvetica', 'bold')
+        doc.text('Design Details :', 15, 70)
+
+        // 5. Build Table with Footer Rows integrated
+        const tableBody = selectedItems.map((item, idx) => {
           const priceVal = parseFloat(item.price) || 0;
           const totalVal = parseFloat(item.total) || 0;
           return [
@@ -124,59 +119,71 @@ const InvoiceGenerator = () => {
             item.color || 'N/A',
             item.details || 'N/A',
             (item.quantity || 0).toString(),
-            priceVal.toFixed(2),
-            totalVal.toFixed(2)
+            priceVal.toFixed(0),
+            totalVal.toFixed(0)
           ];
         })
 
+        // Calculations for Footer Rows
+        const totalQty = selectedItems.reduce((acc, item) => acc + (parseFloat(item.quantity) || 0), 0)
+
+        // Append Calculation Rows
+        tableBody.push(
+          ['', 'Total', '', '', totalQty.toString(), '', subtotal.toFixed(0)],
+          ['', 'Shipping Charge', '', '', '', '', shippingVal.toFixed(0)],
+          ['', 'Grand Total', '', '', '', '', (subtotal + shippingVal).toFixed(0)],
+          ['', 'CGST', '', '', '', '', (tax / 2).toFixed(2)],
+          ['', 'SGST', '', '', '', '', (tax / 2).toFixed(2)],
+          ['', 'Net Total', '', '', '', '', total.toFixed(0)]
+        )
+
         autoTable(doc, {
-          startY: 95,
-          head: [['Sr. No.', 'Design / Item', 'Color', 'Details', 'Qty', 'Rate', 'Amount']],
-          body: tableData,
+          startY: 73,
+          head: [['Sr. No.', 'Design', 'Color', 'Details', 'Total Qty', 'Rate', 'Amount']],
+          body: tableBody,
           theme: 'grid',
-          styles: { font: 'helvetica', fontSize: 9, cellPadding: 3, lineColor: [200, 200, 200], lineWidth: 0.1 },
-          headStyles: { fillColor: [0, 0, 0], textColor: [255, 255, 255], fontStyle: 'bold' },
+          styles: { font: 'helvetica', fontSize: 9, cellPadding: 2, lineColor: [150, 150, 150], lineWidth: 0.1, textColor: [0, 0, 0] },
+          headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', halign: 'center' },
           columnStyles: { 
-            0: { cellWidth: 15, halign: 'center' }, 
-            1: { cellWidth: 50 },
+            0: { halign: 'center', cellWidth: 15 },
+            1: { cellWidth: 80 },
             4: { halign: 'center', cellWidth: 15 },
-            5: { halign: 'right' },
-            6: { halign: 'right' }
+            5: { halign: 'center', cellWidth: 15 },
+            6: { halign: 'center', cellWidth: 15 }
+          },
+          didParseCell: function(data) {
+             // Bold the footer labels and totals
+             const labels = ['Total', 'Shipping Charge', 'Grand Total', 'CGST', 'SGST', 'R.OFF', 'Net Total'];
+             if (labels.includes(data.cell.text[0])) {
+                 data.cell.styles.fontStyle = 'bold';
+                 data.cell.styles.halign = 'right';
+             }
+             // Bold the values in the last column for these rows
+             if (data.column.index === 6 && data.row.index >= selectedItems.length) {
+                 data.cell.styles.fontStyle = 'bold';
+             }
           }
         })
 
         const finalY = doc.lastAutoTable.finalY + 10
-        const tableWidth = 195 // right margin
 
-        // Totals Block on the right
+        // 6. Footer
         doc.setFont('helvetica', 'normal')
-        doc.text(`Subtotal`, 150, finalY)
-        doc.text(`Rs ${subtotal.toFixed(2)}`, tableWidth, finalY, { align: 'right' })
+        doc.text('Scan and Pay', 15, finalY)
+        
+        // Placeholder for QR (could use a simple rect to represent it)
+        doc.rect(15, finalY + 2, 25, 25)
+        doc.setFontSize(7)
+        doc.text('QR CODE', 22.5, finalY + 15, { align: 'center' })
 
-        doc.text(`GST (3%)`, 150, finalY + 6)
-        doc.text(`Rs ${tax.toFixed(2)}`, tableWidth, finalY + 6, { align: 'right' })
-
+        doc.setFontSize(9)
         doc.setFont('helvetica', 'bold')
-        doc.setFontSize(11)
-        doc.text(`Grand Total`, 150, finalY + 16)
-        doc.text(`Rs ${total.toFixed(2)}`, tableWidth, finalY + 16, { align: 'right' })
-
-        // Total Qty left 
-        const totalQty = selectedItems.reduce((acc, item) => acc + (parseFloat(item.quantity) || 0), 0)
-        doc.setFontSize(10)
-        doc.text(`Total Quantity: ${totalQty}`, 15, finalY)
-
-        // Footer Block
-        const footY = doc.internal.pageSize.getHeight() - 25
-        doc.setFont('helvetica', 'bold')
-        doc.text('Scan and Pay', 15, footY)
+        doc.text('UPI id: wearmingle@upi', 15, finalY + 35)
+        
         doc.setFont('helvetica', 'normal')
-        doc.text('UPI id: wearmingle@upi', 15, footY + 5)
-        doc.text('Created by : Admin', 15, footY + 10)
-
+        doc.text('Created by : Admin', 15, finalY + 41)
         doc.setFontSize(8)
-        doc.setFont('helvetica', 'italic')
-        doc.text('Thank you for your order. We appreciate the opportunity and looking forward to a long term relationship.', 105, footY + 18, { align: 'center' })
+        doc.text('Thank you for your order. We appreciate the opportunity and looking forward to a long term relationship.', 15, finalY + 46)
 
         doc.save(`Invoice_${customer.name || 'Order'}.pdf`)
     } catch (error) {
@@ -344,6 +351,19 @@ const InvoiceGenerator = () => {
                        <span className="text-gray-400">Subtotal</span>
                        <span>₹{subtotal.toFixed(2)}</span>
                     </div>
+                    <div className="flex justify-between text-[11px] font-bold tracking-widest uppercase items-center">
+                       <span className="text-gray-400">Shipping</span>
+                       <div className="flex items-center space-x-1">
+                         <span className="text-gray-500">₹</span>
+                         <input 
+                           type="number"
+                           value={shipping}
+                           onChange={(e) => setShipping(e.target.value)}
+                           className="bg-white/10 border-none text-right w-20 px-2 py-1 outline-none text-white font-black"
+                           placeholder="0"
+                         />
+                       </div>
+                    </div>
                     <div className="flex justify-between text-[11px] font-bold tracking-widest uppercase">
                        <span className="text-gray-400">GST (3%)</span>
                        <span>₹{tax.toFixed(2)}</span>
@@ -351,7 +371,7 @@ const InvoiceGenerator = () => {
                     <div className="pt-6 border-t border-white/10 flex justify-between items-end">
                        <div>
                           <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Grant Total</p>
-                          <span className="text-3xl font-black tracking-tighter">₹{total.toFixed(2)}</span>
+                          <span className="text-3xl font-black tracking-tighter">₹{total.toFixed(0)}</span>
                        </div>
                     </div>
                  </div>
