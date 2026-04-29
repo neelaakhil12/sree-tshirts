@@ -3,6 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom'
 import { Filter, ChevronDown, X } from 'lucide-react'
 import { useData } from '../context/DataContext'
 import ProductCard from '../components/shop/ProductCard'
+import SEO from '../components/common/SEO'
 
 const ProductsPage = () => {
   const { products, categories, isLoaded } = useData()
@@ -14,6 +15,9 @@ const ProductsPage = () => {
   const [filteredProducts, setFilteredProducts] = useState([])
   const [sortBy, setSortBy] = useState('Recommended')
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false)
+
+  // SEO dynamic title
+  const seoTitle = selectedCategory === 'All' ? 'Shop All Collections' : `Shop ${selectedCategory} Collection`
 
   // Sub-categories for T-shirts
   const sizes = ['S', 'M', 'L', 'XL', 'XXL']
@@ -33,10 +37,20 @@ const ProductsPage = () => {
 
     // Search Query
     if (searchQuery) {
-      result = result.filter(p => 
-        p.name.toLowerCase().includes(searchQuery) || 
-        (p.description && p.description.toLowerCase().includes(searchQuery))
-      )
+      const keywords = searchQuery.split(/\s+/).filter(k => k.length > 0);
+      
+      // Auto-correct common typos
+      const normalizedKeywords = keywords.map(k => {
+        if (k === 'polyster') return 'polyester';
+        if (k === 'tshirt') return 't-shirt';
+        return k;
+      });
+
+      result = result.filter(p => {
+        const targetText = `${p.name} ${p.description || ''} ${p.category || ''}`.toLowerCase();
+        // Match if ALL keywords are present in the product info
+        return normalizedKeywords.every(k => targetText.includes(k));
+      });
     }
 
     // Sorting
@@ -56,6 +70,11 @@ const ProductsPage = () => {
 
   return (
     <div className="pt-20 min-h-screen bg-white">
+      <SEO 
+        title={seoTitle}
+        description={`Browse our premium ${selectedCategory} collection at Wear Mingle. Affordable custom fashion and essential wear.`}
+        url={selectedCategory === 'All' ? '/products' : `/products?category=${selectedCategory}`}
+      />
       <div className="container mx-auto px-4 md:px-0">
         
         {/* Header */}
@@ -120,7 +139,11 @@ const ProductsPage = () => {
                   <h3 className="text-2xl font-black tracking-tighter uppercase italic">No Products Found</h3>
                   <p className="text-gray-500 text-[10px] font-bold mt-2 uppercase tracking-widest">We couldn't find any mingle matching your selection.</p>
                   <button 
-                    onClick={() => {setSelectedCategory('All'); setSelectedSubCategories([]);}}
+                    onClick={() => {
+                      setSelectedCategory('All'); 
+                      setSelectedSubCategories([]);
+                      window.location.href = '/products';
+                    }}
                     className="mt-10 bg-black text-white px-10 py-4 text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-accent transition-all"
                   >
                     RESET ALL FILTERS

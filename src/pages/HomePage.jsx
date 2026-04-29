@@ -3,10 +3,16 @@ import Hero from '../components/home/Hero'
 import CategorySection from '../components/home/CategorySection'
 import TrendingProducts from '../components/home/TrendingProducts'
 import { Link } from 'react-router-dom'
+import SEO from '../components/common/SEO'
 
 const HomePage = () => {
   return (
     <div className="bg-white">
+      <SEO 
+        title="Premium T-Shirts & Fashion" 
+        description="Discover the finest collection of premium t-shirts at Wear Mingle. Affordable high-quality fashion for men, women, and kids. Shop our latest curated collections."
+        url="/"
+      />
       {/* Hero Section */}
       <Hero />
       

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Phone, Mail, MapPin, Clock, MessageSquare, ArrowRight } from 'lucide-react'
+import SEO from '../components/common/SEO'
 
 const ContactPage = () => {
   const contactInfo = [
@@ -11,6 +12,11 @@ const ContactPage = () => {
 
   return (
     <div className="pt-24 bg-white">
+      <SEO 
+        title="Contact Us"
+        description="Get in touch with Wear Mingle. Reach out for bulk orders, inquiries, or support. Visit us in Nandyal or message us on WhatsApp."
+        url="/contact"
+      />
       <section className="py-8 md:py-12 bg-gray-50 border-b border-gray-100">
         <div className="container mx-auto px-4" data-aos="fade-up">
            <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 uppercase text-center">GET IN <span className="text-accent">TOUCH.</span></h1>

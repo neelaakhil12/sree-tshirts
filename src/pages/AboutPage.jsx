@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Sparkles, Heart, Zap, Award } from 'lucide-react'
+import SEO from '../components/common/SEO'
 
 const CATALOG_INDEX = [
   { id: '04', name: 'Polyester Round Neck Promotional T-shirt' },
@@ -48,6 +49,11 @@ const CATALOG_INDEX = [
 const AboutPage = () => {
   return (
     <div className="pt-24 bg-white">
+      <SEO 
+        title="Our Story"
+        description="Learn about the Wear Mingle legacy. Premium cotton T-shirts crafted with precision in Nandyal and Bangalore. Comfort meets style."
+        url="/about"
+      />
       {/* Hero Section */}
       <section className="py-12 md:py-24 bg-black text-white px-4">
         <div className="container mx-auto text-center space-y-8" data-aos="fade-up">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { MessageCircle, Heart, Share2, Star, Check, ShieldCheck, ChevronRight } from 'lucide-react'
 import { useData } from '../context/DataContext'
+import SEO from '../components/common/SEO'
 
 // Default features shown if none are set in the admin panel
 const DEFAULT_FEATURES = [
@@ -111,6 +112,13 @@ Link: ${productUrl}`
 
   return (
     <div className="pt-32 pb-16 bg-white">
+      <SEO 
+        title={product.name} 
+        description={product.description?.substring(0, 160)}
+        image={activeImage}
+        url={`/products/${id}`}
+        type="product"
+      />
       {/* Navigation & Breadcrumbs Bar */}
       <div className="container mx-auto px-4 md:px-0 mb-8 border-b border-gray-100 pb-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">

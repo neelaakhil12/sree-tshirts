@@ -64,11 +64,15 @@ const Navbar = () => {
               onSubmit={(e) => {
                 e.preventDefault();
                 const term = e.target.search.value;
-                window.location.href = `/products?search=${encodeURIComponent(term)}`;
+                if (term.trim()) {
+                  window.location.href = `/products?search=${encodeURIComponent(term)}`;
+                }
               }}
               className="hidden lg:flex w-64 xl:w-80 px-4 py-2 bg-gray-100 rounded-lg items-center border border-transparent focus-within:border-gray-300 transition-all"
             >
-              <Search className="w-4 h-4 text-gray-500" />
+              <button type="submit" className="hover:scale-110 transition-transform">
+                <Search className="w-4 h-4 text-gray-500" />
+              </button>
               <input 
                 name="search"
                 type="text" 
@@ -104,14 +108,27 @@ const Navbar = () => {
                 {link.name.toUpperCase()}
               </Link>
             ))}
-            <div className="flex bg-gray-100 p-3 rounded-lg items-center">
-              <Search className="w-4 h-4 text-gray-500" />
+            <form 
+              onSubmit={(e) => {
+                e.preventDefault();
+                const term = e.target.mobileSearch.value;
+                if (term.trim()) {
+                  setIsMobileMenuOpen(false);
+                  window.location.href = `/products?search=${encodeURIComponent(term)}`;
+                }
+              }}
+              className="flex bg-gray-100 p-3 rounded-lg items-center"
+            >
+              <button type="submit">
+                <Search className="w-4 h-4 text-gray-500" />
+              </button>
               <input 
+                name="mobileSearch"
                 type="text" 
                 placeholder="Search..." 
-                className="bg-transparent border-none outline-none w-full ml-3 text-sm"
+                className="bg-transparent border-none outline-none w-full ml-3 text-sm font-bold"
               />
-            </div>
+            </form>
           </div>
         </div>
       )}

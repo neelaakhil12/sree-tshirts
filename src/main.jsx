@@ -6,6 +6,8 @@ import './index.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
+import { HelmetProvider } from 'react-helmet-async'
+
 // Initialize AOS (Animate on Scroll)
 AOS.init({
   duration: 800,
@@ -16,8 +18,10 @@ AOS.init({
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </HelmetProvider>
   </React.StrictMode>,
 )
