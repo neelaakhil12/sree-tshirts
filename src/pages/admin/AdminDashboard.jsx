@@ -26,43 +26,7 @@ const AdminDashboard = () => {
     navigate('/admin/login')
   }
 
-  const handleSyncToCloud = async () => {
-    if (!window.confirm('Do you want to sync all local products to your Supabase Cloud? This will not delete anything, only update or add products.')) return
-    
-    setSyncing(true)
-    try {
-      const { products: localProducts } = await import('../../data/products')
-      
-      // Map local data EXPLICITLY to database snake_case columns
-      const dbReadyProducts = localProducts.map(p => ({
-        id: p.id,
-        name: p.name,
-        price: p.price,
-        original_price: p.originalPrice || p.price,
-        discount: p.discount || '',
-        rating: p.rating || 4.5,
-        reviews: p.reviews || 0,
-        category: p.category,
-        image: p.image,
-        description: p.description || '',
-        sizes: p.sizes || [],
-        colors: p.colors || [],
-        color_images: p.colorImages || {}
-      }))
-      
-      // UPSERT products in batches
-      const { error } = await supabase
-        .from('products')
-        .upsert(dbReadyProducts, { onConflict: 'id' })
 
-      if (error) throw error
-      alert('Cloud Sync Complete! All products are now in your Supabase database.')
-    } catch (err) {
-      alert('Sync Failed: ' + err.message + '. Please make sure you have created the tables in Supabase first.')
-    } finally {
-      setSyncing(false)
-    }
-  }
 
   const stats = [
     { label: 'Total Products', value: products.length, icon: Package, color: 'bg-blue-500' },
@@ -84,13 +48,7 @@ const AdminDashboard = () => {
           </div>
 
           <div className="flex items-center space-x-4">
-             <button 
-               onClick={handleSyncToCloud}
-               className="bg-white border border-gray-200 px-6 h-12 flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest hover:border-black transition-all shadow-sm"
-             >
-                <RefreshCw size={14} className="text-blue-500" />
-                <span>Sync to Cloud</span>
-             </button>
+
              <Link 
                to="/admin/products/new"
                className="bg-black text-white px-6 h-12 flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all shadow-xl"
