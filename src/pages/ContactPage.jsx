@@ -52,26 +52,40 @@ const ContactPage = () => {
               {/* Form Column */}
               <div className="lg:col-span-7 bg-white p-8 md:p-14 shadow-premium border border-gray-50" data-aos="fade-left">
                  <h3 className="text-2xl font-black uppercase tracking-tight mb-8">SEND US A MESSAGE</h3>
-                 <form className="space-y-6">
+                 <form 
+                   onSubmit={(e) => {
+                     e.preventDefault();
+                     const formData = new FormData(e.target);
+                     const name = formData.get('name');
+                     const email = formData.get('email');
+                     const subject = formData.get('subject');
+                     const message = formData.get('message');
+                     
+                     const whatsappNumber = '919398292014';
+                     const text = `*New Contact Form Submission*\n\n*Name:* ${name}\n*Email:* ${email}\n*Subject:* ${subject}\n*Message:* ${message}`;
+                     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank');
+                   }}
+                   className="space-y-6"
+                 >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                        <div className="space-y-2">
                           <label className="text-xs font-black tracking-widest text-gray-500">FULL NAME</label>
-                          <input type="text" className="w-full bg-gray-50 border-none p-4 text-sm font-bold placeholder-gray-400 focus:ring-2 focus:ring-accent transition-all" placeholder="Enter your name" />
+                          <input name="name" type="text" required className="w-full bg-gray-50 border-none p-4 text-sm font-bold placeholder-gray-400 focus:ring-2 focus:ring-accent transition-all" placeholder="Enter your name" />
                        </div>
                        <div className="space-y-2">
                           <label className="text-xs font-black tracking-widest text-gray-500">EMAIL ADDRESS</label>
-                          <input type="email" className="w-full bg-gray-50 border-none p-4 text-sm font-bold placeholder-gray-400 focus:ring-2 focus:ring-accent transition-all" placeholder="Enter your email" />
+                          <input name="email" type="email" required className="w-full bg-gray-50 border-none p-4 text-sm font-bold placeholder-gray-400 focus:ring-2 focus:ring-accent transition-all" placeholder="Enter your email" />
                        </div>
                     </div>
                     <div className="space-y-2">
                        <label className="text-xs font-black tracking-widest text-gray-500">SUBJECT</label>
-                       <input type="text" className="w-full bg-gray-50 border-none p-4 text-sm font-bold placeholder-gray-400 focus:ring-2 focus:ring-accent transition-all" placeholder="Order inquiry, Bulk order, etc." />
+                       <input name="subject" type="text" required className="w-full bg-gray-50 border-none p-4 text-sm font-bold placeholder-gray-400 focus:ring-2 focus:ring-accent transition-all" placeholder="Order inquiry, Bulk order, etc." />
                     </div>
                     <div className="space-y-2">
                        <label className="text-xs font-black tracking-widest text-gray-500">MESSAGE</label>
-                       <textarea rows="5" className="w-full bg-gray-50 border-none p-4 text-sm font-bold placeholder-gray-400 focus:ring-2 focus:ring-accent transition-all resize-none" placeholder="Tell us how we can help..."></textarea>
+                       <textarea name="message" rows="5" required className="w-full bg-gray-50 border-none p-4 text-sm font-bold placeholder-gray-400 focus:ring-2 focus:ring-accent transition-all resize-none" placeholder="Tell us how we can help..."></textarea>
                     </div>
-                    <button className="bg-black text-white px-10 py-5 font-black uppercase tracking-widest flex items-center justify-center space-x-3 w-full md:w-auto hover:bg-accent transition-all shadow-xl">
+                    <button type="submit" className="bg-black text-white px-10 py-5 font-black uppercase tracking-widest flex items-center justify-center space-x-3 w-full md:w-auto hover:bg-accent transition-all shadow-xl">
                        <span>SEND MESSAGE</span>
                        <ArrowRight size={18} />
                     </button>
