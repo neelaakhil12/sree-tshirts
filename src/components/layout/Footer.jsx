@@ -85,7 +85,7 @@ const Footer = () => {
                </li>
                <li className="flex items-center space-x-3 text-gray-600 text-sm font-bold cursor-pointer hover:text-accent transition-colors overflow-hidden">
                  <Mail size={18} className="text-accent flex-shrink-0" />
-                 <span className="truncate">wearmingle@gmail.com</span>
+                 <span className="truncate">support@wearmingle.in</span>
                </li>
              </ul>
           </div>

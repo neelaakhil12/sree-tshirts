@@ -5,7 +5,7 @@ import SEO from '../components/common/SEO'
 const ContactPage = () => {
   const contactInfo = [
     { icon: Phone, title: 'Call Us', value: '+91 9398292014', sub: 'Mon-Sun, 9am - 9pm' },
-    { icon: Mail, title: 'Email Us', value: 'sreesaiapparels7@gmail.com', sub: 'Standard response within 24h' },
+    { icon: Mail, title: 'Email Us', value: 'support@wearmingle.in', sub: 'Standard response within 24h' },
     { icon: MapPin, title: 'Visit Us', value: 'Wear Mingle', sub: 'SBI Colony, Nandyal – 518501' },
     { icon: MessageSquare, title: 'WhatsApp', value: '+91 9398292014', sub: 'Instant support' },
   ];

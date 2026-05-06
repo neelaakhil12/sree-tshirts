@@ -57,6 +57,14 @@ function App() {
               } 
             />
             <Route 
+              path="/admin/products/new" 
+              element={
+                <ProtectedRoute>
+                  <ProductManager />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/admin/categories" 
               element={
                 <ProtectedRoute>

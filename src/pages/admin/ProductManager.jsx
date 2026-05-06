@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { 
   Plus, Search, Edit2, Trash2, Filter, ExternalLink, ChevronRight,
   X, Save, Loader2, Upload, Palette, Ruler, Tag, ImagePlus
@@ -36,6 +36,22 @@ const ProductManager = () => {
   const [activeTab, setActiveTab] = useState(0)
   const [imageUploading, setImageUploading] = useState(false)
   const [colorImageUploading, setColorImageUploading] = useState(null)
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  // Handle /admin/products/new route
+  useEffect(() => {
+    if (location.pathname === '/admin/products/new') {
+      setAddModal(true)
+    }
+  }, [location.pathname])
+
+  const closeAddModal = () => {
+    setAddModal(false)
+    if (location.pathname === '/admin/products/new') {
+      navigate('/admin/products')
+    }
+  }
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -370,7 +386,7 @@ const ProductManager = () => {
           measurementChart: payload.measurement_chart,
         }];
       })
-      setAddModal(false)
+      closeAddModal()
       setNewProduct(emptyNew())
     } catch (err) {
       alert('Error adding product: ' + err.message)
@@ -769,7 +785,7 @@ const ProductManager = () => {
 
       {/* ════════════ ADD PRODUCT MODAL ════════════ */}
       {addModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setAddModal(false)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={closeAddModal}>
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           <div className="relative bg-white w-full max-w-lg shadow-2xl max-h-[90vh] flex flex-col" onClick={e => e.stopPropagation()}>
 
@@ -779,7 +795,7 @@ const ProductManager = () => {
                 <h3 className="text-lg font-black tracking-tighter uppercase">Add New Product</h3>
                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">New product will sync to Supabase</p>
               </div>
-              <button onClick={() => setAddModal(false)} className="p-2 hover:bg-gray-100 transition-all"><X size={20} /></button>
+              <button onClick={closeAddModal} className="p-2 hover:bg-gray-100 transition-all"><X size={20} /></button>
             </div>
 
             {/* Form */}
