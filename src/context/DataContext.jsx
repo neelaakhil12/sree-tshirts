@@ -24,6 +24,20 @@ const initialCategories = [
     type: 'Hoodies', 
     path: '/products?category=Hoodies', 
     image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80'
+  },
+  { 
+    id: 'bags', 
+    name: 'COLLEGE / SCHOOL BAGS', 
+    type: 'Bags', 
+    path: '/products?category=Bags', 
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80' 
+  },
+  { 
+    id: 'bottles', 
+    name: 'BOTTLES', 
+    type: 'Bottles', 
+    path: '/products?category=Bottles', 
+    image: '/images/products/bottles/bottle_1.png' 
   }
 ];
 
@@ -63,7 +77,9 @@ export const DataProvider = ({ children }) => {
       const getRank = (name) => {
         if (name.includes('tshirt') || name.includes('t-shirt')) return 1;
         if (name.includes('hoodie') || name.includes('woodie')) return 2;
-        if (name.includes('uniform') || name.includes('school')) return 3;
+        if (name.includes('bag')) return 3;
+        if (name.includes('uniform') || name.includes('school')) return 4;
+        if (name.includes('bottle')) return 5;
         return 99;
       };
 
@@ -131,7 +147,11 @@ export const DataProvider = ({ children }) => {
               prev.map(p => p.id === payload.new.id ? mapDbProduct(payload.new) : p)
             );
           } else if (payload.eventType === 'INSERT') {
-            setProducts(prev => [...prev, mapDbProduct(payload.new)]);
+            setProducts(prev => {
+              const alreadyExists = prev.some(p => p.id === payload.new.id);
+              if (alreadyExists) return prev;
+              return [...prev, mapDbProduct(payload.new)];
+            });
           } else if (payload.eventType === 'DELETE') {
             setProducts(prev => prev.filter(p => p.id !== payload.old.id));
           }

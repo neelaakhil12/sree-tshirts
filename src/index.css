@@ -115,3 +115,20 @@ h1, h2, h3, h4, h5, h6, .font-black, b, strong, .font-bold {
   animation: 
     typing 3s steps(30, end) forwards;
 }
+
+/* Horizontal Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+

@@ -1926,5 +1926,23 @@ export const products = [
   "colorImages": {
    "Standard": "https://picsum.photos/seed/CorporateGiftings4Standard/800/800"
   }
+ },
+ {
+  "id": 2001,
+  "name": "Premium Stainless Steel Bottle",
+  "price": 349,
+  "originalPrice": 699,
+  "discount": "50% OFF",
+  "rating": 4.8,
+  "reviews": 45,
+  "category": "Bottles",
+  "image": "/images/products/bottles/bottle_1.png",
+  "description": "Premium high-quality stainless steel bottle for everyday use. Durable, sleek, and perfect for carrying your favorite beverages.",
+  "sizes": ["750ml", "1000ml"],
+  "colors": ["Silver"],
+  "colorImages": {
+   "Silver": "/images/products/bottles/bottle_1.png"
+  }
  }
 ];
+

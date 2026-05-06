@@ -360,12 +360,16 @@ const ProductManager = () => {
       }
       const { error } = await supabase.from('products').insert([payload])
       if (error) throw error
-      setProducts(prev => [...prev, {
-        ...payload,
-        originalPrice: 0,
-        colorImages: payload.color_images,
-        measurementChart: payload.measurement_chart,
-      }])
+      setProducts(prev => {
+        const exists = prev.some(p => p.id === payload.id);
+        if (exists) return prev;
+        return [...prev, {
+          ...payload,
+          originalPrice: 0,
+          colorImages: payload.color_images,
+          measurementChart: payload.measurement_chart,
+        }];
+      })
       setAddModal(false)
       setNewProduct(emptyNew())
     } catch (err) {
