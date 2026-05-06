@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Instagram, Twitter, MapPin, Phone, Mail } from 'lucide-react'
+import { Instagram, Twitter, Facebook, MapPin, Phone, Mail } from 'lucide-react'
 import { useData } from '../../context/DataContext'
 
 const Footer = () => {
@@ -36,6 +36,9 @@ const Footer = () => {
             <div className="flex space-x-4">
               <a href="https://www.instagram.com/wearmingle2" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white shadow-sm flex items-center justify-center rounded-full hover:bg-accent hover:text-white transition-all">
                 <Instagram size={18} />
+              </a>
+              <a href="https://www.facebook.com/profile.php?id=61589351600402" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white shadow-sm flex items-center justify-center rounded-full hover:bg-accent hover:text-white transition-all">
+                <Facebook size={18} />
               </a>
               <a href="https://x.com/Wearmingle96203" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white shadow-sm flex items-center justify-center rounded-full hover:bg-accent hover:text-white transition-all">
                 <Twitter size={18} />
