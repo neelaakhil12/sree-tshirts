@@ -83,7 +83,7 @@ const AboutPage = () => {
               </h2>
               <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
                  <p>
-                    Founded in the heart of Nandyal and Bangalore that fashion should be a perfect blend of style and ease. Under the visionary leadership of VENKATASIVA CM, our journey began as a dedicated local store and has now evolved into Wear Mingle a dynamic online destination for the modern wardrobe.
+                    Founded in the heart of Nandyal and Bangalore that fashion should be a perfect blend of style and ease. Under the visionary leadership of <span className="font-black text-black">VENKATASIVA CM</span>, our journey began as a dedicated local store and has now evolved into Wear Mingle a dynamic online destination for the modern wardrobe.
                  </p>
                  <p>
                     At Wear Mingle, we don't just sell clothes; we deliver confidence. We specialize in premium cotton T-shirts crafted with precision. Each piece is bio-washed for ultimate softness and pre-shrunk to ensure a perfect fit that lasts, wash after wash. Driven by the passion of our founders, we are committed to bringing you high-quality essentials that feel as good as they look.
