@@ -1252,8 +1252,17 @@ export const products = [
   "category": "School uniform",
   "image": "/images/products/school-uniform/shirt-boys.png",
   "description": "Comfortable and durable school uniform shirt for boys. Standard fit.",
-  "sizes": ["S", "M", "L", "XL", "XXL"],
-  "colors": ["White", "Light Blue"],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "colors": [
+   "White",
+   "Light Blue"
+  ],
   "colorImages": {
    "White": "/images/products/school-uniform/shirt-boys.png",
    "Light Blue": "/images/products/school-uniform/shirt-boys.png"
@@ -1270,8 +1279,17 @@ export const products = [
   "category": "School uniform",
   "image": "/images/products/school-uniform/blouse-girls.png",
   "description": "Comfortable and durable school uniform blouse for girls. Standard fit.",
-  "sizes": ["S", "M", "L", "XL", "XXL"],
-  "colors": ["White", "Light Blue"],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "colors": [
+   "White",
+   "Light Blue"
+  ],
   "colorImages": {
    "White": "/images/products/school-uniform/blouse-girls.png",
    "Light Blue": "/images/products/school-uniform/blouse-girls.png"
@@ -1288,8 +1306,18 @@ export const products = [
   "category": "School uniform",
   "image": "/images/products/school-uniform/trousers.png",
   "description": "Durable school uniform trousers with adjustable waist.",
-  "sizes": ["28", "30", "32", "34", "36"],
-  "colors": ["Navy Blue", "Black", "Grey"],
+  "sizes": [
+   "28",
+   "30",
+   "32",
+   "34",
+   "36"
+  ],
+  "colors": [
+   "Navy Blue",
+   "Black",
+   "Grey"
+  ],
   "colorImages": {
    "Navy Blue": "/images/products/school-uniform/trousers.png",
    "Black": "/images/products/school-uniform/trousers.png",
@@ -1307,8 +1335,17 @@ export const products = [
   "category": "School uniform",
   "image": "/images/products/school-uniform/skirt.png",
   "description": "Classic pleated school uniform skirt. High-quality fabric.",
-  "sizes": ["S", "M", "L", "XL"],
-  "colors": ["Navy Blue", "Black", "Grey"],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "colors": [
+   "Navy Blue",
+   "Black",
+   "Grey"
+  ],
   "colorImages": {
    "Navy Blue": "/images/products/school-uniform/skirt.png",
    "Black": "/images/products/school-uniform/skirt.png",
@@ -1322,12 +1359,16 @@ export const products = [
   "originalPrice": 499,
   "discount": "40% OFF",
   "rating": 4.5,
-  "reviews": 12,
+  "reviews": 44,
   "category": "Caps",
   "image": "https://picsum.photos/seed/Caps1/800/800",
   "description": "This is a premium product for Caps. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Caps1Standard/800/800"
   }
@@ -1338,13 +1379,17 @@ export const products = [
   "price": 299,
   "originalPrice": 499,
   "discount": "40% OFF",
-  "rating": 4.5,
-  "reviews": 12,
+  "rating": 4.6,
+  "reviews": 39,
   "category": "Caps",
   "image": "https://picsum.photos/seed/Caps2/800/800",
   "description": "This is a premium product for Caps. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Caps2Standard/800/800"
   }
@@ -1355,13 +1400,17 @@ export const products = [
   "price": 299,
   "originalPrice": 499,
   "discount": "40% OFF",
-  "rating": 4.5,
-  "reviews": 12,
+  "rating": 4.8,
+  "reviews": 77,
   "category": "Caps",
   "image": "https://picsum.photos/seed/Caps3/800/800",
   "description": "This is a premium product for Caps. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Caps3Standard/800/800"
   }
@@ -1372,13 +1421,17 @@ export const products = [
   "price": 299,
   "originalPrice": 499,
   "discount": "40% OFF",
-  "rating": 4.5,
-  "reviews": 12,
+  "rating": 4.7,
+  "reviews": 73,
   "category": "Caps",
   "image": "https://picsum.photos/seed/Caps4/800/800",
   "description": "This is a premium product for Caps. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Caps4Standard/800/800"
   }
@@ -1394,8 +1447,12 @@ export const products = [
   "category": "Hoodies",
   "image": "https://picsum.photos/seed/Hoodies1/800/800",
   "description": "This is a premium product for Hoodies. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Hoodies1Standard/800/800"
   }
@@ -1411,8 +1468,12 @@ export const products = [
   "category": "Hoodies",
   "image": "https://picsum.photos/seed/Hoodies2/800/800",
   "description": "This is a premium product for Hoodies. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Hoodies2Standard/800/800"
   }
@@ -1428,8 +1489,12 @@ export const products = [
   "category": "Hoodies",
   "image": "https://picsum.photos/seed/Hoodies3/800/800",
   "description": "This is a premium product for Hoodies. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Hoodies3Standard/800/800"
   }
@@ -1445,8 +1510,12 @@ export const products = [
   "category": "Hoodies",
   "image": "https://picsum.photos/seed/Hoodies4/800/800",
   "description": "This is a premium product for Hoodies. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Hoodies4Standard/800/800"
   }
@@ -1457,13 +1526,17 @@ export const products = [
   "price": 299,
   "originalPrice": 499,
   "discount": "40% OFF",
-  "rating": 4.5,
-  "reviews": 12,
+  "rating": 4.6,
+  "reviews": 72,
   "category": "Tote Bags",
   "image": "https://picsum.photos/seed/ToteBags1/800/800",
   "description": "This is a premium product for Tote Bags. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/ToteBags1Standard/800/800"
   }
@@ -1474,13 +1547,17 @@ export const products = [
   "price": 299,
   "originalPrice": 499,
   "discount": "40% OFF",
-  "rating": 4.5,
-  "reviews": 12,
+  "rating": 4.6,
+  "reviews": 32,
   "category": "Tote Bags",
   "image": "https://picsum.photos/seed/ToteBags2/800/800",
   "description": "This is a premium product for Tote Bags. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/ToteBags2Standard/800/800"
   }
@@ -1491,13 +1568,17 @@ export const products = [
   "price": 299,
   "originalPrice": 499,
   "discount": "40% OFF",
-  "rating": 4.5,
-  "reviews": 12,
+  "rating": 4.8,
+  "reviews": 64,
   "category": "Tote Bags",
   "image": "https://picsum.photos/seed/ToteBags3/800/800",
   "description": "This is a premium product for Tote Bags. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/ToteBags3Standard/800/800"
   }
@@ -1508,13 +1589,17 @@ export const products = [
   "price": 299,
   "originalPrice": 499,
   "discount": "40% OFF",
-  "rating": 4.5,
-  "reviews": 12,
+  "rating": 4.9,
+  "reviews": 52,
   "category": "Tote Bags",
   "image": "https://picsum.photos/seed/ToteBags4/800/800",
   "description": "This is a premium product for Tote Bags. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/ToteBags4Standard/800/800"
   }
@@ -1530,8 +1615,12 @@ export const products = [
   "category": "Diary",
   "image": "https://picsum.photos/seed/Diary1/800/800",
   "description": "This is a premium product for Diary. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Diary1Standard/800/800"
   }
@@ -1547,8 +1636,12 @@ export const products = [
   "category": "Diary",
   "image": "https://picsum.photos/seed/Diary2/800/800",
   "description": "This is a premium product for Diary. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Diary2Standard/800/800"
   }
@@ -1564,8 +1657,12 @@ export const products = [
   "category": "Diary",
   "image": "https://picsum.photos/seed/Diary3/800/800",
   "description": "This is a premium product for Diary. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Diary3Standard/800/800"
   }
@@ -1581,8 +1678,12 @@ export const products = [
   "category": "Diary",
   "image": "https://picsum.photos/seed/Diary4/800/800",
   "description": "This is a premium product for Diary. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Diary4Standard/800/800"
   }
@@ -1593,13 +1694,17 @@ export const products = [
   "price": 299,
   "originalPrice": 499,
   "discount": "40% OFF",
-  "rating": 4.5,
-  "reviews": 12,
+  "rating": 4.8,
+  "reviews": 77,
   "category": "Pens",
   "image": "https://picsum.photos/seed/Pens1/800/800",
   "description": "This is a premium product for Pens. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Pens1Standard/800/800"
   }
@@ -1610,13 +1715,17 @@ export const products = [
   "price": 299,
   "originalPrice": 499,
   "discount": "40% OFF",
-  "rating": 4.5,
-  "reviews": 12,
+  "rating": 4.7,
+  "reviews": 44,
   "category": "Pens",
   "image": "https://picsum.photos/seed/Pens2/800/800",
   "description": "This is a premium product for Pens. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Pens2Standard/800/800"
   }
@@ -1628,12 +1737,16 @@ export const products = [
   "originalPrice": 499,
   "discount": "40% OFF",
   "rating": 4.5,
-  "reviews": 12,
+  "reviews": 30,
   "category": "Pens",
   "image": "https://picsum.photos/seed/Pens3/800/800",
   "description": "This is a premium product for Pens. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Pens3Standard/800/800"
   }
@@ -1645,12 +1758,16 @@ export const products = [
   "originalPrice": 499,
   "discount": "40% OFF",
   "rating": 4.5,
-  "reviews": 12,
+  "reviews": 44,
   "category": "Pens",
   "image": "https://picsum.photos/seed/Pens4/800/800",
   "description": "This is a premium product for Pens. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Pens4Standard/800/800"
   }
@@ -1666,8 +1783,12 @@ export const products = [
   "category": "Bottle",
   "image": "https://picsum.photos/seed/Bottle1/800/800",
   "description": "This is a premium product for Bottle. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Bottle1Standard/800/800"
   }
@@ -1683,8 +1804,12 @@ export const products = [
   "category": "Bottle",
   "image": "https://picsum.photos/seed/Bottle2/800/800",
   "description": "This is a premium product for Bottle. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Bottle2Standard/800/800"
   }
@@ -1700,8 +1825,12 @@ export const products = [
   "category": "Bottle",
   "image": "https://picsum.photos/seed/Bottle3/800/800",
   "description": "This is a premium product for Bottle. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Bottle3Standard/800/800"
   }
@@ -1717,8 +1846,12 @@ export const products = [
   "category": "Bottle",
   "image": "https://picsum.photos/seed/Bottle4/800/800",
   "description": "This is a premium product for Bottle. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/Bottle4Standard/800/800"
   }
@@ -1734,8 +1867,12 @@ export const products = [
   "category": "College/School Bag",
   "image": "https://picsum.photos/seed/CollegeSchoolBag1/800/800",
   "description": "This is a premium product for College/School Bag. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/CollegeSchoolBag1Standard/800/800"
   }
@@ -1751,8 +1888,12 @@ export const products = [
   "category": "College/School Bag",
   "image": "https://picsum.photos/seed/CollegeSchoolBag2/800/800",
   "description": "This is a premium product for College/School Bag. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/CollegeSchoolBag2Standard/800/800"
   }
@@ -1768,8 +1909,12 @@ export const products = [
   "category": "College/School Bag",
   "image": "https://picsum.photos/seed/CollegeSchoolBag3/800/800",
   "description": "This is a premium product for College/School Bag. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/CollegeSchoolBag3Standard/800/800"
   }
@@ -1781,12 +1926,16 @@ export const products = [
   "originalPrice": 499,
   "discount": "40% OFF",
   "rating": 4.5,
-  "reviews": 12,
+  "reviews": 28,
   "category": "Laptop Bags",
   "image": "https://picsum.photos/seed/LaptopBags1/800/800",
   "description": "This is a premium product for Laptop Bags. Actual images and details will be updated later.",
-  "sizes": ["Standard"],
-  "colors": ["Standard"],
+  "sizes": [
+   "Standard"
+  ],
+  "colors": [
+   "Standard"
+  ],
   "colorImages": {
    "Standard": "https://picsum.photos/seed/LaptopBags1Standard/800/800"
   }

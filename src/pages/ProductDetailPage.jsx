@@ -50,6 +50,13 @@ const ProductDetailPage = () => {
   const { products, isLoaded } = useData()
   const product = products.find(p => p.id === parseInt(id))
   
+  // Non-apparel categories that shouldn't show size charts or apparel features
+  const nonApparelCategories = [
+    'BOTTLES', 'COLLEGE/SCHOOL BAGS', 'COLLEGE / SCHOOL BAGS', 'CAPS', 'PENS', 
+    'DAIRY\'S', 'DAIRYS', 'TOTE BAGS', 'LAPTOP BAGS', 'CORPORATE GIFTINGS', 'CORPORATE GIFT'
+  ]
+  const isApparel = product ? !nonApparelCategories.includes(product.category.toUpperCase()) : true
+  
   const [selectedSize, setSelectedSize] = useState('')
   const [selectedColor, setSelectedColor] = useState('')
   const [activeImage, setActiveImage] = useState('')
@@ -92,7 +99,7 @@ const ProductDetailPage = () => {
   }
 
   const handleWhatsAppBuy = () => {
-    if (!selectedSize) {
+    if (isApparel && !selectedSize) {
       setError('PLEASE SELECT A SIZE')
       setTimeout(() => setError(''), 2000)
       return
@@ -100,12 +107,9 @@ const ProductDetailPage = () => {
     
     const whatsappNumber = '9398292014'
     const productUrl = window.location.href
-    const message = `Hello Wear Mingle! how can i get this product?
-
-Product: ${product.name}
-Size: ${selectedSize}
-Color: ${selectedColor}
-Link: ${productUrl}`
+    const message = isApparel 
+      ? `Hello Wear Mingle! how can i get this product?\n\nProduct: ${product.name}\nSize: ${selectedSize}\nColor: ${selectedColor}\nLink: ${productUrl}`
+      : `Hello Wear Mingle! how can i get this product?\n\nProduct: ${product.name}\nColor: ${selectedColor}\nLink: ${productUrl}`
 
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank')
   }
@@ -239,27 +243,29 @@ Link: ${productUrl}`
                </div>
              )}
 
-             {/* Size Selection */}
-             <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                   <h4 className="text-[11px] font-black tracking-widest text-gray-400 uppercase">Select Size</h4>
-                   <button className="text-black text-[10px] font-black underline hover:text-accent transition-colors">SIZE CHART</button>
-                </div>
-                {error && <p className="text-[10px] font-black text-red-500 bg-red-50 px-3 py-1 border-l-4 border-red-500 uppercase tracking-widest">{error}</p>}
-                <div className="flex flex-wrap gap-2">
-                   {(product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).map(size => (
-                     <button 
-                       key={size}
-                       onClick={() => setSelectedSize(size)}
-                       className={`w-12 h-12 flex items-center justify-center border-2 text-[11px] font-black transition-all ${
-                         selectedSize === size ? 'border-black bg-black text-white' : 'border-gray-100 hover:border-black text-gray-400'
-                       }`}
-                     >
-                       {size}
-                     </button>
-                   ))}
-                </div>
-             </div>
+             {/* Size Selection - Only for Apparel */}
+             {isApparel && (
+               <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                     <h4 className="text-[11px] font-black tracking-widest text-gray-400 uppercase">Select Size</h4>
+                     <button className="text-black text-[10px] font-black underline hover:text-accent transition-colors">SIZE CHART</button>
+                  </div>
+                  {error && <p className="text-[10px] font-black text-red-500 bg-red-50 px-3 py-1 border-l-4 border-red-500 uppercase tracking-widest">{error}</p>}
+                  <div className="flex flex-wrap gap-2">
+                     {(product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).map(size => (
+                       <button 
+                         key={size}
+                         onClick={() => setSelectedSize(size)}
+                         className={`w-12 h-12 flex items-center justify-center border-2 text-[11px] font-black transition-all ${
+                           selectedSize === size ? 'border-black bg-black text-white' : 'border-gray-100 hover:border-black text-gray-400'
+                         }`}
+                       >
+                         {size}
+                       </button>
+                     ))}
+                  </div>
+               </div>
+             )}
 
              {/* Purchase Actions */}
              <div className="flex space-x-3 pt-4">
@@ -288,90 +294,94 @@ Link: ${productUrl}`
                 </p>
              </div>
 
-              {/* Features List - Uses admin-set features, falls back to default */}
-              <div className="space-y-6 pt-10 border-t border-gray-100">
-                 <h3 className="text-sm font-black text-black underline decoration-black underline-offset-4">Features :-</h3>
-                 <ul className="space-y-2 list-disc pl-5">
-                    {(product.features?.length > 0 ? product.features : DEFAULT_FEATURES).map((feature, idx) => (
-                       <li key={idx} className="text-xs font-black text-gray-700 tracking-tight">
-                          <span className="text-black">{feature.label}:</span> {feature.value}
-                       </li>
-                    ))}
-                 </ul>
-              </div>
-
-             {/* Measurement Chart - RESTORED ORIGINAL FORMAT */}
-             <div className="pt-12 border-t border-gray-100">
-                <div className="bg-[#2D2D2D] p-10 text-white rounded-none shadow-2xl">
-                   <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start">
-                      {/* Diagram Placeholder Container */}
-                      <div className="bg-white p-6 rounded-none flex items-center justify-center w-[220px] h-[220px] shrink-0 border border-gray-100 shadow-inner">
-                         <svg viewBox="0 0 100 120" className="w-full h-full" fill="none">
-                           {/* T-shirt Outline */}
-                           <path d="M 25 20 Q 50 28 75 20 L 95 32 L 85 45 L 75 38 L 75 110 L 25 110 L 25 38 L 15 45 L 5 32 Z" fill="white" stroke="#333" strokeWidth="1" />
-                           {/* Chest Line (1) */}
-                           <path d="M 30 55 L 70 55" stroke="#FF5252" strokeWidth="1" strokeDasharray="3,3" />
-                           <text x="50" y="52" fill="#FF5252" fontSize="6" fontWeight="900" textAnchor="middle">1</text>
-                           <path d="M 28 55 L 32 55 M 68 55 L 72 55" stroke="#FF5252" strokeWidth="1" />
-                           {/* Length Line (2) */}
-                           <path d="M 50 25 L 50 110" stroke="#FF5252" strokeWidth="1" strokeDasharray="3,3" />
-                           <text x="46" y="70" fill="#FF5252" fontSize="6" fontWeight="900" textAnchor="middle">2</text>
-                           <path d="M 50 23 L 50 27 M 50 108 L 50 112" stroke="#FF5252" strokeWidth="1" />
-                           {/* Shoulder Line (3) */}
-                           <path d="M 25 18 L 75 18" stroke="#FF5252" strokeWidth="1" strokeDasharray="3,3" />
-                           <text x="50" y="15" fill="#FF5252" fontSize="6" fontWeight="900" textAnchor="middle">3</text>
-                           <path d="M 23 18 L 27 18 M 73 18 L 77 18" stroke="#FF5252" strokeWidth="1" />
-                         </svg>
-                      </div>
-
-                      <div className="flex-1 w-full min-w-0 flex flex-col">
-                         {/* TABLE HEADER BAR - CONSTANT AT TOP */}
-                         <div className="bg-white py-3 px-4 mb-0.5 w-full shrink-0">
-                            <h5 className="text-[12px] font-black tracking-[0.2em] text-[#001F5B] uppercase text-center">MEASUREMENT CHART</h5>
-                         </div>
-                         
-                         {/* SCROLLABLE TABLE CONTENT */}
-                         <div className="overflow-x-auto w-full border border-white/10">
-                           <table className="w-full text-center text-[10px] font-bold border-collapse border border-white/20 uppercase">
-                               <thead className="bg-[#1A1A1A]">
-                                  {(() => {
-                                    const { columns } = getChartData(product.measurementChart)
-                                    return (
-                                      <tr className="text-white border-b border-white">
-                                        <th className="py-4 border-r border-white font-black px-4">S.NO</th>
-                                        <th className="py-4 border-r border-white text-left pl-4 font-black">MEASUREMENTS</th>
-                                        {columns.map(col => (
-                                          <th key={col} className="py-4 border-r border-white font-black px-4">{col}</th>
-                                        ))}
-                                      </tr>
-                                    )
-                                  })()}
-                               </thead>
-                               <tbody className="divide-y divide-white/20">
-                                  {(() => {
-                                    const { columns, rows } = getChartData(product.measurementChart)
-                                    return rows.map((row, idx) => (
-                                      <tr key={idx}>
-                                        <td className="py-4 border-r border-white/20 font-medium">{idx + 1}</td>
-                                        <td className="py-4 border-r border-white/20 text-left pl-4 font-medium">{String(row.name).toUpperCase()}</td>
-                                        {columns.map(col => (
-                                          <td key={col} className="py-4 border-r border-white/20 font-medium">{row.values?.[col] ?? ''}</td>
-                                        ))}
-                                      </tr>
-                                    ))
-                                  })()}
-                               </tbody>
-                           </table>
-                         </div>
-
-                         <div className="mt-6 space-y-1 text-[9px] text-gray-400 font-bold uppercase tracking-widest text-center lg:text-left">
-                            <p>*All the measurements in inches</p>
-                            <p>*Tolerance(+/- 0.5 inch) acceptable</p>
-                         </div>
-                      </div>
-                   </div>
+              {/* Features List - Only for Apparel */}
+              {isApparel && (
+                <div className="space-y-6 pt-10 border-t border-gray-100">
+                   <h3 className="text-sm font-black text-black underline decoration-black underline-offset-4">Features :-</h3>
+                   <ul className="space-y-2 list-disc pl-5">
+                      {(product.features?.length > 0 ? product.features : DEFAULT_FEATURES).map((feature, idx) => (
+                         <li key={idx} className="text-xs font-black text-gray-700 tracking-tight">
+                            <span className="text-black">{feature.label}:</span> {feature.value}
+                         </li>
+                      ))}
+                   </ul>
                 </div>
-             </div>
+              )}
+
+             {/* Measurement Chart - Only for Apparel */}
+             {isApparel && (
+               <div className="pt-12 border-t border-gray-100">
+                  <div className="bg-[#2D2D2D] p-10 text-white rounded-none shadow-2xl">
+                     <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start">
+                        {/* Diagram Placeholder Container */}
+                        <div className="bg-white p-6 rounded-none flex items-center justify-center w-[220px] h-[220px] shrink-0 border border-gray-100 shadow-inner">
+                           <svg viewBox="0 0 100 120" className="w-full h-full" fill="none">
+                             {/* T-shirt Outline */}
+                             <path d="M 25 20 Q 50 28 75 20 L 95 32 L 85 45 L 75 38 L 75 110 L 25 110 L 25 38 L 15 45 L 5 32 Z" fill="white" stroke="#333" strokeWidth="1" />
+                             {/* Chest Line (1) */}
+                             <path d="M 30 55 L 70 55" stroke="#FF5252" strokeWidth="1" strokeDasharray="3,3" />
+                             <text x="50" y="52" fill="#FF5252" fontSize="6" fontWeight="900" textAnchor="middle">1</text>
+                             <path d="M 28 55 L 32 55 M 68 55 L 72 55" stroke="#FF5252" strokeWidth="1" />
+                             {/* Length Line (2) */}
+                             <path d="M 50 25 L 50 110" stroke="#FF5252" strokeWidth="1" strokeDasharray="3,3" />
+                             <text x="46" y="70" fill="#FF5252" fontSize="6" fontWeight="900" textAnchor="middle">2</text>
+                             <path d="M 50 23 L 50 27 M 50 108 L 50 112" stroke="#FF5252" strokeWidth="1" />
+                             {/* Shoulder Line (3) */}
+                             <path d="M 25 18 L 75 18" stroke="#FF5252" strokeWidth="1" strokeDasharray="3,3" />
+                             <text x="50" y="15" fill="#FF5252" fontSize="6" fontWeight="900" textAnchor="middle">3</text>
+                             <path d="M 23 18 L 27 18 M 73 18 L 77 18" stroke="#FF5252" strokeWidth="1" />
+                           </svg>
+                        </div>
+ 
+                        <div className="flex-1 w-full min-w-0 flex flex-col">
+                           {/* TABLE HEADER BAR - CONSTANT AT TOP */}
+                           <div className="bg-white py-3 px-4 mb-0.5 w-full shrink-0">
+                              <h5 className="text-[12px] font-black tracking-[0.2em] text-[#001F5B] uppercase text-center">MEASUREMENT CHART</h5>
+                           </div>
+                           
+                           {/* SCROLLABLE TABLE CONTENT */}
+                           <div className="overflow-x-auto w-full border border-white/10">
+                             <table className="w-full text-center text-[10px] font-bold border-collapse border border-white/20 uppercase">
+                                 <thead className="bg-[#1A1A1A]">
+                                    {(() => {
+                                      const { columns } = getChartData(product.measurementChart)
+                                      return (
+                                        <tr className="text-white border-b border-white">
+                                          <th className="py-4 border-r border-white font-black px-4">S.NO</th>
+                                          <th className="py-4 border-r border-white text-left pl-4 font-black">MEASUREMENTS</th>
+                                          {columns.map(col => (
+                                            <th key={col} className="py-4 border-r border-white font-black px-4">{col}</th>
+                                          ))}
+                                        </tr>
+                                      )
+                                    })()}
+                                 </thead>
+                                 <tbody className="divide-y divide-white/20">
+                                    {(() => {
+                                      const { columns, rows } = getChartData(product.measurementChart)
+                                      return rows.map((row, idx) => (
+                                        <tr key={idx}>
+                                          <td className="py-4 border-r border-white/20 font-medium">{idx + 1}</td>
+                                          <td className="py-4 border-r border-white/20 text-left pl-4 font-medium">{String(row.name).toUpperCase()}</td>
+                                          {columns.map(col => (
+                                            <td key={col} className="py-4 border-r border-white/20 font-medium">{row.values?.[col] ?? ''}</td>
+                                          ))}
+                                        </tr>
+                                      ))
+                                    })()}
+                                 </tbody>
+                             </table>
+                           </div>
+ 
+                           <div className="mt-6 space-y-1 text-[9px] text-gray-400 font-bold uppercase tracking-widest text-center lg:text-left">
+                              <p>*All the measurements in inches</p>
+                              <p>*Tolerance(+/- 0.5 inch) acceptable</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+             )}
           </div>
         </div>
       </div>

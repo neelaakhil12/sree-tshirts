@@ -22,7 +22,12 @@ const uploadToCloudinary = async (file) => {
 }
 
 /* ─────────── TABS ─────────── */
-const TABS = ['Basic Info', 'Colors', 'Features', 'Measurement Chart']
+const ALL_TABS = ['Basic Info', 'Colors', 'Features', 'Measurement Chart']
+
+const NON_APPAREL_CATEGORIES = [
+  'BOTTLES', 'COLLEGE/SCHOOL BAGS', 'COLLEGE / SCHOOL BAGS', 'CAPS', 'PENS', 
+  'DAIRY\'S', 'DAIRYS', 'TOTE BAGS', 'LAPTOP BAGS', 'CORPORATE GIFTINGS', 'CORPORATE GIFT'
+]
 
 const ProductManager = () => {
   const { products, setProducts, categories, isLoaded } = useData()
@@ -510,17 +515,22 @@ const ProductManager = () => {
 
             {/* Tabs */}
             <div className="flex border-b border-gray-100 flex-shrink-0">
-              {TABS.map((tab, i) => (
-                <button key={i} onClick={() => setActiveTab(i)}
-                  className={`px-6 py-4 text-[10px] font-black uppercase tracking-widest transition-all border-b-2 flex items-center space-x-2
-                    ${activeTab === i ? 'border-black text-black' : 'border-transparent text-gray-400 hover:text-gray-600'}`}>
-                  {i === 0 && <Tag size={12} />}
-                  {i === 1 && <Palette size={12} />}
-                  {i === 2 && <Tag size={12} />}
-                  {i === 3 && <Ruler size={12} />}
-                  <span>{tab}</span>
-                </button>
-              ))}
+              {(() => {
+                const isApparel = !NON_APPAREL_CATEGORIES.includes(editProduct.category.toUpperCase())
+                const visibleTabs = isApparel ? ALL_TABS : ALL_TABS.slice(0, 2)
+                
+                return visibleTabs.map((tab, i) => (
+                  <button key={i} onClick={() => setActiveTab(i)}
+                    className={`px-6 py-4 text-[10px] font-black uppercase tracking-widest transition-all border-b-2 flex items-center space-x-2
+                      ${activeTab === i ? 'border-black text-black' : 'border-transparent text-gray-400 hover:text-gray-600'}`}>
+                    {tab === 'Basic Info' && <Tag size={12} />}
+                    {tab === 'Colors' && <Palette size={12} />}
+                    {tab === 'Features' && <Tag size={12} />}
+                    {tab === 'Measurement Chart' && <Ruler size={12} />}
+                    <span>{tab}</span>
+                  </button>
+                ))
+              })()}
             </div>
 
             {/* Tab Content */}
