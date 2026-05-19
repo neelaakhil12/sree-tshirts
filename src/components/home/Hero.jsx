@@ -5,7 +5,7 @@ const Hero = () => {
     <section className="relative h-[200px] md:h-screen min-h-[200px] md:min-h-[600px] w-full flex items-center justify-center overflow-hidden mt-[80px] md:mt-0">
       {/* Full Hero Image Background */}
       <img 
-        src="/hero-main.png" 
+        src="/hero-main.jpg" 
         alt="Sree Tshirts Collection"
         className="absolute inset-0 w-full h-full object-cover object-top" 
       />

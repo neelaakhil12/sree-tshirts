@@ -72,7 +72,7 @@ const AboutPage = () => {
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
            <div data-aos="fade-right">
               <img 
-                src="/images/about_hero.png" 
+                src="/images/about_hero.jpg" 
                 alt="Our Story"
                 className="w-full h-auto shadow-premium" 
               />
