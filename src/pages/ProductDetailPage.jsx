@@ -115,7 +115,7 @@ const ProductDetailPage = () => {
   }
 
   return (
-    <div className="pt-32 pb-16 bg-white">
+    <div className="pt-32 md:pt-40 pb-16 bg-white">
       <SEO 
         title={product.name} 
         description={product.description?.substring(0, 160)}
@@ -177,7 +177,10 @@ const ProductDetailPage = () => {
                   alt={product.name}
                   key={activeImage}
                   className="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
-                  onError={(e) => e.target.src = 'https://via.placeholder.com/600x800?text=' + product.name}
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent infinite loops
+                    e.target.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800"><rect width="600" height="800" fill="%23F3F4F6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="20" fill="%239CA3AF">${encodeURIComponent(product.name)}</text></svg>`;
+                  }}
                 />
              </div>
           </div>

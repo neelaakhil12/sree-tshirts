@@ -48,7 +48,7 @@ const CATALOG_INDEX = [
 
 const AboutPage = () => {
   return (
-    <div className="pt-24 bg-white">
+    <div className="pt-32 md:pt-40 bg-white">
       <SEO 
         title="Our Story"
         description="Learn about the Wear Mingle legacy. Premium cotton T-shirts crafted with precision in Nandyal and Bangalore. Comfort meets style."

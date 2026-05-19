@@ -69,7 +69,7 @@ const ProductsPage = () => {
   if (!isLoaded) return null
 
   return (
-    <div className="pt-20 min-h-screen bg-white">
+    <div className="pt-32 md:pt-40 min-h-screen bg-white">
       <SEO 
         title={seoTitle}
         description={`Browse our premium ${selectedCategory} collection at Wear Mingle. Affordable custom fashion and essential wear.`}

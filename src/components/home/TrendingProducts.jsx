@@ -1,9 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { products } from '../../data/products'
+import { useData } from '../../context/DataContext'
 import ProductCard from '../shop/ProductCard'
 
 const TrendingProducts = () => {
+  const { products, isLoaded } = useData()
+
+  if (!isLoaded) return null;
+
   // Take top 8 trending products
   const trending = products.slice(0, 8);
 

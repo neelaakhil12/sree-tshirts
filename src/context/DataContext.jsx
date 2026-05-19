@@ -37,7 +37,7 @@ const initialCategories = [
     name: 'BOTTLES', 
     type: 'Bottles', 
     path: '/products?category=Bottles', 
-    image: '/images/products/bottles/bottle_1.png' 
+    image: '/images/products/bottles/bottle_1.jpg' 
   }
 ];
 
@@ -56,11 +56,28 @@ export const DataProvider = ({ children }) => {
     if (['Polyester', 'PolyCotton', 'Cotton'].includes(p.category)) {
       internalCategory = 'Tshirts';
     }
+
+    const normalizeImg = (url) => {
+      if (typeof url !== 'string') return url;
+      if (url.startsWith('/images/products/') && url.endsWith('.png')) {
+        return url.replace(/\.png$/, '.jpg');
+      }
+      return url;
+    };
+
+    const colorImages = {};
+    if (p.color_images) {
+      Object.entries(p.color_images).forEach(([color, img]) => {
+        colorImages[color] = normalizeImg(img);
+      });
+    }
+
     return {
       ...p,
+      image: normalizeImg(p.image),
       originalPrice: p.original_price || p.price,
       discount: p.discount || '',
-      colorImages: p.color_images || {},
+      colorImages: colorImages,
       features: p.features || [],
       measurementChart: p.measurement_chart || [],
       displayCategory: internalCategory,

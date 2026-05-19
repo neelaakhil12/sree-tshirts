@@ -11,7 +11,7 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="pt-24 bg-white">
+    <div className="pt-32 md:pt-40 bg-white">
       <SEO 
         title="Contact Us"
         description="Get in touch with Wear Mingle. Reach out for bulk orders, inquiries, or support. Visit us in Nandyal or message us on WhatsApp."
